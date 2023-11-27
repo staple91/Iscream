@@ -7,16 +7,15 @@ namespace StarterAssets
 {
 	public class StarterAssetsInputs : MonoBehaviour
 	{
-		[Header("Ä³¸¯ÅÍ »óÅÂ")]
+		[Header("í”Œë ˆì´ì–´ ìƒíƒœ")]
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
 
-		[Header("¿òÁ÷ÀÓ È¸Àü")]
 		public bool analogMovement;
 
-		[Header("¸¶¿ì½º Ä¿¼­ ¼ÂÆÃ")]
+		[Header("ë§ˆìš°ìŠ¤ ìƒíƒœ ")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
@@ -56,13 +55,13 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 		
-		// ¸¶¿ì½º Ä¿¼­ Àá±İ
+		// ï¿½ï¿½ï¿½ì½º Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
 
-		// ESC ÀÔ·Â½Ã Ä¿¼­ Àá±İ ÇØÁ¦
+		// ESC ï¿½Ô·Â½ï¿½ Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		private void SetCursorState(bool newState)
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
