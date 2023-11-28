@@ -20,6 +20,10 @@ namespace StarterAssets
 		public float RotationSpeed = 1.0f;
 		[Tooltip("가속도")]
 		public float SpeedChangeRate = 10.0f;
+		[Tooltip("캐릭터 중력")]
+		public float Gravity = -15.0f;
+		[Tooltip("중력이 적용되는 시간")]
+		public float FallTimeout = 0.15f;
 
 		[Header("플레이어 바닥체크")]
 		[Tooltip("플레이어가 바닥에 있는 상태")]
@@ -46,7 +50,9 @@ namespace StarterAssets
 		private float speed;
 		private float rotationVelocity;
 		private float verticalVelocity;
-	
+		private float terminalVelocity = 53.0f;
+		private float fallTimeoutDelta;
+
 #if ENABLE_INPUT_SYSTEM
 		// 인풋 시스템
 		private PlayerInput playerInput;
@@ -93,6 +99,7 @@ namespace StarterAssets
 		{
 			GroundedCheck();
 			Move();
+			CharacterGravity();
 		}
 
 		private void LateUpdate()
@@ -153,6 +160,32 @@ namespace StarterAssets
 			}
 
 			controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+		}
+
+		private void CharacterGravity()
+		{
+			if (Grounded)
+			{
+				fallTimeoutDelta = FallTimeout;
+
+				if (verticalVelocity < 0.0f)
+				{
+					verticalVelocity = -2f;
+				}
+			}
+			else
+			{
+				if (fallTimeoutDelta >= 0.0f)
+				{
+					fallTimeoutDelta -= Time.deltaTime;
+				}
+
+			}
+
+			if (verticalVelocity < terminalVelocity)
+			{
+				verticalVelocity += Gravity * Time.deltaTime;
+			}
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
