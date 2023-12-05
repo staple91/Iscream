@@ -53,12 +53,40 @@ public abstract class InteractStratagy
 
 public class DoorStratagy : InteractStratagy
 {
+    bool isOpen = false;
     public DoorStratagy(InteractableObject target) : base(target)
     {
         this.target = target;
     }
     public override void Act()
     {
+        Transform targetTr = target.GetComponent<Transform>();
+        if (!isOpen)
+            target.StartCoroutine(OpenDoor(targetTr));
+        else
+            target.StartCoroutine(CloseDoor(targetTr));
+    }
+    IEnumerator OpenDoor(Transform tr)
+    {
+        float doorOpenAngle = 90f;
+        float smoot = 2f;
+        while (tr.localRotation.eulerAngles.y < 89f)
+        {
+            Quaternion targetRotation = Quaternion.Euler(0, doorOpenAngle, 0);
+            tr.localRotation = Quaternion.Slerp(tr.localRotation, targetRotation, smoot * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+    IEnumerator CloseDoor(Transform tr)
+    {
+        float doorCloseAngle = 0;
+        float smoot = 2f;
+        while (tr.localRotation.eulerAngles.y > 1f)
+        {
+            Quaternion targetRotation = Quaternion.Euler(0, doorCloseAngle, 0);
+            tr.localRotation = Quaternion.Slerp(tr.localRotation, targetRotation, smoot * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
 public class LightStratagy : InteractStratagy
