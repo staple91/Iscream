@@ -3,7 +3,7 @@
 using UnityEngine.InputSystem;
 #endif
 
-namespace StarterAssets
+namespace LeeJungChul
 {
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
@@ -113,6 +113,9 @@ namespace StarterAssets
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 		}
 
+		/// <summary>
+		/// 마우스를 통한 카메라 회전
+		/// </summary>
 		private void CameraRotation()
 		{
 			if (input.look.sqrMagnitude >= threshold)
@@ -130,6 +133,9 @@ namespace StarterAssets
 			}
 		}
 
+		/// <summary>
+		/// 캐릭터 이동 함수
+		/// </summary>
 		private void Move()
 		{
 			float targetSpeed = input.sprint ? SprintSpeed : MoveSpeed;
@@ -162,6 +168,9 @@ namespace StarterAssets
 			controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
 		}
 
+		/// <summary>
+		/// 캐릭터 중력 적용 함수
+		/// </summary>
 		private void CharacterGravity()
 		{
 			if (Grounded)
