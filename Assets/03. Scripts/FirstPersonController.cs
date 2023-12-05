@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace LeeJungChul
 {
+	
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
 	[RequireComponent(typeof(PlayerInput))]
@@ -42,6 +43,7 @@ namespace LeeJungChul
 		public float TopClamp = 90.0f;
 		[Tooltip("카메라 내리는 속도")]
 		public float BottomClamp = -90.0f;
+		
 
 		// 시네머신
 		private float cinemachineTargetPitch;
@@ -78,6 +80,8 @@ namespace LeeJungChul
 			}
 		}
 
+		
+
 		private void Awake()
 		{
 			if (mainCamera == null)
@@ -92,15 +96,23 @@ namespace LeeJungChul
 			input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
 			playerInput = GetComponent<PlayerInput>();
-#endif
-		}
 
-		private void Update()
+		
+#endif
+        }
+
+
+
+        
+        private void Update()
 		{
+			
 			GroundedCheck();
 			Move();
 			CharacterGravity();
-		}
+
+            
+        }
 
 		private void LateUpdate()
 		{
@@ -216,3 +228,6 @@ namespace LeeJungChul
 		}
 	}
 }
+
+
+
