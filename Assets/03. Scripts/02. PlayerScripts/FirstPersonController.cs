@@ -50,7 +50,7 @@ namespace LeeJungChul
 
 		// 플레이어
 		private float speed;
-		private float rotationVelocity;
+		public float rotationVelocity;
 		private float verticalVelocity;
 		private float terminalVelocity = 53.0f;
 		private float fallTimeoutDelta;
@@ -68,7 +68,7 @@ namespace LeeJungChul
 
 		private const float threshold = 0.01f;
 
-		private bool IsCurrentDeviceMouse
+		public bool IsCurrentDeviceMouse
 		{
 			get
 			{
