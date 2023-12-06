@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KimKyeongHun;
 using System;
+
+
 public abstract class Puzzle : MonoBehaviour, IInteractable
 {
     public event Action OnSolved;

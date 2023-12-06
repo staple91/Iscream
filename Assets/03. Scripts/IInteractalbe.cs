@@ -1,3 +1,6 @@
+using KimKyeongHun;
+
+
 interface IInteractable
 {
     void Interact();
