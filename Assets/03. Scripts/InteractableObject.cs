@@ -12,6 +12,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
 {
     [SerializeField]
     InteractType type;
+
     Player owner;
 
     InteractStratagy stratagy;
@@ -76,6 +77,8 @@ public class DoorStratagy : InteractStratagy
             tr.localRotation = Quaternion.Slerp(tr.localRotation, targetRotation, smoot * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
+
+        
     }
     IEnumerator CloseDoor(Transform tr)
     {

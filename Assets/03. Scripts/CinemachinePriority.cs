@@ -12,7 +12,7 @@ namespace KimKyeongHun
 
         public CinemachineVirtualCamera cim; // 시네머신 우선 순위를 변경하기 위한 것
 
-      
+
         // Start is called before the first frame update
         void Start()
         {
@@ -26,13 +26,13 @@ namespace KimKyeongHun
         {
             Debug.Log("코루틴 진입 ");
             float startTime = 0f;
-            float termTime = 2f;
+            float termTime = 1.5f;
 
             Debug.Log(startTime);
-            while (startTime < 1.5f)
+            while (startTime < termTime)
             {
                 startTime += Time.deltaTime;
-                if (startTime > 1.5f)
+                if (startTime > termTime)
                 {
                     cim.Priority += 1;
                     

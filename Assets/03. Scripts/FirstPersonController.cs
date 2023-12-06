@@ -81,7 +81,6 @@ namespace LeeJungChul
 		}
 
 		
-
 		private void Awake()
 		{
 			if (mainCamera == null)
@@ -101,9 +100,6 @@ namespace LeeJungChul
 #endif
         }
 
-
-
-        
         private void Update()
 		{
 			

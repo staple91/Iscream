@@ -15,29 +15,34 @@ namespace YoungJaeKim
         }
 
         public abstract void Interact();
+
+        
+        
+
+        
     }
     public class RecoveryItem : Item
     {
         public override void Interact()
         {
-
+            
         }
     }
     public class Food : RecoveryItem
     {
         public Food(ItemManager IM) { }
         
-        public override void Interact() { Debug.Log("¿ΩΩƒ¿Ã¥Â"); }
+        public override void Interact() { Debug.Log("????????"); }
     }
     public class Medicine : RecoveryItem
     {
         public Medicine(ItemManager IM) { }
-        public override void Interact() { Debug.Log("æ‡¿Ã¥Â"); }
+        public override void Interact() { Debug.Log("??????"); }
     }
     public class Beverage : RecoveryItem
     {
         public Beverage(ItemManager IM) { }
-        public override void Interact() { Debug.Log("¿Ω∑·ºˆ¥Â"); }
+        public override void Interact() { Debug.Log("????????"); }
     }
     public class EquipmentItem : Item
     {
@@ -49,17 +54,17 @@ namespace YoungJaeKim
     public class CameraEquip : EquipmentItem
     {
         public CameraEquip(ItemManager IM) { }
-        public override void Interact() { Debug.Log("ƒ´∏ﬁ∂Û¥Â"); }
+        public override void Interact() { Debug.Log("????????"); }
     }
     public class Lantern : EquipmentItem
     {
         public Lantern(ItemManager IM) { }
-        public override void Interact() { Debug.Log("∑£≈œ¿Ã¥Â"); }
+        public override void Interact() { Debug.Log("????????"); }
     }
     public class Key : EquipmentItem
     {
         public Key(ItemManager IM) { }
-        public override void Interact() { Debug.Log("ø≠ºË¥Â"); }
+        public override void Interact() { Debug.Log("??????"); }
     }
     public class ConsumableItem : Item
     {
@@ -71,7 +76,7 @@ namespace YoungJaeKim
     public class Battery : ConsumableItem
     {
         public Battery(ItemManager IM) { }
-        public override void Interact() { Debug.Log("πË≈Õ∏Æ¥Â"); }
+        public override void Interact() { Debug.Log("????????"); }
     }
 
     public enum ITEM_TYPE
@@ -99,7 +104,7 @@ namespace YoungJaeKim
             if (itemType == ITEM_TYPE.BATTERY) { item= new Battery(this);}
             if(itemType == ITEM_TYPE.LANTERN) { item= new Lantern(this);}
             if (itemType == ITEM_TYPE.KEY) { item= new Key(this);}            
-            item.Interact();
+            
         }
 
         // Update is called once per frame
