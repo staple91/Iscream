@@ -28,10 +28,11 @@ namespace KimKyeongHun
             float startTime = 0f;
             float termTime = 2f;
 
-            while (startTime < 2)
+            Debug.Log(startTime);
+            while (startTime < 1.5f)
             {
                 startTime += Time.deltaTime;
-                if (startTime > termTime)
+                if (startTime > 1.5f)
                 {
                     cim.Priority += 1;
                     
