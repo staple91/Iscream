@@ -10,9 +10,13 @@ public class LightMirrorItem : Item
     }
     public override void Use()
     {
-        Physics.Raycast(Owner.transform.position, transform.forward, out RaycastHit hit, 1 >> LayerMask.NameToLayer("Floor"));
-        Instantiate(this.gameObject, hit.point, Quaternion.identity);
-        StartCoroutine(RotateMirrorCo());
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
+        if (Physics.Raycast(ray, out RaycastHit hit, 1 << LayerMask.NameToLayer("Floor")))
+        {
+            Debug.Log("a");
+            this.gameObject.transform.position = hit.point;
+            StartCoroutine(RotateMirrorCo());
+        }
 
     }
 
@@ -21,16 +25,19 @@ public class LightMirrorItem : Item
         StarterAssetsInputs input = Owner.GetComponent<StarterAssetsInputs>();
         FirstPersonController controller = Owner.GetComponent<FirstPersonController>();
         float threshold = 0.01f;
-        while (Input.GetKey(KeyCode.E))
+        while (!Input.GetKey(KeyCode.E))
         {
-
             if (input.look.sqrMagnitude >= threshold)
             {
                 float deltaTimeMultiplier = controller.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                controller.rotationVelocity = input.look.x * controller.RotationSpeed * deltaTimeMultiplier;
+
+                transform.Rotate(Vector3.up, input.look.x * controller.RotationSpeed * deltaTimeMultiplier);
                 yield return new WaitForEndOfFrame();
             }
+            else
+                yield return new WaitForEndOfFrame();
+
         }
     }
 }
