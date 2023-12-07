@@ -6,7 +6,6 @@ public class DirectRayLight : MonoBehaviour
 {
     [SerializeField]
     Vector3 dir;
-
     LineRenderer lineRenderer;
 
     List<Vector3> vectors = new List<Vector3>();
@@ -18,14 +17,14 @@ public class DirectRayLight : MonoBehaviour
     }
     private void Update()
     {
-        vectors.Clear();
-        mirrors.Clear();
+        Init();
         RaycastHit hit;
         Vector3 tempDir = dir;
 
 
         bool isHit = false;
         vectors.Add(transform.position);
+
         if (Physics.Raycast(transform.position, tempDir, out hit, 99f))
         {
             ShotRay(hit, out isHit, ref tempDir);
@@ -34,7 +33,7 @@ public class DirectRayLight : MonoBehaviour
 
         while (isHit)
         {
-            if (Physics.Raycast(transform.position, tempDir, out hit, 99f))
+            if (Physics.Raycast(hit.point, tempDir, out hit, 99f))
             {
                 ShotRay(hit, out isHit, ref tempDir);
             }
@@ -44,20 +43,26 @@ public class DirectRayLight : MonoBehaviour
         lineRenderer.positionCount = vectors.Count;
         lineRenderer.SetPositions(vectors.ToArray());
     }
-
+    void Init()
+    {
+        vectors.Clear();
+        mirrors.Clear();
+    }
     void ShotRay(RaycastHit hit, out bool isHit, ref Vector3 dir)
     {
 
+        vectors.Add(hit.point);
         if (hit.transform.TryGetComponent<LightMirrorItem>(out LightMirrorItem mirror) && !mirrors.Contains(mirror))
         {
             mirrors.Add(mirror);
             isHit = true;
 
-            dir = Vector3.Reflect(dir, hit.normal);
+            Debug.Log(hit.normal);
+            dir = Vector3.Reflect(dir, hit.normal).normalized;
             Debug.Log(dir);
         }
         else
             isHit = false;
-        vectors.Add(hit.point);
     }
+
 }

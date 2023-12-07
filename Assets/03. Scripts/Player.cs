@@ -4,11 +4,55 @@ using UnityEngine;
 
 
 
+<<<<<<< Updated upstream
 namespace KimKyeongHun
 {
+=======
+
+public class Player : MonoBehaviour
+{
+
+
+    public GameObject playerEye; // 레이캐스트 플레이어 눈
+    public Transform doorGet;
+
+
+    public InteractStratagy stratagy;
+    public InteractableObject target;
+
+    IInteractable interactable;
+
+    MicComponent mic;
+
+
+    public void Interact()
+    {
+        //문열림, 불 켜기 등등
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(playerEye.transform.position, transform.forward * 10f, out hit, 10))
+        {
+            interactable = hit.transform.GetComponent<IInteractable>();
+            interactable.Owner = this;
+            interactable.Interact();
+        }
+
+
+    }
+
+    public void Click()
+    {
+        //interactable.Interact();
+
+        Interact();
+
+    }
+>>>>>>> Stashed changes
 
     public class Player : MonoBehaviour
     {
+<<<<<<< Updated upstream
         public Camera playerCam;
 
         IInteractable interactable;
@@ -71,6 +115,24 @@ namespace KimKyeongHun
 
 
       
-        }
+=======
+        target = new InteractableObject();
+        mic = GetComponent<MicComponent>();
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.JoystickButton0))
+        {
+
+            Debug.Log("a버튼 ");
+            Click();
+            //Click();
+>>>>>>> Stashed changes
+        }
+        
+    }
+
+    
 }
