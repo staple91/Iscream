@@ -4,7 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 
-public class ConnectionManager : MonoBehaviourPunCallbacks
+public class PhotonManager : MonoBehaviourPunCallbacks
 {
     public TMP_InputField m_inputField_Nickname; // 닉네임 입력받는 곳.
     public TMP_Dropdown m_dropdown_RoomMaxPlayers; // 최대 인원 몇 명까지 할지.
@@ -19,6 +19,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
 
         m_panel_Loading.SetActive(false);
+
+        Screen.SetResolution(1960, 1080, true);
     }
 
     void Start()
@@ -31,7 +33,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         string nick = m_inputField_Nickname.text;
 
-        if (nick.Length>0)
+        if (nick.Length > 0)
         {
             print($"{nick} 랜덤 매칭 시작.");
             PhotonNetwork.LocalPlayer.NickName = nick; // 현재 플레이어 닉네임 설정하기.

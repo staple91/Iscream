@@ -1,11 +1,12 @@
 using UnityEngine;
+using Photon.Pun;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
 namespace LeeJungChul
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class StarterAssetsInputs : MonoBehaviourPun
 	{
 		[Header("플레이어 상태")]
 		public Vector2 move;
