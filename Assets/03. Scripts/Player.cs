@@ -3,40 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 namespace KimKyeongHun
 {
-
     public class Player : MonoBehaviour
     {
-        public Camera playerCam;
+
+
+        public GameObject playerEye; // ·¹ÀÌÄ³½ºÆ® ÇÃ·¹ÀÌ¾î ´«
+        public Transform doorGet;
+
+
+        public InteractStratagy stratagy;
+        public InteractableObject target;
 
         IInteractable interactable;
-        public void Interact()
-        {
-            //ë¬¸ì—´ë¦¼, ë¶ˆ ì¼œê¸° ë“±ë“±
 
-            RaycastHit hit;
-
-            Debug.DrawRay(playerCam.transform.position, transform.forward * 10f, Color.red);
-
-            if (Physics.Raycast(playerCam.transform.position, transform.forward * 10f, out hit, 10))
-            {
-                interactable = hit.transform.GetComponent<IInteractable>();
-                interactable.Owner = this;
-                interactable.Interact();
-
-                Debug.Log(hit.transform.GetComponent<Transform>() + "ì •ë³´ ");
-                
-            }
+        MicComponent mic;
+        public Camera playerCam;
 
 
-        }
 
-        public void Click()
-        {
-            Interact();
-        }
 
 
 
@@ -49,28 +35,38 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
-
-
-
             if (Input.GetKey(KeyCode.JoystickButton0))
             {
-
-                Debug.Log("aë²„íŠ¼ ");
                 Click();
 
             }
+            target = new InteractableObject();
+            mic = GetComponent<MicComponent>();
+        }
+        public void Click()
+        {
+            //interactable.Interact();
 
-            //if (Input.GetKey(KeyCode.Space))
-            //{
+            Interact();
 
-            //    Debug.Log("aë²„íŠ¼ ");
-            //    Click();
+        }
 
-            //}
+        public void Interact()
+        {
 
+            RaycastHit hit;
 
+            Debug.DrawRay(playerCam.transform.position, transform.forward * 10f, Color.red);
 
-      
+            if (Physics.Raycast(playerCam.transform.position, transform.forward * 10f, out hit, 10))
+            {
+                interactable = hit.transform.GetComponent<IInteractable>();
+                interactable.Owner = this;
+                interactable.Interact();
+
+                Debug.Log(hit.transform.GetComponent<Transform>() + " ");
+
+            }
         }
     }
 }

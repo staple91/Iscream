@@ -22,7 +22,6 @@ public class MicComponent : MonoBehaviour
     void Update()
     {
         loudness = GetAveragedVolume() * sensitivity;
-        Debug.Log(loudness);
     }
     float GetAveragedVolume()
     {
@@ -34,5 +33,14 @@ public class MicComponent : MonoBehaviour
             a += Mathf.Abs(s);
         }
         return a / 256;
+    }
+    void SetListener()
+    {
+        foreach (IListenable ear in ListenerManager.Instance.listeners)
+        {
+            float dist = Mathf.Max(1, Vector3.Distance(transform.position, ear.Pos));
+            if(dist < loudness)
+                ear.Loudness = loudness / dist;
+        }
     }
 }
