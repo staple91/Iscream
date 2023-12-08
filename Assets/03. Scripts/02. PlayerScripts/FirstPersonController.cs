@@ -19,7 +19,7 @@ namespace LeeJungChul
 		[Tooltip("초당 달리기 속도")]
 		public float SprintSpeed = 6.0f;
 		[Tooltip("플레이어 회전속도")]
-		public float RotationSpeed = 1.0f;
+		public float RotationSpeed = 25.0f;
 		[Tooltip("가속도")]
 		public float SpeedChangeRate = 10.0f;
 		[Tooltip("캐릭터 중력")]
@@ -45,7 +45,6 @@ namespace LeeJungChul
 		[Tooltip("카메라 내리는 속도")]
 		public float BottomClamp = -90.0f;
 		
-
 		// 시네머신
 		private float cinemachineTargetPitch;
 
@@ -62,6 +61,7 @@ namespace LeeJungChul
 #endif
 		// 캐릭터 컨트롤러
 		private CharacterController controller;
+		private Animator playeranimatior;
 
 		// 인풋 시스템을 가지고 있다.
 		private StarterAssetsInputs input;
@@ -74,7 +74,7 @@ namespace LeeJungChul
 			get
 			{
 				#if ENABLE_INPUT_SYSTEM
-				return playerInput.currentControlScheme == "KeyboardMouse";
+				return playerInput.currentControlScheme == "any";
 				#else
 				return false;
 				#endif
@@ -92,6 +92,7 @@ namespace LeeJungChul
 
 		private void Start()
 		{
+			playeranimatior=GetComponent<Animator>();
 			controller = GetComponent<CharacterController>();
 			input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -120,7 +121,10 @@ namespace LeeJungChul
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if (photonView.IsMine)
+			{
+				CameraRotation();
+			}		
 		}
 
 		private void GroundedCheck()
@@ -156,7 +160,11 @@ namespace LeeJungChul
 		{
 			float targetSpeed = input.sprint ? SprintSpeed : MoveSpeed;
 
-			if (input.move == Vector2.zero) targetSpeed = 0.0f;
+			if (input.move == Vector2.zero)
+			{
+				targetSpeed = 0.0f;
+				playeranimatior.SetFloat("Speed", targetSpeed);
+			}
 
 			float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0.0f, controller.velocity.z).magnitude;
 
@@ -179,9 +187,12 @@ namespace LeeJungChul
 			if (input.move != Vector2.zero)
 			{
 				inputDirection = transform.right * input.move.x + transform.forward * input.move.y;
+				playeranimatior.SetFloat("Speed", MoveSpeed);
 			}
 
 			controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+
+			
 		}
 
 		/// <summary>
