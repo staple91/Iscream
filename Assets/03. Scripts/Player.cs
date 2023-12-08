@@ -10,7 +10,7 @@ namespace KimKyeongHun
     public class Player : MonoBehaviour
     {
         public Camera playerCam;
-
+        MicComponent mic;
 
         IInteractable interactable;
         public void Interact()
@@ -55,6 +55,7 @@ namespace KimKyeongHun
         void Start()
         {
             playerCam = FindObjectOfType<Camera>();
+            mic = GetComponent<MicComponent>();
         }
 
         // Update is called once per frame
@@ -69,14 +70,6 @@ namespace KimKyeongHun
                 Click();
 
             }
-
-            //if (Input.GetKey(KeyCode.Space))
-            //{
-
-            //    Debug.Log("a버튼 ");
-            //    Click();
-
-            //}
 
 
 
