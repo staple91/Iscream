@@ -40,7 +40,6 @@ namespace LeeJungChul
 		}
 #endif
 
-
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;

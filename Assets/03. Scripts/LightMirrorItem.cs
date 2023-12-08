@@ -29,7 +29,7 @@ public class LightMirrorItem : Item
         {
             if (input.look.sqrMagnitude >= threshold)
             {
-                float deltaTimeMultiplier = controller.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                float deltaTimeMultiplier = controller.IsCurrentDevice ? 1.0f : Time.deltaTime;
 
 
                 transform.Rotate(Vector3.up, input.look.x * controller.RotationSpeed * deltaTimeMultiplier);
