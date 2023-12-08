@@ -9,16 +9,20 @@ namespace KimKyeongHun
 
     public class CinemachinePriority : MonoBehaviour
     {
-
         public CinemachineVirtualCamera cim; // 시네머신 우선 순위를 변경하기 위한 것
 
 
         // Start is called before the first frame update
         void Start()
         {
+            
+
             cim = GetComponent<CinemachineVirtualCamera>();
             StartCoroutine(StartCutScene());
 
+            
+
+            
         }
 
 

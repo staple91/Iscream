@@ -11,6 +11,7 @@ namespace KimKyeongHun
     {
         public Camera playerCam;
 
+
         IInteractable interactable;
         public void Interact()
         {
@@ -20,15 +21,25 @@ namespace KimKyeongHun
 
             Debug.DrawRay(playerCam.transform.position, transform.forward * 10f, Color.red);
 
+
             if (Physics.Raycast(playerCam.transform.position, transform.forward * 10f, out hit, 10))
             {
+                
+
                 interactable = hit.transform.GetComponent<IInteractable>();
-                interactable.Owner = this;
-                interactable.Interact();
+                if(interactable != null)
+                {
+                    interactable.Owner = this;
+                    interactable.Interact();
+
+                }
+                    
+                
 
                 Debug.Log(hit.transform.GetComponent<Transform>() + "정보 ");
                 
             }
+           
 
 
         }
@@ -49,7 +60,6 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
-
 
 
             if (Input.GetKey(KeyCode.JoystickButton0))
