@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
+using Photon.Pun;
+using Cinemachine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
 namespace LeeJungChul
 {
-	
 	[RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
 	[RequireComponent(typeof(PlayerInput))]
 #endif
-	public class FirstPersonController : MonoBehaviour
+	public class FirstPersonController : MonoBehaviourPun
 	{
 		[Header("플레이어 스텟")]
 		[Tooltip("초당 움직임 속도")]
@@ -96,18 +97,25 @@ namespace LeeJungChul
 #if ENABLE_INPUT_SYSTEM
 			playerInput = GetComponent<PlayerInput>();
 
-		
+			if (photonView.IsMine)
+			{
+				CinemachineVirtualCamera followCam = FindAnyObjectByType<CinemachineVirtualCamera>();
+
+				followCam.Follow = CinemachineCameraTarget.transform;
+			}			
 #endif
-        }
+		}
 
         private void Update()
 		{
-			
-			GroundedCheck();
-			Move();
-			CharacterGravity();
-
-            
+            // 로컬 플레이어가 아닌 경우 입력을 받지 못함
+            if (photonView.IsMine)
+            {
+				GroundedCheck();
+				Move();
+				CharacterGravity();
+			}
+		          
         }
 
 		private void LateUpdate()
