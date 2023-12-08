@@ -36,16 +36,31 @@ namespace YoungJaeKim
         public Food(ItemManager im) : base(im) { }
 
         public override void Interact() { Debug.Log("음식이닷"); }
+
+        public override void Active() 
+        {
+            //im.player.정신력 스탯 += 회복량
+        }
     }
     public class Medicine : RecoveryItem
     {
         public Medicine(ItemManager im) : base(im) { }
         public override void Interact() { Debug.Log("약이닷"); }
+        public override void Active()
+        {
+            //im.player.정신력 스탯 += 회복량
+        }
+
     }
     public class Beverage : RecoveryItem
     {
         public Beverage(ItemManager im) : base(im) { }
         public override void Interact() { Debug.Log("음료수닷"); }
+        public override void Active()
+        {
+            //im.player.정신력 스탯 += 회복량
+        }
+
     }
     public class EquipmentItem : Item
     {
@@ -132,6 +147,7 @@ namespace YoungJaeKim
 
     public class ItemManager : MonoBehaviour
     {
+        public Player player;
         public Item item;
         public ITEM_TYPE itemType;
         public Light flashLight;

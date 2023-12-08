@@ -30,7 +30,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
                 break;
         }
     }
-
+   
     public Player Owner 
     {
         get => owner;
