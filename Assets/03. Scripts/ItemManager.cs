@@ -77,11 +77,19 @@ namespace YoungJaeKim
         public override void Active()
         {
             Debug.Log("찍혔닷");
+<<<<<<< Updated upstream
 
             //ScreenCapture.CaptureScreenshot(Application.dataPath+"/05. Data/ScreenShot/" + fileName);
             //위에거는 되긴하는데 저장이 너무 오래걸림
 
 
+=======
+            
+            //ScreenCapture.CaptureScreenshot(Application.dataPath+"/05. Data/ScreenShot/" + fileName);
+            //위에거는 되긴하는데 저장이 너무 오래걸림
+
+            
+>>>>>>> Stashed changes
         }
     }
     public class Lantern : EquipmentItem
@@ -107,7 +115,11 @@ namespace YoungJaeKim
                 
                 
             }*/
+<<<<<<< Updated upstream
 
+=======
+            
+>>>>>>> Stashed changes
         }
     }
     public class Key : EquipmentItem
@@ -152,7 +164,11 @@ namespace YoungJaeKim
         public ITEM_TYPE itemType;
         public Light flashLight;
         public float BatteryTime = 60f;
+<<<<<<< Updated upstream
         
+=======
+        ScreenShot screenShot;
+>>>>>>> Stashed changes
         // Start is called before the first frame update
         void Start()
         {
@@ -167,14 +183,33 @@ namespace YoungJaeKim
             if (itemType == ITEM_TYPE.FLASHLIGHT) { item = new FlashLight(this); }
             item.Interact();
             item.Active();
+<<<<<<< Updated upstream
 
+=======
+            
+>>>>>>> Stashed changes
 
         }
 
         // Update is called once per frame
         void Update()
         {
+            
+                if(Input.GetKeyDown(KeyCode.P))
+                {
+                //string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+                string fileName = "SCREENSHOT-"+ ".png";
+                string filePath = Application.dataPath + "/05. Data/ScreenShot/" + fileName;
+                Debug.Log("스샷"!);
+                StartCoroutine(ScreenShotCapture1(filePath));
+                }
+            
+        }
+        public IEnumerator ScreenShotCapture1(string filePath)
+        {
+            yield return new WaitForEndOfFrame();
 
+<<<<<<< Updated upstream
             if (Input.GetKeyDown(KeyCode.P))
             {
                 //string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
@@ -189,6 +224,8 @@ namespace YoungJaeKim
         {
             yield return new WaitForEndOfFrame();
 
+=======
+>>>>>>> Stashed changes
             Texture2D texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
             texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
             texture.Apply();
@@ -199,4 +236,7 @@ namespace YoungJaeKim
     }
 }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
