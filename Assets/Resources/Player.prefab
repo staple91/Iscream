@@ -1510,6 +1510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHp: 100
+  maxHp: 100
   MoveSpeed: 4
   SprintSpeed: 6
   RotationSpeed: 15
@@ -1525,6 +1527,7 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 7145331013677094125}
   TopClamp: 89
   BottomClamp: -89
+  playerUI: {fileID: 0}
   rotationVelocity: 0
 --- !u!114 &7145331015016767297
 MonoBehaviour:

@@ -7,241 +7,284 @@ using UnityEngine.InputSystem;
 
 namespace LeeJungChul
 {
-	[RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
-	[RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerInput))]
 #endif
-	public class FirstPersonController : MonoBehaviourPun
-	{
-		[Header("플레이어 스텟")]
-		[Tooltip("초당 움직임 속도")]
-		public float MoveSpeed = 4.0f;
-		[Tooltip("초당 달리기 속도")]
-		public float SprintSpeed = 6.0f;
-		[Tooltip("플레이어 회전속도")]
-		public float RotationSpeed = 25.0f;
-		[Tooltip("가속도")]
-		public float SpeedChangeRate = 10.0f;
-		[Tooltip("캐릭터 중력")]
-		public float Gravity = -15.0f;
-		[Tooltip("중력이 적용되는 시간")]
-		public float FallTimeout = 0.15f;
+    public class FirstPersonController : MonoBehaviourPun
+    {
+        [Header("플레이어 스텟")]
+        [Tooltip("플레이어 현재 정신력")]
+        [SerializeField] private float currentHp = 100;
+        [Tooltip("플레이어 최대 정신력")]
+        [SerializeField] private float maxHp = 100;
+        [Tooltip("초당 움직임 속도")]
+        public float MoveSpeed = 4.0f;
+        [Tooltip("초당 달리기 속도")]
+        public float SprintSpeed = 6.0f;
+        [Tooltip("플레이어 회전속도")]
+        public float RotationSpeed = 25.0f;
+        [Tooltip("가속도")]
+        public float SpeedChangeRate = 10.0f;
+        [Tooltip("캐릭터 중력")]
+        public float Gravity = -15.0f;
+        [Tooltip("중력이 적용되는 시간")]
+        public float FallTimeout = 0.15f;
 
-		[Header("플레이어 바닥체크")]
-		[Tooltip("플레이어가 바닥에 있는 상태")]
-		public bool Grounded = true;
-		[Tooltip("바닥 오프셋")]
-		public float GroundedOffset = -0.14f;
-		[Tooltip("바닥체크 반경")]
-		public float GroundedRadius = 0.5f;
-		[Tooltip("바닥 레이어")]
-		public LayerMask GroundLayers;
+        [Header("플레이어 바닥체크")]
+        [Tooltip("플레이어가 바닥에 있는 상태")]
+        public bool Grounded = true;
+        [Tooltip("바닥 오프셋")]
+        public float GroundedOffset = -0.14f;
+        [Tooltip("바닥체크 반경")]
+        public float GroundedRadius = 0.5f;
+        [Tooltip("바닥 레이어")]
+        public LayerMask GroundLayers;
 
-		[Header("시네머신")]
-		[Tooltip("카메라가 따라다닐 타겟")]
-		public GameObject CinemachineCameraTarget;
-		[Tooltip("카메라를 올리는 속도")]
-		public float TopClamp = 90.0f;
-		[Tooltip("카메라 내리는 속도")]
-		public float BottomClamp = -90.0f;
-		
-		// 시네머신
-		private float cinemachineTargetPitch;
+        [Header("시네머신")]
+        [Tooltip("카메라가 따라다닐 타겟")]
+        public GameObject CinemachineCameraTarget;
+        [Tooltip("카메라를 올리는 속도")]
+        public float TopClamp = 90.0f;
+        [Tooltip("카메라 내리는 속도")]
+        public float BottomClamp = -90.0f;
 
-		// 플레이어
-		private float speed;
-		public float rotationVelocity;
-		private float verticalVelocity;
-		private float terminalVelocity = 53.0f;
-		private float fallTimeoutDelta;
+        [Header("플레이어 UI")]
+        public Animator playerUI;
+
+        // 시네머신
+        private float cinemachineTargetPitch;
+
+        // 플레이어
+        private float speed;
+        public float rotationVelocity;
+        private float verticalVelocity;
+        private float terminalVelocity = 53.0f;
+        private float fallTimeoutDelta;
 
 #if ENABLE_INPUT_SYSTEM
-		// 인풋 시스템
-		private PlayerInput playerInput;
+        // 인풋 시스템
+        private PlayerInput playerInput;
 #endif
-		// 캐릭터 컨트롤러
-		private CharacterController controller;
-		private Animator playeranimatior;
+        // 캐릭터 컨트롤러
+        private CharacterController controller;
+        private Animator playeranimatior;
 
-		// 인풋 시스템을 가지고 있다.
-		private StarterAssetsInputs input;
-		private GameObject mainCamera;
+        // 인풋 시스템을 가지고 있다.
+        private StarterAssetsInputs input;
+        private GameObject mainCamera;
 
-		private const float threshold = 0.01f;
+        private const float threshold = 0.01f;
 
-		public bool IsCurrentDeviceMouse
-		{
-			get
-			{
-				#if ENABLE_INPUT_SYSTEM
-				return playerInput.currentControlScheme == "any";
-				#else
+        // 현재 입력 받고 있는 컨트롤러 프로퍼티
+        public bool IsCurrentDevice
+        {
+            get
+            {
+#if ENABLE_INPUT_SYSTEM
+                return playerInput.currentControlScheme == "any";
+#else
 				return false;
-				#endif
-			}
-		}
-
-		
-		private void Awake()
-		{
-			if (mainCamera == null)
-			{
-				mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-			}
-		}
-
-		private void Start()
-		{
-			playeranimatior=GetComponent<Animator>();
-			controller = GetComponent<CharacterController>();
-			input = GetComponent<StarterAssetsInputs>();
-#if ENABLE_INPUT_SYSTEM
-			playerInput = GetComponent<PlayerInput>();
-
-			if (photonView.IsMine)
-			{
-				CinemachineVirtualCamera followCam = FindAnyObjectByType<CinemachineVirtualCamera>();
-
-				followCam.Follow = CinemachineCameraTarget.transform;
-			}			
 #endif
-		}
+            }
+        }
+
+        // 플레이어 정신력 프로퍼티
+        public float Hp
+        {
+            get
+            {
+                return currentHp;
+            }
+            set
+            {
+                if (currentHp > maxHp)
+                {
+                    currentHp = maxHp;
+                }
+                if (currentHp <= 0)
+                {
+                    // 플레이어 사망
+                    playerUI.SetBool("MentalityDown", false);
+                }
+                playerUI.SetBool("MentalityDown", true);
+            }
+        }
+
+        private void Awake()
+        {
+            if (mainCamera == null)
+            {
+                mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            }
+        }
+
+        private void Start()
+        {
+            playeranimatior = GetComponent<Animator>();
+            controller = GetComponent<CharacterController>();
+            input = GetComponent<StarterAssetsInputs>();
+#if ENABLE_INPUT_SYSTEM
+            playerInput = GetComponent<PlayerInput>();
+#endif
+            // 로컬 플레이어의 카메라를 따라가 시야를 제공한다.
+            if (photonView.IsMine)
+            {
+                CinemachineVirtualCamera followCam = FindAnyObjectByType<CinemachineVirtualCamera>();
+
+                followCam.Follow = CinemachineCameraTarget.transform;
+            }
+        }
 
         private void Update()
-		{
+        {
             // 로컬 플레이어가 아닌 경우 입력을 받지 못함
             if (photonView.IsMine)
             {
-				GroundedCheck();
-				Move();
-				CharacterGravity();
-			}
-		          
+                GroundedCheck();
+                Move();
+                CharacterGravity();
+            }
         }
 
-		private void LateUpdate()
-		{
-			if (photonView.IsMine)
-			{
-				CameraRotation();
-			}		
-		}
+        private void LateUpdate()
+        {
+            if (photonView.IsMine)
+            {
+                CameraRotation();
+            }
+        }
 
-		private void GroundedCheck()
-		{
-			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
-			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-		}
+        /// <summary>
+        /// 플레이어의 정신력이 줄어들 때 정신력 이미지 애니메이션 활성화
+        /// </summary>
+        private void HpDown()
+        {
+            // 정신력이 하락할때
 
-		/// <summary>
-		/// 마우스를 통한 카메라 회전
-		/// </summary>
-		private void CameraRotation()
-		{
-			if (input.look.sqrMagnitude >= threshold)
-			{
-				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-				
-				cinemachineTargetPitch += input.look.y * RotationSpeed * deltaTimeMultiplier;
-				rotationVelocity = input.look.x * RotationSpeed * deltaTimeMultiplier;
+        }
 
-				cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
+        /// <summary>
+        /// 땅바닥 체크 함수
+        /// </summary>
+        private void GroundedCheck()
+        {
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
+            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        }
 
-				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0.0f, 0.0f);
+        /// <summary>
+        /// 마우스를 통한 카메라 회전 상하는 90도 회전 가능 좌우는 360도까지 회전 가능
+        /// </summary>
+        private void CameraRotation()
+        {
+            if (input.look.sqrMagnitude >= threshold)
+            {
+                float deltaTimeMultiplier = IsCurrentDevice ? 1.0f : Time.deltaTime;
 
-				transform.Rotate(Vector3.up * rotationVelocity);
-			}
-		}
+                cinemachineTargetPitch += input.look.y * RotationSpeed * deltaTimeMultiplier;
+                rotationVelocity = input.look.x * RotationSpeed * deltaTimeMultiplier;
 
-		/// <summary>
-		/// 캐릭터 이동 함수
-		/// </summary>
-		private void Move()
-		{
-			float targetSpeed = input.sprint ? SprintSpeed : MoveSpeed;
+                cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
 
-			if (input.move == Vector2.zero)
-			{
-				targetSpeed = 0.0f;
-				playeranimatior.SetFloat("Speed", targetSpeed);
-			}
+                CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(cinemachineTargetPitch, 0.0f, 0.0f);
 
-			float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0.0f, controller.velocity.z).magnitude;
+                transform.Rotate(Vector3.up * rotationVelocity);
+            }
+        }
 
-			float speedOffset = 0.1f;
-			float inputMagnitude = input.analogMovement ? input.move.magnitude : 1f;
+        /// <summary>
+        /// 캐릭터 이동 함수
+        /// </summary>
+        private void Move()
+        {
+            float targetSpeed = input.sprint ? SprintSpeed : MoveSpeed;
 
-			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
-			{
-				speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+            if (input.move == Vector2.zero)
+            {
+                targetSpeed = 0.0f;
+                playeranimatior.SetFloat("Speed", targetSpeed);
+            }
 
-				speed = Mathf.Round(speed * 1000f) / 1000f;
-			}
-			else
-			{
-				speed = targetSpeed;
-			}
+            float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0.0f, controller.velocity.z).magnitude;
 
-			Vector3 inputDirection = new Vector3(input.move.x, 0.0f, input.move.y).normalized;
+            float speedOffset = 0.1f;
+            float inputMagnitude = input.analogMovement ? input.move.magnitude : 1f;
 
-			if (input.move != Vector2.zero)
-			{
-				inputDirection = transform.right * input.move.x + transform.forward * input.move.y;
-				playeranimatior.SetFloat("Speed", MoveSpeed);
-			}
+            if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
+            {
+                // 플레이어의 이동 상태에 따라 속도 변경
+                speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
 
-			controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+                // 속도를 반올림
+                speed = Mathf.Round(speed * 1000f) * 0.001f;
+            }
+            else
+            {
+                speed = targetSpeed;
+            }
 
-			
-		}
+            Vector3 inputDirection = new Vector3(input.move.x, 0.0f, input.move.y).normalized;
 
-		/// <summary>
-		/// 캐릭터 중력 적용 함수
-		/// </summary>
-		private void CharacterGravity()
-		{
-			if (Grounded)
-			{
-				fallTimeoutDelta = FallTimeout;
+            if (input.move != Vector2.zero)
+            {
+                inputDirection = transform.right * input.move.x + transform.forward * input.move.y;
+                playeranimatior.SetFloat("Speed", MoveSpeed);
+            }
 
-				if (verticalVelocity < 0.0f)
-				{
-					verticalVelocity = -2f;
-				}
-			}
-			else
-			{
-				if (fallTimeoutDelta >= 0.0f)
-				{
-					fallTimeoutDelta -= Time.deltaTime;
-				}
+            controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+        }
 
-			}
+        /// <summary>
+        /// 캐릭터 중력 적용 함수
+        /// </summary>
+        private void CharacterGravity()
+        {
+            if (Grounded)
+            {
+                fallTimeoutDelta = FallTimeout;
 
-			if (verticalVelocity < terminalVelocity)
-			{
-				verticalVelocity += Gravity * Time.deltaTime;
-			}
-		}
+                if (verticalVelocity < 0.0f)
+                {
+                    verticalVelocity = -2f;
+                }
+            }
+            else
+            {
+                if (fallTimeoutDelta >= 0.0f)
+                {
+                    fallTimeoutDelta -= Time.deltaTime;
+                }
 
-		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
-		{
-			if (lfAngle < -360f) lfAngle += 360f;
-			if (lfAngle > 360f) lfAngle -= 360f;
-			return Mathf.Clamp(lfAngle, lfMin, lfMax);
-		}
+            }
 
-		private void OnDrawGizmosSelected()
-		{
-			Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-			Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+            if (verticalVelocity < terminalVelocity)
+            {
+                verticalVelocity += Gravity * Time.deltaTime;
+            }
+        }
 
-			if (Grounded) Gizmos.color = transparentGreen;
-			else Gizmos.color = transparentRed;
+        /// <summary>
+        /// 360도 회전 가능하게 하는 함수 최소 최대값을 설정해 이 값을 넘지 못하게한다.
+        /// </summary> 
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        {
+            if (lfAngle < -360f) lfAngle += 360f;
+            if (lfAngle > 360f) lfAngle -= 360f;
+            return Mathf.Clamp(lfAngle, lfMin, lfMax);
+        }
 
-			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
-		}
-	}
+        private void OnDrawGizmosSelected()
+        {
+            Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
+            Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+
+            if (Grounded) Gizmos.color = transparentGreen;
+            else Gizmos.color = transparentRed;
+
+            Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+        }
+    }
 }
 
 
