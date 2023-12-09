@@ -56,6 +56,7 @@ public abstract class InteractStratagy
 public class DoorStratagy : InteractStratagy
 {
     bool isOpen = false;
+    bool isRunning = false;
     public DoorStratagy(InteractableObject target) : base(target)
     {
         this.target = target;
@@ -63,10 +64,15 @@ public class DoorStratagy : InteractStratagy
     public override void Act()
     {
         Transform targetTr = target.GetComponent<Transform>();
-        if (!isOpen)
-            target.StartCoroutine(OpenDoor(targetTr));
-        else
-            target.StartCoroutine(CloseDoor(targetTr));
+        if(!isRunning)
+        {
+            isRunning = true;
+            if (!isOpen)
+                target.StartCoroutine(OpenDoor(targetTr));
+            else
+                target.StartCoroutine(CloseDoor(targetTr));
+        }
+
     }
     IEnumerator OpenDoor(Transform tr)
     {
@@ -78,6 +84,8 @@ public class DoorStratagy : InteractStratagy
             tr.localRotation = Quaternion.Slerp(tr.localRotation, targetRotation, smoot * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
+        isOpen = true;
+        isRunning = false;
 
         
     }
@@ -91,6 +99,8 @@ public class DoorStratagy : InteractStratagy
             tr.localRotation = Quaternion.Slerp(tr.localRotation, targetRotation, smoot * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
+        isOpen = false;
+        isRunning = false;
     }
 }
 public class LightStratagy : InteractStratagy

@@ -6,22 +6,8 @@ using Photon.Realtime;
 
 namespace LeeJungChul
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
-        public static GameManager instance = null;
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(this.gameObject);
-            }
-            else if (instance != null)
-            {
-                Destroy(this.gameObject);
-            }
-        }
 
         private void Start()
         {

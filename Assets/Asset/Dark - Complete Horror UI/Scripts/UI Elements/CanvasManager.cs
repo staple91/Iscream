@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 namespace Michsky.UI.Dark
 {
-    public class CanvasManager : MonoBehaviour
+    public class CanvasManager : Singleton<CanvasManager>
     {
         public CanvasScaler canvasScaler;
+        public GameObject noteUI;
+        public TextMeshProUGUI noteText;
 
         void Start()
         {

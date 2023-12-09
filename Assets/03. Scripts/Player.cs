@@ -19,10 +19,7 @@ namespace KimKyeongHun
 
             RaycastHit hit;
 
-            Debug.DrawRay(playerCam.transform.position, transform.forward * 10f, Color.red);
-
-
-            if (Physics.Raycast(playerCam.transform.position, transform.forward * 10f, out hit, 10))
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
             {
                 
 
@@ -31,11 +28,8 @@ namespace KimKyeongHun
                 {
                     interactable.Owner = this;
                     interactable.Interact();
-
+                    Debug.Log("상호작용");
                 }
-                    
-               
-                Debug.Log(hit.transform.GetComponent<Transform>() + "정보 ");
                 
             }
            
@@ -69,7 +63,11 @@ namespace KimKyeongHun
         void Update()
         {
 
-            if (Input.GetKey(KeyCode.JoystickButton0))
+            Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f, Color.red);
+
+
+
+            if (Input.GetKey(KeyCode.JoystickButton0) || Input.GetMouseButtonDown(0))
             {
 
                 Debug.Log("a버튼 ");
