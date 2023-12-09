@@ -14,11 +14,6 @@ namespace LeeJungChul
 #endif
     public class FirstPersonController : MonoBehaviourPun
     {
-        [Header("플레이어 스텟")]
-        [Tooltip("플레이어 현재 정신력")]
-        [SerializeField] private float currentHp = 100;
-        [Tooltip("플레이어 최대 정신력")]
-        [SerializeField] private float maxHp = 100;
         [Tooltip("초당 움직임 속도")]
         public float MoveSpeed = 4.0f;
         [Tooltip("초당 달리기 속도")]
@@ -49,6 +44,7 @@ namespace LeeJungChul
         public float TopClamp = 90.0f;
         [Tooltip("카메라 내리는 하한선")]
         public float BottomClamp = -90.0f;
+
         [Header("플레이어 UI")]
         public Animator playerUI;
 
@@ -86,26 +82,6 @@ namespace LeeJungChul
 #else
 				return false;
 #endif
-            }
-        }
-
-        // 플레이어 정신력 프로퍼티
-        public float Hp
-        {
-            get
-            {
-                return currentHp;
-            }
-            set
-            {
-                if (currentHp > maxHp)
-                {
-                    currentHp = maxHp;
-                }
-                if (currentHp <= 0)
-                {
-                    // 플레이어 사망
-                }
             }
         }
 
@@ -153,14 +129,11 @@ namespace LeeJungChul
             }
         }
 
-        /// <summary>
-        /// 플레이어의 정신력이 줄어들 때 정신력 이미지 애니메이션 활성화
-        /// </summary>
-        private void HpDown()
+        private void OnDisable()
         {
-            // 정신력이 하락할때
-
+            playeranimatior.SetFloat("Speed", 0f);
         }
+
 
         /// <summary>
         /// 땅바닥 체크 함수

@@ -16,6 +16,7 @@ public class NoteObject : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log(content);
+        owner.IsMoveable = false;
         CanvasManager.Instance.noteText.text = content;
         CanvasManager.Instance.noteUI.SetActive(true);
         StartCoroutine(PopUpCo());
@@ -27,6 +28,7 @@ public class NoteObject : MonoBehaviour, IInteractable
         {
             yield return new WaitForEndOfFrame();
         }
+        owner.IsMoveable = true;
         CanvasManager.Instance.noteUI.SetActive(false);
     }
 }
