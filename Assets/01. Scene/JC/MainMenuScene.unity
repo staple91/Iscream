@@ -3415,11 +3415,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634559a117463e24cbcbe3dc59021401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_inputField_Nickname: {fileID: 957008833}
-  m_dropdown_RoomMaxPlayers: {fileID: 742316917}
-  m_dropdown_MaxTime: {fileID: 870712927}
-  m_panel_Loading: {fileID: 713229772}
-  m_text_CurrentPlayerCount: {fileID: 232936990}
+  nickNameInputField: {fileID: 957008833}
+  maxPlayerDropDown: {fileID: 742316917}
+  gamePlayTimeDropDown: {fileID: 870712927}
+  loadingUi: {fileID: 713229772}
+  currentPlayerCountText: {fileID: 232936990}
 --- !u!1 &734012310
 GameObject:
   m_ObjectHideFlags: 0
@@ -11925,7 +11925,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 197677890}
+        m_TargetAssemblyTypeName: LeeJungChul.UIManager, Assembly-CSharp
+        m_MethodName: SoloPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7706486665935019449
 GameObject:
   m_ObjectHideFlags: 0

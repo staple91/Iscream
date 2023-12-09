@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace LeeJungChul
 {
@@ -37,6 +38,11 @@ namespace LeeJungChul
             option.SetActive(false);
         }
         #endregion
+
+        public void SoloPlay()
+        {
+            SceneManager.LoadScene("PracticeScene");
+        }
 
         #region 게임 종료
         public void GameExit()

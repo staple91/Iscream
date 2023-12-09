@@ -25,7 +25,7 @@ namespace LeeJungChul
 
         private void Start()
         {
-            CreatePlayer();
+           // CreatePlayer();
         }
 
         /// <summary>
