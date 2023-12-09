@@ -2304,7 +2304,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9673b6efd78e58649b96c6c7b46bb469, type: 2}
   m_sharedMaterial: {fileID: -4411589761719663316, guid: 9673b6efd78e58649b96c6c7b46bb469, type: 2}
@@ -3382,7 +3382,7 @@ GameObject:
   - component: {fileID: 724487992}
   - component: {fileID: 724487993}
   m_Layer: 0
-  m_Name: ConnectionManager
+  m_Name: PhotonManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3589,11 +3589,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: 1
+      m_Image: {fileID: 21300000, guid: b61d1f4d45195d344af8b0cc9779cf56, type: 3}
     - m_Text: 2
       m_Image: {fileID: 21300000, guid: b61d1f4d45195d344af8b0cc9779cf56, type: 3}
     - m_Text: 3
-      m_Image: {fileID: 21300000, guid: b61d1f4d45195d344af8b0cc9779cf56, type: 3}
-    - m_Text: 4
       m_Image: {fileID: 21300000, guid: b61d1f4d45195d344af8b0cc9779cf56, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:

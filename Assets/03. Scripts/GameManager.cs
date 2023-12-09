@@ -8,14 +8,11 @@ namespace LeeJungChul
 {
     public class GameManager : Singleton<GameManager>
     {
-        public bool isMultiPlayer = false;
+        private Transform[] spawnPoints;
 
         private void Start()
         {
-            if (isMultiPlayer)
-            {
-                CreatePlayer();
-            }
+            CreatePlayer();
         }
 
         /// <summary>
@@ -23,7 +20,7 @@ namespace LeeJungChul
         /// </summary>
         void CreatePlayer()
         {
-            Transform[] spawnPoints = GameObject.Find("SpawnPointGroup").GetComponentsInChildren<Transform>();
+            spawnPoints = GameObject.Find("SpawnPointGroup").GetComponentsInChildren<Transform>();
             int idx = Random.Range(1, spawnPoints.Length);
             PhotonNetwork.Instantiate("Player", spawnPoints[idx].position, spawnPoints[idx].rotation, 0);
         }
