@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-
+using Photon.Pun;
 
 namespace KimKyeongHun
 {
@@ -53,13 +53,23 @@ namespace KimKyeongHun
     public class CinemachinePriority : MonoBehaviour
     {
         public CinemachineVirtualCamera cim; // 시네머신 우선 순위를 변경하기 위한 것
-        private PlayerDeadCameraShake playerDeadCam; // 플레이어가 죽을 때 카메라 흔들리는 연출 
+        private PlayerDeadCameraShake playerDeadCam; // 플레이어가 죽을 때 카메라 흔들리는 연출
 
+        //플레이어의 PhotonView스크립트 가져와서 넣어주기
+        [SerializeField]
+        public PhotonView PV;
 
+        private void Awake()
+        {
+            // 이 컴포넌트를 가진 오브젝트는 내 것이 아니면 서버에서 삭제됨. 
+            if (!PV.IsMine)
+            {
+                Destroy(gameObject);
+            }
+        }
         // Start is called before the first frame update
         void Start()
         {
-           
             cim = GetComponent<CinemachineVirtualCamera>();
             playerDeadCam = new PlayerDeadCameraShake(cim);
 
@@ -73,14 +83,13 @@ namespace KimKyeongHun
             Debug.Log("코루틴 진입 ");
             float startTime = 0f;
             float termTime = 1.5f;
-
             Debug.Log(startTime);
             while (startTime < termTime)
             {
                 startTime += Time.deltaTime;
                 if (startTime > termTime)
                 {
-                    cim.Priority += 1;
+                    cim.Priority += 5;
                     
                     yield return null;
                 }
