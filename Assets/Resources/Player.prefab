@@ -1512,8 +1512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHp: 100
-  maxHp: 100
   MoveSpeed: 4
   SprintSpeed: 6
   RotationSpeed: 15
@@ -1640,7 +1638,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fb190fe73eace48a40c7655dcfdfbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHp: 100
+  maxHp: 100
   playerCam: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!1 &7145331015027252485
 GameObject:
   m_ObjectHideFlags: 0

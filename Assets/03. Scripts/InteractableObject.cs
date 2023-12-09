@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using KimKyeongHun;
 
 public enum InteractType
@@ -15,11 +16,12 @@ public class InteractableObject : MonoBehaviour, IInteractable
     InteractType type;
 
     Player owner;
-
+    PhotonView PV;
     InteractStratagy stratagy;
 
     private void Awake()
     {
+        PV = GetComponent<PhotonView>();
         switch(type)
         {
             case InteractType.Light:
@@ -39,8 +41,13 @@ public class InteractableObject : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        stratagy.Act();
+        PV.RPC("RpcInteract", RpcTarget.AllBuffered);   
     }
+    [PunRPC]
+    void RpcInteract()
+    {
+        stratagy.Act();
+    }    
 }
 
 public abstract class InteractStratagy

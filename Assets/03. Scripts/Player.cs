@@ -1,8 +1,7 @@
 using Cinemachine;
 using LeeJungChul;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -44,7 +43,7 @@ namespace KimKyeongHun
         public GameObject playerCam;
         MicComponent mic;
 
-        FirstPersonController controller;
+        public FirstPersonController controller;
 
         private bool isMoveable = true;
 
@@ -61,7 +60,6 @@ namespace KimKyeongHun
 
             }
         }
-        IInteractable interactable;
 
         // Start is called before the first frame update
         void Start()
@@ -111,17 +109,18 @@ namespace KimKyeongHun
 
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
             {
-                interactable = hit.transform.GetComponent<IInteractable>();
-                if (interactable != null)
+                
+                if(hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {
                     interactable.Owner = this;
                     interactable.Interact();
                     Debug.Log("상호작용");
                 }
+                
+                
 
             }
         }
-
 
 
     }

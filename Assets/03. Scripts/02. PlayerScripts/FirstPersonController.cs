@@ -173,7 +173,6 @@ namespace LeeJungChul
             if (input.move == Vector2.zero)
             {
                 targetSpeed = 0.0f;
-                playeranimatior.SetFloat("Speed", targetSpeed);
             }
 
             float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0.0f, controller.velocity.z).magnitude;
@@ -199,9 +198,9 @@ namespace LeeJungChul
             if (input.move != Vector2.zero)
             {
                 inputDirection = transform.right * input.move.x + transform.forward * input.move.y;
-                playeranimatior.SetFloat("Speed", MoveSpeed);
             }
-
+            // 애니메이션 파라미터의 최대값이 3이기 때문에 최대 speed 인 6에서 2를나눠줌.
+            playeranimatior.SetFloat("Speed", speed / 2);
             controller.Move(inputDirection.normalized * (speed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
         }
 
