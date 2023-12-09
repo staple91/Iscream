@@ -1,8 +1,10 @@
 using KimKyeongHun;
 
-
-interface IInteractable
+namespace No
 {
-    void Interact();
-    public Player Owner { set; }
+    interface IInteractable
+    {
+        void Interact();
+        public Player Owner { set; }
+    }
 }

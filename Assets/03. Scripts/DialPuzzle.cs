@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialPuzzle : Puzzle
+namespace No
 {
-    public override void Interact()
+    public class DialPuzzle : Puzzle
     {
-    }
-    public void Update()
-    {
-        transform.Rotate(Vector3.forward);
+        public override void Interact()
+        {
+        }
+        public void Update()
+        {
+            transform.Rotate(Vector3.forward);
+        }
+
     }
 
 }

@@ -2,33 +2,36 @@ using KimKyeongHun;
 using Michsky.UI.Dark;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NoteObject : MonoBehaviour, IInteractable
+namespace No
 {
-    Player owner;
-    public Player Owner { set => owner = value; }
-
-    [SerializeField, TextArea]
-    string content;
-    public void Interact()
+    public class NoteObject : MonoBehaviour, IInteractable
     {
-        Debug.Log(content);
-        owner.IsMoveable = false;
-        CanvasManager.Instance.noteText.text = content;
-        CanvasManager.Instance.noteUI.SetActive(true);
-        StartCoroutine(PopUpCo());
-    }
+        Player owner;
+        public Player Owner { set => owner = value; }
 
-    IEnumerator PopUpCo()
-    {
-        while(!Input.GetKey(KeyCode.E))
+        [SerializeField, TextArea]
+        string content;
+        public void Interact()
         {
-            yield return new WaitForEndOfFrame();
+            Debug.Log(content);
+            owner.IsMoveable = false;
+            CanvasManager.Instance.noteText.text = content;
+            CanvasManager.Instance.noteUI.SetActive(true);
+            StartCoroutine(PopUpCo());
         }
-        owner.IsMoveable = true;
-        CanvasManager.Instance.noteUI.SetActive(false);
+
+        IEnumerator PopUpCo()
+        {
+            while (!Input.GetKey(KeyCode.E))
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            owner.IsMoveable = true;
+            CanvasManager.Instance.noteUI.SetActive(false);
+        }
     }
+
 }

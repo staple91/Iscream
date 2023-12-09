@@ -4,17 +4,20 @@ using UnityEngine;
 using KimKyeongHun;
 using System;
 
-
-public abstract class Puzzle : MonoBehaviour, IInteractable
+namespace No
 {
-    public event Action OnSolved;
-    Player owner;
-    public Player Owner 
+    public abstract class Puzzle : MonoBehaviour, IInteractable
     {
-        get => owner;
-        set => owner = value; 
-    }
+        public event Action OnSolved;
+        Player owner;
+        public Player Owner
+        {
+            get => owner;
+            set => owner = value;
+        }
 
-    public abstract void Interact();
+        public abstract void Interact();
+
+    }
 
 }

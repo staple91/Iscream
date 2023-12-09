@@ -4,17 +4,19 @@ using UnityEngine;
 using KimKyeongHun;
 
 
-
-public abstract class Item : MonoBehaviour, IInteractable
+namespace No
 {
-    Player owner;
-    public Player Owner
+    public abstract class Item : MonoBehaviour, IInteractable
     {
-        get => owner;
-        set => owner = value;
+        Player owner;
+        public Player Owner
+        {
+            get => owner;
+            set => owner = value;
+        }
+
+        public abstract void Interact();
+        public abstract void Use();
+
     }
-
-    public abstract void Interact();
-    public abstract void Use();
-
 }

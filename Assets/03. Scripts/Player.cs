@@ -4,13 +4,16 @@ using Photon.Pun;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
-
+using No;
 
 namespace KimKyeongHun
 {
 
     public class Player : MonoBehaviour
     {
+
+        [SerializeField]
+        public bool isLocal = false;
 
         [Header("플레이어 스텟")]
         [Tooltip("플레이어 현재 정신력")]
