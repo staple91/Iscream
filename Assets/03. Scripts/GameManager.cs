@@ -8,10 +8,14 @@ namespace LeeJungChul
 {
     public class GameManager : Singleton<GameManager>
     {
+        public bool isMultiPlayer = false;
 
         private void Start()
         {
-           // CreatePlayer();
+            if (isMultiPlayer)
+            {
+                CreatePlayer();
+            }
         }
 
         /// <summary>

@@ -115,6 +115,7 @@ namespace LeeJungChul
                 if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
                 {
                     PhotonNetwork.LoadLevel("PracticeScene");
+                    GameManager.Instance.isMultiPlayer = true;
                 }
             }
         }
