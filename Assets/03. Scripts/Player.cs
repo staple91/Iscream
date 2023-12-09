@@ -9,7 +9,7 @@ namespace KimKyeongHun
 
     public class Player : MonoBehaviour
     {
-        public Camera playerCam;
+        public GameObject playerCam;
         MicComponent mic;
 
         IInteractable interactable;
@@ -34,8 +34,7 @@ namespace KimKyeongHun
 
                 }
                     
-                
-
+               
                 Debug.Log(hit.transform.GetComponent<Transform>() + "정보 ");
                 
             }
@@ -43,6 +42,11 @@ namespace KimKyeongHun
 
 
         }
+
+
+
+
+
 
         public void Click()
         {
@@ -54,14 +58,16 @@ namespace KimKyeongHun
         // Start is called before the first frame update
         void Start()
         {
-            playerCam = FindObjectOfType<Camera>();
+            //playerCam = FindObjectOfType<Camera>();
+            playerCam = GameObject.FindGameObjectWithTag("MainCamera");
+            
+
             mic = GetComponent<MicComponent>();
         }
 
         // Update is called once per frame
         void Update()
         {
-
 
             if (Input.GetKey(KeyCode.JoystickButton0))
             {
@@ -71,9 +77,6 @@ namespace KimKyeongHun
 
             }
 
-
-
-      
         }
     }
 }
