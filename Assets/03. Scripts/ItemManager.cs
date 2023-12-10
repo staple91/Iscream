@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using KimKyeongHun;
 using No;
+using JetBrains.Annotations;
+
 namespace YoungJaeKim
 {
     public abstract class Item : IInteractable
@@ -21,6 +23,8 @@ namespace YoungJaeKim
 
         public abstract void Interact();
         public abstract void Active();
+        public abstract void Explain();
+
     }
     public abstract class RecoveryItem : Item
     {
@@ -40,6 +44,11 @@ namespace YoungJaeKim
         {
             //im.player.정신력 스탯 += 회복량
         }
+        public override void Explain()
+        {
+            //음식이다. 플레이어의 정신력을 회복시켜준다.
+        }
+
     }
     public class Medicine : RecoveryItem
     {
@@ -49,6 +58,11 @@ namespace YoungJaeKim
         {
             //im.player.정신력 스탯 += 회복량
         }
+        public override void Explain()
+        {
+            //약이다. 플레이어의 정신력을 대량 회복시켜준다.
+        }
+
 
     }
     public class Beverage : RecoveryItem
@@ -59,7 +73,10 @@ namespace YoungJaeKim
         {
             //im.player.정신력 스탯 += 회복량
         }
-
+        public override void Explain()
+        {
+            //음료수이다. 플레이어의 정신력을 소량 회복시켜준다.
+        }
     }
     public abstract class EquipmentItem : Item
     {
@@ -84,6 +101,11 @@ namespace YoungJaeKim
 
 
         }
+        public override void Explain()
+        {
+            //카메라이다. 대상을 찍을수 있으며, 찍은 정보는 노트에 기록되어진다.
+        }
+
     }
     public class Lantern : EquipmentItem
     {
@@ -92,6 +114,11 @@ namespace YoungJaeKim
         public override void Active()
         {
         }
+        public override void Explain()
+        {
+            //랜턴이다. 빛을 밝히는 용도로도 쓰지만, 특별한 능력을 가지고 있다.
+        }
+
     }
     public class FlashLight : EquipmentItem
     {
@@ -101,18 +128,19 @@ namespace YoungJaeKim
         public override void Active()
         {
             Debug.Log("들어옴?");
-            im.BatteryTime -= Time.deltaTime;
-            Debug.Log(im.BatteryTime);
-            /*while (im.BatteryTime > 0)
-            {
-                
-                im.flashLight.intensity -= 0.0001f;
-                
-                
-                
-            }*/
+            
+            
+            //im.flashLight.intensity = im.lightPower;
+            im.lightOn = true;
+            
 
         }
+        public override void Explain()
+        {
+            //플래시라이트다. 맵을 밝혀줄수 있으나, 시간에 따라 빛의 세기가 줄어들고
+            //결국 꺼지기 때문에 배터리로 재충전이 필요하다.
+        }
+
     }
     public class Key : EquipmentItem
     {
@@ -123,6 +151,11 @@ namespace YoungJaeKim
         }
 
         public override void Interact() { Debug.Log("열쇠닷"); }
+        public override void Explain()
+        {
+            //열쇠다. 어떤 상자를 열수 있을지도??
+        }
+
     }
     public class ConsumableItem : Item
     {
@@ -136,6 +169,7 @@ namespace YoungJaeKim
         {
 
         }
+        public override void Explain() { }
     }
     public class Battery : ConsumableItem
     {
@@ -145,6 +179,11 @@ namespace YoungJaeKim
         {
             im.flashLight.intensity = 2.1f;
         }
+        public override void Explain()
+        {
+            //배터리이다. 플래시라이트를 충전하는데 쓰인다.
+        }
+
     }
 
     public enum ITEM_TYPE
@@ -161,30 +200,19 @@ namespace YoungJaeKim
 
     public class ItemManager : MonoBehaviour
     {
-        // --노신영 주석--
-        // 아이템 구현방법이 잘 전달이 안된것 같아서 주석 남겨요
-        // 일단 아이템은 게임 내에 존재해야되는 오브젝트이고
-        // 레이케스트를 쏴서 콜라이더와 충돌처리를 해서
-        // 그 오브젝트가 가지고 있는 클래스(모노비헤이비어를 상속받은 컴포넌트)의 인터페이스를 가져와서 사용한다는 뜻이였어요 //Player.cs 107번 라인 참고
-        // 그래서 MonoBehaviour랑 IInteractivable이랑 동시에 상속을 받아야 해요
-        // 전략패턴을 사용하고싶은거는 이해를 했고
-        // 그럼 ItemManager에 인터페이스를 상속받으면 좋을 것 같아요
-        // 그리고 이름도 객체에 하나하나 들어갈 컴포넌트니까 매니저보다는 ItemObject나 다른 이름으로 쓰는게 좀 더 직관적일거라고 생각해요.
-        // + Start문에 if문 나열된거 switch case 문으로 바꿔놨습니다.
-        // ++ 변수명은 소문자로 시작해주시구 함수, 프로퍼티명은 대문자 시작으로 해주세요!!
-        // 읽어보시고 이해안되거나 궁금하거나 이건좀 아닌것같은데 싶은거는 갠톡or디코 해주시고 이 주석은 다 읽으셧으면 지워주시면 됩니당
-        // 남은 프로젝트 기간 화이팅이에요
-
+        public bool lightOn;
+        public float lightPower;
         public Player player;
         public Item item;
         public ITEM_TYPE itemType;
         public Light flashLight;
-        public float BatteryTime = 60f;
+        public float batteryTime;
         ScreenShot screenShot;
 
         // Start is called before the first frame update
         void Start()
         {
+            lightOn = false;
             //flashLight = GetComponent<Light>();
             switch (itemType)
             {
@@ -207,7 +235,7 @@ namespace YoungJaeKim
             }
             item.Interact();
             item.Active();
-
+            
         }
 
         // Update is called once per frame
@@ -221,6 +249,26 @@ namespace YoungJaeKim
                 string filePath = Application.dataPath + "/05. Data/ScreenShot/" + fileName;
                 Debug.Log("스샷"!);
                 StartCoroutine(ScreenShotCapture1(filePath));
+            }
+            //lightPower -= Time.deltaTime;
+            batteryTime += 0.0001f;
+            if(batteryTime == 1) { batteryTime = 1; }
+            if (lightOn)
+            {
+                
+               
+                lightPower = Mathf.Lerp(2.3f, 0, batteryTime);
+
+
+                flashLight.intensity = lightPower;
+
+
+                if (flashLight.intensity <= 0)
+                {
+                    lightOn = false;
+                }
+                Debug.Log(flashLight.intensity);
+                
             }
 
         }
