@@ -21,7 +21,10 @@ namespace KimKyeongHun
         [Tooltip("플레이어 최대 정신력")]
         [SerializeField] private float maxHp = 100;
 
-
+        [Tooltip("자신의 캐릭터 모델들")]
+        [SerializeField]
+        Renderer[] tpsRenders;
+        
 
         // 플레이어 정신력 프로퍼티
         public float Hp
@@ -69,7 +72,15 @@ namespace KimKyeongHun
         {
             controller = GetComponent<FirstPersonController>();
             playerCam = GameObject.FindGameObjectWithTag("MainCamera");
+            GameManager.Instance.playerList.Add(this);
             mic = GetComponent<MicComponent>();
+            if(controller.photonView.IsMine)
+            {
+                foreach(Renderer render in tpsRenders) 
+                {
+                    render.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                }
+            }
 
         }
 
@@ -107,21 +118,17 @@ namespace KimKyeongHun
         public void Interact()
         {
             //문열림, 불 켜기 등등
-
             RaycastHit hit;
-
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
             {
                 
                 if(hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {
+                    GameManager.Instance.objectPhotonView.RequestOwnership();
                     interactable.Owner = this;
                     interactable.Interact();
                     Debug.Log("상호작용");
                 }
-                
-                
-
             }
         }
 

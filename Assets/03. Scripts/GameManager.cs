@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
+using KimKyeongHun;
 
 namespace LeeJungChul
 {
     public class GameManager : Singleton<GameManager>
     {
+        public PhotonView objectPhotonView;
+        [SerializeField]
         private Transform[] spawnPoints;
+
+        public List<Player> playerList = new List<Player>();
 
         private void Start()
         {
@@ -20,8 +24,16 @@ namespace LeeJungChul
         /// </summary>
         void CreatePlayer()
         {
-            spawnPoints = GameObject.Find("SpawnPointGroup").GetComponentsInChildren<Transform>();
-            int idx = Random.Range(1, spawnPoints.Length);
+            int idx = 0;
+            foreach(Player player in playerList)
+            {
+                if(player.controller.photonView.IsMine)
+                {
+                    idx = player.controller.photonView.ViewID / 1000; // player
+                    break;
+                }
+            }
+            
             PhotonNetwork.Instantiate("Player", spawnPoints[idx].position, spawnPoints[idx].rotation, 0);
         }
     }

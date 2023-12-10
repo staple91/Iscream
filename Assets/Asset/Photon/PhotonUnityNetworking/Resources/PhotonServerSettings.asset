@@ -43,6 +43,7 @@ MonoBehaviour:
   - Act
   - PunInteract
   - RpcInteract
+  - <Interact>g__RpcInteract|18_0
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using KimKyeongHun;
+using LeeJungChul;
 
 namespace No
 {
@@ -12,18 +13,18 @@ namespace No
         Door,
 
     }
-    public class InteractableObject : MonoBehaviour, IInteractable
+    public class InteractableObject : MonoBehaviourPunCallbacks, IInteractable
     {
         [SerializeField]
         InteractType type;
 
-        Player owner;
         PhotonView PV;
+        
+        Player owner;
         InteractStratagy stratagy;
 
         private void Awake()
         {
-            PV = GetComponent<PhotonView>();
             switch (type)
             {
                 case InteractType.Light:
@@ -38,23 +39,17 @@ namespace No
         public Player Owner
         {
             get => owner;
-            set => owner = value;
+            set
+            {
+                owner = value;
+            }
         }
 
         public void Interact()
         {
-            if (owner.isLocal)
-            {
-                RpcInteract();
-                return;
-            }
-            PV.RPC("RpcInteract", RpcTarget.AllBuffered);
-        }
-        [PunRPC]
-        void RpcInteract()
-        {
             stratagy.Act();
         }
+
     }
 
     public abstract class InteractStratagy
@@ -90,6 +85,7 @@ namespace No
         }
         IEnumerator OpenDoor(Transform tr)
         {
+            Debug.Log("문열린당");
             float doorOpenAngle = 90f;
             float smoot = 2f;
             while (tr.localRotation.eulerAngles.y < 89f)

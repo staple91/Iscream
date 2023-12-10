@@ -1638,8 +1638,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fb190fe73eace48a40c7655dcfdfbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLocal: 0
   currentHp: 100
   maxHp: 100
+  tpsRenders:
+  - {fileID: 7145331014266026216}
+  - {fileID: 7145331014368094136}
   playerCam: {fileID: 0}
   controller: {fileID: 0}
 --- !u!1 &7145331015027252485
