@@ -124,7 +124,7 @@ namespace KimKyeongHun
                 
                 if(hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {
-                    GameManager.Instance.objectPhotonView.RequestOwnership();
+                    //GameManager.Instance.objectPhotonView.RequestOwnership();
                     interactable.Owner = this;
                     interactable.Interact();
                     Debug.Log("상호작용");
