@@ -21,7 +21,7 @@ namespace YoungJaeKim
         
         [SerializeField]       
         float cubeVolume = 10;
-
+        float checkTime = 1f;
         public float Loudness { set => throw new System.NotImplementedException(); }
 
         public Vector3 Pos => throw new System.NotImplementedException();
@@ -38,6 +38,7 @@ namespace YoungJaeKim
         // Update is called once per frame
         void Update()
         {
+            Patrol();
             if (detective.IsDection)
             {
 
@@ -53,7 +54,7 @@ namespace YoungJaeKim
 
             // Collider[] cols1 = Physics.OverlapSphere(transform.position, cubeVolume, 1 << 7);
 
-            //Patrol();
+            
         }
         
         void Patrol()
@@ -62,7 +63,7 @@ namespace YoungJaeKim
             Vector3 dir = (transform.forward*partrolable - transform.position).normalized;
             dir.y = 0;
             float distance = dir.magnitude;
-            Debug.DrawLine(transform.position, transform.forward * partrolable, Color.green);
+            Debug.DrawLine(transform.position, transform.forward, Color.green);
             Debug.DrawLine(transform.position, transform.position + dir * partrolable, Color.magenta);
             float dot = Vector3.Dot(transform.forward, dir);
             Vector3 randPos;
@@ -70,13 +71,18 @@ namespace YoungJaeKim
             //bool canMove = PatrolableRange(transform.position, out Vector3 randPos);
             if (distance < partrolable && dot > 0)//
             {
-                
-                ghostAgent.destination = targetPlayer.transform.position;
-                //
-                //
-                
-                
+                Debug.Log("if에 들어감");
+
+                if(detective.col ==null)
+                {
+                    ghostAgent.destination = randPos;
+                }
+
+                StartCoroutine(PlayerCheck());
+                //ghostAgent.destination = detective.col.transform.position;
             }
+
+
             else
             {
                 Debug.Log("돌아가냐");
@@ -92,11 +98,11 @@ namespace YoungJaeKim
                         canMove = false;
                     }
                 }
-                
+
             }
             
         }
-        private bool PatrolableRange(Vector3 pos, out Vector3 randPos, float patrolableSpace = 3)
+        private bool PatrolableRange(Vector3 pos, out Vector3 randPos, float patrolableSpace = 10)
         {
             Vector3 point = UnityEngine.Random.insideUnitSphere * patrolableSpace;
             point.y = 0;
@@ -106,6 +112,34 @@ namespace YoungJaeKim
             randPos = navMeshHit.position;
             return moveable;
 
+        }
+        IEnumerator PlayerCheck()
+        {
+            Debug.Log("코루틴 돌아가냐");
+
+            while(true)
+            {
+                if (detective.col == null)
+                {
+                    //yield break;
+
+                    yield return new WaitForSeconds(checkTime);
+                }
+                ghostAgent.destination = detective.col.transform.position;
+
+                
+
+                if (detective.IsDection == false)//detective.isRangeDetection==false && 
+                {
+                    yield break;
+                }
+
+                yield return null;
+            }
+
+            
+
+           
         }
 
 
