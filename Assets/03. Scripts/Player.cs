@@ -25,10 +25,9 @@ namespace KimKyeongHun
         [SerializeField]
         Renderer[] tpsRenders;
 
-        public CinemachineVirtualCamera cim;
+        
         public CinemachinePriority cinemachinePriority;
-        //public PlayerDeadCameraShake playerDead;
-
+       
 
         // 플레이어 정신력 프로퍼티
         public float Hp
@@ -39,7 +38,7 @@ namespace KimKyeongHun
             }
             set
             {
-                //currentHp = value;
+                currentHp = value;
                 if (currentHp > maxHp)
                 {
                     currentHp = maxHp;
@@ -85,12 +84,8 @@ namespace KimKyeongHun
             GameManager.Instance.playerList.Add(this);
             mic = GetComponent<MicComponent>();
 
-            cim = GetComponentInChildren<CinemachineVirtualCamera>();
+            
             cinemachinePriority = GetComponentInChildren<CinemachinePriority>();
-
-            cinemachinePriority.GetCim = cim;
-
-
 
 
 
@@ -109,10 +104,11 @@ namespace KimKyeongHun
         void Update()
         {
 
-            //if(Input.GetKey(KeyCode.G))
-            //{
-            //    Hp -= 10;
-            //}
+            //플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
+            if (Input.GetKey(KeyCode.G))
+            {
+                Hp -= 10;
+            }
 
             Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f, Color.red);
 

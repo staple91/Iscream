@@ -51,14 +51,6 @@ namespace KimKyeongHun
         private PlayerDeadCameraShake playerDeadCam; // 플레이어가 죽을 때 카메라 흔들리는 연출
 
 
-        public CinemachineVirtualCamera GetCim
-        {
-            get { return cim; }
-            set
-            {
-                cim = value;
-            }
-        }
 
         private bool isPlayerCheck = false;
 
@@ -93,7 +85,7 @@ namespace KimKyeongHun
         void Start()
         {
             cim = GetComponent<CinemachineVirtualCamera>();
-            playerDeadCam = new PlayerDeadCameraShake(GetCim);
+            playerDeadCam = new PlayerDeadCameraShake(cim);
 
             StartCoroutine(StartCutScene());
 
