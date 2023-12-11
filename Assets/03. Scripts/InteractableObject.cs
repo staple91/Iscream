@@ -11,6 +11,7 @@ namespace No
     {
         Light,
         Door,
+        MorgueBox
 
     }
     public class InteractableObject : MonoBehaviourPunCallbacks, IInteractable
@@ -31,6 +32,9 @@ namespace No
                     stratagy = new LightStratagy(this);
                     break;
                 case InteractType.Door:
+                    stratagy = new DoorStratagy(this);
+                    break;
+                case InteractType.MorgueBox:
                     stratagy = new DoorStratagy(this);
                     break;
             }
