@@ -51,6 +51,7 @@ namespace KimKyeongHun
         MicComponent mic;
 
         public FirstPersonController controller;
+        public StarterAssetsInputs inputsystem;         // 12-11 이정철 변경
 
         private bool isMoveable = true;
 
@@ -71,6 +72,8 @@ namespace KimKyeongHun
         // Start is called before the first frame update
         void Start()
         {
+            // 12-11 이정철 변경
+            inputsystem = GetComponent<StarterAssetsInputs>();
             controller = GetComponent<FirstPersonController>();
             playerCam = GameObject.FindGameObjectWithTag("MainCamera");
             GameManager.Instance.playerList.Add(this);
@@ -93,11 +96,10 @@ namespace KimKyeongHun
 
             Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f, Color.red);
 
-
-
-            if (controller.photonView.IsMine && (Input.GetKey(KeyCode.JoystickButton0) || Input.GetMouseButtonDown(0)))
+            // 12-11 이정철 변경
+            if (controller.photonView.IsMine && inputsystem.click)
             {
-                Debug.Log("a버튼 ");
+                Debug.Log("a버튼 ");              
                 Click();
             }
 
@@ -132,6 +134,7 @@ namespace KimKyeongHun
                     Debug.Log("상호작용");
                 }
             }
+            inputsystem.click = false;
         }
 
 

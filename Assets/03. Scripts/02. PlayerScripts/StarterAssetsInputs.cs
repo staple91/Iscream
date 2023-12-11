@@ -11,7 +11,7 @@ namespace LeeJungChul
 		[Header("플레이어 상태")]
 		public Vector2 move;
 		public Vector2 look;
-		public bool jump;
+		public bool click;
 		public bool sprint;
 
 		public bool analogMovement;
@@ -38,6 +38,11 @@ namespace LeeJungChul
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnClick(InputValue value)
+        {
+			ClickInput(value.isPressed);
+        }
 #endif
 
 		public void MoveInput(Vector2 newMoveDirection)
@@ -54,6 +59,11 @@ namespace LeeJungChul
 		{
 			sprint = newSprintState;
 		}
+
+		public void ClickInput(bool newClickState)
+        {
+			click = newClickState;
+        }
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{
