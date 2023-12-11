@@ -16,6 +16,8 @@ namespace No
         [SerializeField]
         float checkTime;
 
+        bool isReverese = false;
+
 
         public override void Interact()
         {
@@ -37,6 +39,7 @@ namespace No
                     if(curCheckTime > checkTime)
                     {
                         curAnswerIndex++;
+                        isReverese = !isReverese;
                         Debug.Log("µþ±ï");
                         if (curAnswerIndex >= answerNumArr.Length)
                             break;
@@ -44,13 +47,13 @@ namespace No
                 }
                 else
                     curCheckTime = 0;
-                if (Input.GetKey(KeyCode.A))
-                {
-                    dialTr.Rotate(-Vector3.up);
-                }
-                if (Input.GetKey(KeyCode.D))
+                if (Input.GetKey(KeyCode.D) && !isReverese)
                 {
                     dialTr.Rotate(Vector3.up);
+                }
+                if (Input.GetKey(KeyCode.A) && isReverese)
+                {
+                    dialTr.Rotate(-Vector3.up);
                 }
                 yield return new WaitForEndOfFrame();
             }
