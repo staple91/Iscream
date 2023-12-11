@@ -8,8 +8,7 @@ namespace No
 {
     public abstract class Puzzle : MonoBehaviour, IInteractable
     {
-        public event Action OnSolved;
-        public UnityEvent onSolvedUnityEvent;
+        public UnityEvent OnSolved;
         Player owner;
         public Player Owner
         {
