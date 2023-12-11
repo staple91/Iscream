@@ -58,6 +58,7 @@ namespace KimKyeongHun
         MicComponent mic;
 
         public FirstPersonController controller;
+        public StarterAssetsInputs inputsystem;
 
         private bool isMoveable = true;
 
@@ -78,6 +79,7 @@ namespace KimKyeongHun
         // Start is called before the first frame update
         void Start()
         {
+            inputsystem = GetComponent<StarterAssetsInputs>();
             controller = GetComponent<FirstPersonController>();
             playerCam = GameObject.FindGameObjectWithTag("MainCamera");
             GameManager.Instance.playerList.Add(this);
@@ -114,7 +116,7 @@ namespace KimKyeongHun
 
             Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f, Color.red);
 
-            if (controller.photonView.IsMine && (Input.GetKey(KeyCode.JoystickButton0) || Input.GetMouseButtonDown(0)))
+            if (controller.photonView.IsMine && inputsystem.click)
             {
                 Debug.Log("a버튼 ");
                 Click();
@@ -134,6 +136,7 @@ namespace KimKyeongHun
         public void Click()
         {
             Interact();
+            inputsystem.click = false;
         }
 
         public void Interact()

@@ -14,26 +14,28 @@ namespace LeeJungChul
 #endif
     public class FirstPersonController : MonoBehaviourPun
     {
+        [Header("플레이어 속도")]
         [Tooltip("초당 움직임 속도")]
         public float MoveSpeed = 4.0f;
         [Tooltip("초당 달리기 속도")]
         public float SprintSpeed = 6.0f;
-        [Tooltip("플레이어 회전속도")]
-        public float RotationSpeed = 25.0f;
+        [Tooltip("플레이어 카메라 회전속도")]
+        [HideInInspector]
+        public float RotationSpeed = 15.0f;
         [Tooltip("가속도")]
-        public float SpeedChangeRate = 10.0f;
+        private float SpeedChangeRate = 10.0f;
         [Tooltip("캐릭터 중력")]
-        public float Gravity = -15.0f;
+        private float Gravity = -15.0f;
         [Tooltip("중력이 적용되는 시간")]
-        public float FallTimeout = 0.15f;
+        private float FallTimeout = 0.15f;
 
         [Header("플레이어 바닥체크")]
         [Tooltip("플레이어가 바닥에 있는 상태")]
         public bool Grounded = true;
         [Tooltip("바닥 오프셋")]
-        public float GroundedOffset = -0.14f;
+        private float GroundedOffset = -0.14f;
         [Tooltip("바닥체크 반경")]
-        public float GroundedRadius = 0.5f;
+        private float GroundedRadius = 0.5f;
         [Tooltip("바닥 레이어")]
         public LayerMask GroundLayers;
 
@@ -46,14 +48,14 @@ namespace LeeJungChul
         public float BottomClamp = -90.0f;
 
         [Header("플레이어 UI")]
-        public Animator playerUI;
+        private Animator playerUI;
 
         // 시네머신
         private float cinemachineTargetPitch;
 
         // 플레이어
-        private float speed;
-        public float rotationVelocity;
+        private float rotationVelocity;
+        private float speed;       
         private float verticalVelocity;
         private float terminalVelocity = 53.0f;
         private float fallTimeoutDelta;
