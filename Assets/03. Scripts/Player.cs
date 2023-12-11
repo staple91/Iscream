@@ -25,6 +25,9 @@ namespace KimKyeongHun
         [SerializeField]
         Renderer[] tpsRenders;
 
+        public CinemachineVirtualCamera cim;
+        public CinemachinePriority cinemachinePriority;
+        //public PlayerDeadCameraShake playerDead;
 
 
         // 플레이어 정신력 프로퍼티
@@ -36,6 +39,7 @@ namespace KimKyeongHun
             }
             set
             {
+                //currentHp = value;
                 if (currentHp > maxHp)
                 {
                     currentHp = maxHp;
@@ -43,6 +47,9 @@ namespace KimKyeongHun
                 if (currentHp <= 0)
                 {
                     // 플레이어 사망
+                    Debug.Log("플레이어 죽음 ");
+                    cinemachinePriority.GetIsPlayerCheck = true;
+
                 }
             }
         }
@@ -76,7 +83,16 @@ namespace KimKyeongHun
             GameManager.Instance.playerList.Add(this);
             mic = GetComponent<MicComponent>();
 
-            if(controller.photonView.IsMine)
+            cim = GetComponentInChildren<CinemachineVirtualCamera>();
+            cinemachinePriority = GetComponentInChildren<CinemachinePriority>();
+
+            cinemachinePriority.GetCim = cim;
+
+
+
+
+
+            if (controller.photonView.IsMine)
             {
                 foreach(Renderer render in tpsRenders) 
                 {
@@ -91,9 +107,12 @@ namespace KimKyeongHun
         void Update()
         {
 
+            //if(Input.GetKey(KeyCode.G))
+            //{
+            //    Hp -= 10;
+            //}
+
             Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f, Color.red);
-
-
 
             if (controller.photonView.IsMine && (Input.GetKey(KeyCode.JoystickButton0) || Input.GetMouseButtonDown(0)))
             {

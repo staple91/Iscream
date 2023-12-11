@@ -6,24 +6,17 @@ using Photon.Pun;
 
 namespace KimKyeongHun
 {
-    public class PlayerDeadCameraShake : MonoBehaviour
+    public class PlayerDeadCameraShake 
     {
 
         private CinemachineVirtualCamera playerCam;
-        private Vector3 camOriginalPos;
-
+        
         public PlayerDeadCameraShake(CinemachineVirtualCamera playerCam)
         {
             this.playerCam = playerCam;
         }
 
-        private void Start()
-        {
-            camOriginalPos = playerCam.transform.position;
-            StartCoroutine(CameraShake());
-            
-        }
-
+        
         public IEnumerator CameraShake()
         {
             float curTime = 0f;
@@ -37,8 +30,6 @@ namespace KimKyeongHun
             {
 
                 curTime += Time.deltaTime;
-
-
                 playerCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = cameraNoise;
                 yield return null;
 
@@ -46,8 +37,7 @@ namespace KimKyeongHun
 
 
             playerCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = cameraNoiseNone;
-            playerCam.transform.localPosition = camOriginalPos;
-
+            
             yield return null;
             
         }
@@ -61,13 +51,31 @@ namespace KimKyeongHun
         private PlayerDeadCameraShake playerDeadCam; // 플레이어가 죽을 때 카메라 흔들리는 연출
 
 
+        public CinemachineVirtualCamera GetCim
+        {
+            get { return cim; }
+            set
+            {
+                cim = value;
+            }
+        }
+
         private bool isPlayerCheck = false;
 
-        
+        public bool GetIsPlayerCheck
+        {
+            get { return isPlayerCheck; }
 
-        public Player player;
+            set
+            {
+                isPlayerCheck = value;
+                if (isPlayerCheck != false)
+                    PlayerDead();
+              
+            }
+        }
 
-
+       
 
         //플레이어의 PhotonView스크립트 가져와서 넣어주기
         [SerializeField]
@@ -85,12 +93,11 @@ namespace KimKyeongHun
         void Start()
         {
             cim = GetComponent<CinemachineVirtualCamera>();
-            playerDeadCam = new PlayerDeadCameraShake(cim);
-
-            player = GetComponentInParent<Player>();
+            playerDeadCam = new PlayerDeadCameraShake(GetCim);
 
             StartCoroutine(StartCutScene());
 
+            //StartCoroutine(playerDeadCam.CameraShake());
             //PlayerDeadScene();
             
         }
@@ -118,16 +125,15 @@ namespace KimKyeongHun
             
         }
 
+        void PlayerDead()
+        {
+            StartCoroutine(playerDeadCam.CameraShake());
+            
+        }
+
+
         private void Update()
         {
-
-            //PlayerDeadScene();
-            if (player.Hp <= 0)
-            {
-                StartCoroutine(playerDeadCam.CameraShake());
-            }
-
-
             ////플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
             //if(Input.GetKey(KeyCode.Space))
             //{
