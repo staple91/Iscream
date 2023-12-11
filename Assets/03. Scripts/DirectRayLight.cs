@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using YoungJaeKim;
 namespace No
 {
     public class DirectRayLight : MonoBehaviour
