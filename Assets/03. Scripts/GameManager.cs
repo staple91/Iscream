@@ -20,7 +20,7 @@ namespace LeeJungChul
         }
 
         /// <summary>
-        /// °ÔÀÓÀÌ ½ÃÀÛ µÉ¶§ ·£´ýÀ§Ä¡¿¡ ÇÃ·¹ÀÌ¾îÀÇ ¼ö¸¸Å­ ÇÃ·¹ÀÌ¾î¸¦ »ý¼ºÇÏ´Â ÇÔ¼ö
+        /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å­ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
         /// </summary>
         void CreatePlayer()
         {
@@ -34,7 +34,7 @@ namespace LeeJungChul
                 }
             }
             
-            PhotonNetwork.Instantiate("Player", spawnPoints[idx].position, spawnPoints[idx].rotation, 0);
+            //PhotonNetwork.Instantiate("Player", spawnPoints[idx].position, spawnPoints[idx].rotation, 0);
         }
     }
 }

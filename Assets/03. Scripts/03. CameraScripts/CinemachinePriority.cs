@@ -17,10 +17,10 @@ namespace KimKyeongHun
             this.playerCam = playerCam;
         }
 
-
         private void Start()
         {
             camOriginalPos = playerCam.transform.position;
+            StartCoroutine(CameraShake());
             
         }
 
@@ -38,13 +38,18 @@ namespace KimKyeongHun
 
                 curTime += Time.deltaTime;
 
+
                 playerCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = cameraNoise;
                 yield return null;
 
             }
 
+
             playerCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = cameraNoiseNone;
             playerCam.transform.localPosition = camOriginalPos;
+
+            yield return null;
+            
         }
     }
 
@@ -54,6 +59,15 @@ namespace KimKyeongHun
     {
         public CinemachineVirtualCamera cim; // 시네머신 우선 순위를 변경하기 위한 것
         private PlayerDeadCameraShake playerDeadCam; // 플레이어가 죽을 때 카메라 흔들리는 연출
+
+
+        private bool isPlayerCheck = false;
+
+        
+
+        public Player player;
+
+
 
         //플레이어의 PhotonView스크립트 가져와서 넣어주기
         [SerializeField]
@@ -73,7 +87,11 @@ namespace KimKyeongHun
             cim = GetComponent<CinemachineVirtualCamera>();
             playerDeadCam = new PlayerDeadCameraShake(cim);
 
+            player = GetComponentInParent<Player>();
+
             StartCoroutine(StartCutScene());
+
+            //PlayerDeadScene();
             
         }
 
@@ -100,15 +118,21 @@ namespace KimKyeongHun
             
         }
 
-
         private void Update()
         {
 
-            //플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
-            if(Input.GetKey(KeyCode.Space))
+            //PlayerDeadScene();
+            if (player.Hp <= 0)
             {
                 StartCoroutine(playerDeadCam.CameraShake());
             }
+
+
+            ////플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
+            //if(Input.GetKey(KeyCode.Space))
+            //{
+            //    StartCoroutine(playerDeadCam.CameraShake());
+            //}
         }
 
     }

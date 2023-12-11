@@ -24,7 +24,8 @@ namespace KimKyeongHun
         [Tooltip("자신의 캐릭터 모델들")]
         [SerializeField]
         Renderer[] tpsRenders;
-        
+
+
 
         // 플레이어 정신력 프로퍼티
         public float Hp
@@ -74,6 +75,7 @@ namespace KimKyeongHun
             playerCam = GameObject.FindGameObjectWithTag("MainCamera");
             GameManager.Instance.playerList.Add(this);
             mic = GetComponent<MicComponent>();
+
             if(controller.photonView.IsMine)
             {
                 foreach(Renderer render in tpsRenders) 
