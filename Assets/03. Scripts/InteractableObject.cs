@@ -64,8 +64,8 @@ namespace No
 
     public class DoorStratagy : InteractStratagy
     {
-        bool isOpen = false;
-        bool isRunning = false;
+        public bool isOpen = false;
+        public bool isRunning = false;
         public DoorStratagy(InteractableObject target) : base(target)
         {
             this.target = target;
