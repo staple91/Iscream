@@ -185,7 +185,7 @@ namespace LeverSystem
             acceptedSwitch.Play(switchOnName, 0, 0.0f);
             limitReachedSwitch.Play(switchOffName, 0, 0.0f);
 
-            puzzleClear.parentSprite.sprite = puzzleClear.sprite;
+            puzzleClear.gifAnimator.SetTrigger("Clear");
         }
 
         IEnumerator ResetTimer(float waitTime)
@@ -200,18 +200,18 @@ namespace LeverSystem
 
         void SwitchPullAudio()
         {
-            LeverAudioManager.instance.Play(switchPullSound);
+            //LeverAudioManager.instance.Play(switchPullSound);
 
         }
 
         void SwitchFailAudio()
         {
-            LeverAudioManager.instance.Play(switchFailSound);
+            //LeverAudioManager.instance.Play(switchFailSound);
         }
 
         void SwitchDoorOpenAudio()
         {
-            LeverAudioManager.instance.Play(switchDoorSound);
+            //LeverAudioManager.instance.Play(switchDoorSound);
         }
 
 

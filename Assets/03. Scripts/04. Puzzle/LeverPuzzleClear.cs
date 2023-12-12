@@ -1,26 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using No;
 
-public class LeverPuzzleClear : Puzzle
+public class LeverPuzzleClear : MonoBehaviour
 {
-    public Sprite sprite;
-    public SpriteRenderer parentSprite;
+    public Animator gifAnimator;
 
     private void Start()
     {
-        parentSprite = GetComponent<SpriteRenderer>();       
+        gifAnimator = GetComponent<Animator>();
     }
-
-    private void Update()
-    {
-        Interact();
-    }
-
-    public override void Interact()
-    {      
-        Debug.Log("Å¬¸®¾î");
-    }
-
 }

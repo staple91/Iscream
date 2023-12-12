@@ -10,7 +10,6 @@ namespace LeverSystem
 
         [SerializeField] private int leverNumber = 1;
 
-
         [SerializeField] private string animationName = "Handle_Pull";
 
         [SerializeField] private LeverSystemController _leverSystemController = null;
