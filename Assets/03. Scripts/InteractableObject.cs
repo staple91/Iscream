@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using KimKyeongHun;
 using LeeJungChul;
+using PangGom;
 
 namespace No
 {
@@ -35,7 +36,7 @@ namespace No
                     stratagy = new DoorStratagy(this);
                     break;
                 case InteractType.MorgueBox:
-                    stratagy = new DoorStratagy(this);
+                    stratagy = new MorgueBox(this);
                     break;
             }
         }
