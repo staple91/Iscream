@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3834397201365296104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3835724981516138780}
+  - component: {fileID: 3792044176416855852}
+  m_Layer: 0
+  m_Name: Lever System Controller_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3835724981516138780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3834397201365296104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3792044176416855852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3834397201365296104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3560ef1a9ecb5d644af2beff0b809d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leverOrder: 12345
+  pullLimit: 5
+  pullTimer: 1
+  interactiveObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  readySwitch: {fileID: 0}
+  limitReachedSwitch: {fileID: 0}
+  acceptedSwitch: {fileID: 0}
+  resettingSwitch: {fileID: 0}
+  readyLight: {fileID: 0}
+  limitReachedLight: {fileID: 0}
+  acceptedLight: {fileID: 0}
+  resettingLight: {fileID: 0}
+  testButton: {fileID: 0}
+  resetButton: {fileID: 0}
+  switchOnName: Switch_On
+  switchOffName: Switch_Off
+  redButtonName: RedButton_Push
+  switchPullSound: {fileID: 11400000, guid: a704b8f2b42a5fe47a0bc171cf055b06, type: 2}
+  switchFailSound: {fileID: 11400000, guid: 326456e2123721c4e8be03960d3621ec, type: 2}
+  switchDoorSound: {fileID: 11400000, guid: 8a35ae30db419104a87d3be0700b1696, type: 2}
+  LeverPower:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: PowerLights
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
