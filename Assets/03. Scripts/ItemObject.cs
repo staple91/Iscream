@@ -5,6 +5,7 @@ using KimKyeongHun;
 using LeeJungChul;
 using No;
 using JetBrains.Annotations;
+using UnityEditor.UI;
 
 namespace YoungJaeKim
 {
@@ -84,6 +85,10 @@ namespace YoungJaeKim
     {
         ScreenShot screenShot;
         public CameraEquip(ItemObject im) : base(im) { }
+        public override void Interact()
+        {
+            Active();
+        }
         public override void Active()
         {
             Debug.Log("찍혔닷");
@@ -91,9 +96,9 @@ namespace YoungJaeKim
             //string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
             string fileName = "SCREENSHOT-" + ".png";
             string filePath = Application.dataPath + "/05. Data/ScreenShot/" + fileName;
-            Debug.Log("스샷"!);
+            
             itemObj.Owner.StartCoroutine(ScreenShotCapture1(filePath));
-
+            
             //ScreenCapture.CaptureScreenshot(Application.dataPath+"/05. Data/ScreenShot/" + fileName);
             //위에거는 되긴하는데 저장이 너무 오래걸림
 
@@ -105,11 +110,17 @@ namespace YoungJaeKim
 
         public IEnumerator ScreenShotCapture1(string filePath)
         {
+            Debug.Log("스샷"!);
             yield return new WaitForEndOfFrame();
 
 
-            Texture2D texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
+            /*Texture2D texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
             texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+            texture.Apply();*/ //플레이어 시야로 스크린샷
+
+            RenderTexture.active = itemObj.screenShotTexture;//특정 카메라시점의 랜더 텍스쳐를 따오면 그것의 스크린샷을 찍을수 있습니다.
+            Texture2D texture = new Texture2D(itemObj.screenShotTexture.width, itemObj.screenShotTexture.height);
+            texture.ReadPixels(new Rect(0, 0, itemObj.screenShotTexture.width, itemObj.screenShotTexture.height), 0, 0);
             texture.Apply();
 
             byte[] photo = texture.EncodeToPNG();
@@ -203,7 +214,7 @@ namespace YoungJaeKim
         Player owner;
         public Item item;
         public ITEM_TYPE itemType;
-
+        public RenderTexture screenShotTexture;
         Transform fpsTr;
         Transform tpsTr;
         public Player Owner
@@ -231,6 +242,7 @@ namespace YoungJaeKim
         // Start is called before the first frame update
         void Start()
         {
+            
             switch (itemType)
             {
                 case ITEM_TYPE.CAMERA:
@@ -242,7 +254,7 @@ namespace YoungJaeKim
                 case ITEM_TYPE.FLASHLIGHT: 
                     item = new FlashLight(this); break;
             }
-            
+           
         }
 
     }
