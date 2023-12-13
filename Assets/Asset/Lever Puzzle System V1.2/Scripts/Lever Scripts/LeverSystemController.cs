@@ -59,13 +59,16 @@ namespace LeverSystem
         private Material resettingBtnMat;
         private Material acceptedBtnMat;
         private Material limitBtnMat;
-        public LeverPuzzleClear puzzleClear;
+        private LeverPuzzleClear puzzleClear;
+
+        private TextMesh leverText;
 
         private void Start()
         {
             SetMaterials();
             InitializeSwitches();
             puzzleClear = GetComponentInChildren<LeverPuzzleClear>();
+            leverText = GetComponentInChildren<TextMesh>();
         }
 
         private void SetMaterials()
@@ -109,6 +112,7 @@ namespace LeverSystem
         public void LeverPull(int leverNumber)
         {
             playerOrder = playerOrder + leverNumber;
+            leverText.text += leverNumber + (" ");
             pulls++;
             if (canPull)
             {
@@ -123,6 +127,7 @@ namespace LeverSystem
 
         public void LeverReset()
         {
+            leverText.text = ("실패 답 입력 : ");
             pulls = 0;
             playerOrder = "";
             SwitchFailAudio();
@@ -152,6 +157,7 @@ namespace LeverSystem
 
         public void LeverCheck()
         {
+            leverText.text = ("답 입력 : ");
             testButton.Play(redButtonName, 0, 0.0f);
             if (playerOrder == leverOrder)
             {
@@ -159,12 +165,13 @@ namespace LeverSystem
             }
             else
             {
-                LeverReset();
+                LeverReset();               
             }
-        }     
+        }
 
         public void CompleteLeverCheck()
         {
+            leverText.text = ("성공");
             pulls = 0;
             SwitchDoorOpenAudio();
 

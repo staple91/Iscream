@@ -8,7 +8,7 @@ namespace LeverSystem
         public ObjectType _objectType = ObjectType.None;
         public enum ObjectType { None, Lever, TestButton, ResetButton }
 
-        [SerializeField] private int leverNumber = 1;
+        [SerializeField] public int leverNumber = 1;
 
         [SerializeField] private string animationName = "Handle_Pull";
 
