@@ -51,6 +51,9 @@ namespace KimKyeongHun
         private PlayerDeadCameraShake playerDeadCam; // 플레이어가 죽을 때 카메라 흔들리는 연출
 
 
+        
+
+
 
         private bool isPlayerCheck = false;
 

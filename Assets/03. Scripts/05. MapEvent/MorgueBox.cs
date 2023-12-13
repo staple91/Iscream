@@ -21,7 +21,7 @@ namespace PangGom
 
             Transform targetTr = target.GetComponent<Transform>();
             Transform morgueBed = targetTr.parent.GetComponent<Transform>();
-            morgueBed = morgueBed.transform.GetChild(0); // ÀÚ½ÄÀ» ¹øÈ£·Î Ã£À½. 0¹øÂ°°¡ Ã¹ ¹øÂ° ÀÚ½Ä
+            morgueBed = morgueBed.transform.GetChild(0); // ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ Ã£ï¿½ï¿½. 0ï¿½ï¿½Â°ï¿½ï¿½ Ã¹ ï¿½ï¿½Â° ï¿½Ú½ï¿½
             if (!isRunning)
             {
                 isRunning = true;
@@ -40,7 +40,7 @@ namespace PangGom
             float bedOpen = 0.3f;
             Vector3 bedOpenTarget = new Vector3(bedTr.localPosition.x, bedTr.localPosition.y, 0f);
             float bedsmoot = 1f;
-            while (tr.localRotation.eulerAngles.y == 0 || tr.localRotation.eulerAngles.y > 245f)// ¹®¿­¸®°í ´ÙÀ½
+            while (tr.localRotation.eulerAngles.y == 0 || tr.localRotation.eulerAngles.y > 245f)// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 Debug.Log(tr.localRotation.eulerAngles.y);
                 Quaternion targetRotation = Quaternion.Euler(0, doorOpenAngle, 0);
@@ -48,7 +48,7 @@ namespace PangGom
                 yield return new WaitForEndOfFrame();
 
             }
-            while (bedTr.localPosition.z > bedOpen)//¼±Çüº¸°£, ¹èµå ºüÁü
+            while (bedTr.localPosition.z > bedOpen)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 bedTr.localPosition = Vector3.Lerp(bedTr.localPosition, bedOpenTarget, bedsmoot * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
@@ -65,12 +65,16 @@ namespace PangGom
             float bedClose = 1.35f;
             Vector3 bedCloseTarget = new Vector3(bedTr.localPosition.x, bedTr.localPosition.y, 1.4f);
             float bedsmoot = 1f;
-            while (bedTr.localPosition.z < bedClose)//º£µå ´ÝÈù ´ÙÀ½
+
+            target.Owner.InteractionDollyCart();
+
+
+            while (bedTr.localPosition.z < bedClose)//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 bedTr.localPosition = Vector3.Lerp(bedTr.localPosition, bedCloseTarget, bedsmoot * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
-            while (tr.localRotation.eulerAngles.y != 0 && tr.localRotation.eulerAngles.y < 356f)//¹®´ÝÈû
+            while (tr.localRotation.eulerAngles.y != 0 && tr.localRotation.eulerAngles.y < 356f)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 Debug.Log(tr.localRotation.eulerAngles.y);
                 Quaternion targetRotation = Quaternion.Euler(0, doorCloseAngle, 0);

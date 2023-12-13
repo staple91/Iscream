@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using No;
+using PangGom;
 
 namespace KimKyeongHun
 {
@@ -28,8 +29,23 @@ namespace KimKyeongHun
         public CinemachinePriority cinemachinePriority;
         public Inventory inven;
 
+        public GameObject ob1;
+        public GameObject ob2;
+
+        public bool isOpen;
+
+        public int count = 0; // 사용자 키 입력 횟수 
+
+
+        public CinemachineVirtualCamera vircam;
+
+        
+
         public Transform fpsHandTr;
         public Transform tpsHandTr;
+
+       
+
 
         // 플레이어 정신력 프로퍼티
         public float Hp
@@ -55,7 +71,7 @@ namespace KimKyeongHun
             }
         }
 
-        public GameObject playerCam;
+        //public GameObject playerCam;
         MicComponent mic;
 
         public FirstPersonController controller;
@@ -82,14 +98,21 @@ namespace KimKyeongHun
         {
             inputsystem = GetComponent<StarterAssetsInputs>();
             controller = GetComponent<FirstPersonController>();
-            playerCam = GameObject.FindGameObjectWithTag("MainCamera");
+            //playerCam = GameObject.FindGameObjectWithTag("MainCamera");
             GameManager.Instance.playerList.Add(this);
             mic = GetComponent<MicComponent>();
 
+            ob1.SetActive(false);
+            
+            
             
             cinemachinePriority = GetComponentInChildren<CinemachinePriority>();
 
+            vircam = GetComponentInChildren<CinemachineVirtualCamera>();
+            
+            
 
+         
 
             if (controller.photonView.IsMine)
             {
@@ -112,10 +135,13 @@ namespace KimKyeongHun
                 Hp -= 10;
             }
 
-            Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f, Color.red);
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10f, Color.red);
 
             if (controller.photonView.IsMine && inputsystem.click)
             {
+                
+
+                
                 Debug.Log("a버튼 ");
                 Click();
             }
@@ -137,21 +163,54 @@ namespace KimKyeongHun
             inputsystem.click = false;
         }
 
+        
         public void Interact()
         {
             //문열림, 불 켜기 등등
             RaycastHit hit;
-            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
+
+           
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 10f, out hit, 10))
             {
                 
-                if(hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
+                if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {
                     //GameManager.Instance.objectPhotonView.RequestOwnership();
                     interactable.Owner = this;
                     interactable.Interact();
+                    
+
+                    //if (hit.transform.name == "MorgueBox_Door3")
+                    //{
+                    //    count++;
+                    //    isOpen = true;
+                    //    if(count >= 2 && isOpen == true)
+                    //    {
+                    //        InteractionDollyCart();
+
+                    //    }
+                    //    Debug.Log("morguebox 상호작용");
+
+                       
+                    //}
+                    //vircam.Follow =  ob2.GetComponent<FirstPersonController>().CinemachineCameraTarget ;
+
                     Debug.Log("상호작용");
                 }
+               
+
             }
+
+            
+        }
+
+
+        public void InteractionDollyCart()
+        {
+            ob1.SetActive(true);
+            vircam.Follow = ob2.gameObject.transform;
+            ob2.GetComponent<CinemachineDollyCart>().enabled = true;
+
         }
 
 

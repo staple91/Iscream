@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using KimKyeongHun;
 using LeeJungChul;
+using PangGom;
 
 namespace No
 {
@@ -14,6 +15,8 @@ namespace No
         MorgueBox
 
     }
+
+    
     public class InteractableObject : MonoBehaviourPunCallbacks, IInteractable
     {
         [SerializeField]
@@ -35,7 +38,7 @@ namespace No
                     stratagy = new DoorStratagy(this);
                     break;
                 case InteractType.MorgueBox:
-                    stratagy = new DoorStratagy(this);
+                    stratagy = new MorgueBox(this);
                     break;
             }
         }
@@ -56,6 +59,7 @@ namespace No
 
     }
 
+    
     public abstract class InteractStratagy
     {
         protected InteractableObject target;
@@ -66,6 +70,7 @@ namespace No
         public abstract void Act();
     }
 
+    
     public class DoorStratagy : InteractStratagy
     {
         public bool isOpen = false;
@@ -89,7 +94,7 @@ namespace No
         }
         IEnumerator OpenDoor(Transform tr)
         {
-            Debug.Log("¹®¿­¸°´ç");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             float doorOpenAngle = 90f;
             float smoot = 2f;
             while (tr.localRotation.eulerAngles.y < 89f)
