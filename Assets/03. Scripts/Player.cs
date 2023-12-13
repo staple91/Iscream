@@ -29,12 +29,8 @@ namespace KimKyeongHun
         public CinemachinePriority cinemachinePriority;
         public Inventory inven;
 
-        public GameObject ob1;
-        public GameObject ob2;
-
-        public bool isOpen;
-
-        public int count = 0; // 사용자 키 입력 횟수 
+        public GameObject ob1; //시네머신 둘리 실행 전 기존 카메라 1번 
+        public GameObject ob2; //시네머신 둘리 실행 후 기존 카메라에서 2번 카메라 
 
 
         public CinemachineVirtualCamera vircam;
@@ -102,18 +98,13 @@ namespace KimKyeongHun
             GameManager.Instance.playerList.Add(this);
             mic = GetComponent<MicComponent>();
 
-            ob1.SetActive(false);
-            
-            
+           
             
             cinemachinePriority = GetComponentInChildren<CinemachinePriority>();
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
             
             
-
-         
-
             if (controller.photonView.IsMine)
             {
                 foreach(Renderer render in tpsRenders) 
@@ -139,9 +130,7 @@ namespace KimKyeongHun
 
             if (controller.photonView.IsMine && inputsystem.click)
             {
-                
-
-                
+                  
                 Debug.Log("a버튼 ");
                 Click();
             }
@@ -177,42 +166,55 @@ namespace KimKyeongHun
                 {
                     //GameManager.Instance.objectPhotonView.RequestOwnership();
                     interactable.Owner = this;
-                    interactable.Interact();
-                    
-
-                    //if (hit.transform.name == "MorgueBox_Door3")
-                    //{
-                    //    count++;
-                    //    isOpen = true;
-                    //    if(count >= 2 && isOpen == true)
-                    //    {
-                    //        InteractionDollyCart();
-
-                    //    }
-                    //    Debug.Log("morguebox 상호작용");
-
-                       
-                    //}
-                    //vircam.Follow =  ob2.GetComponent<FirstPersonController>().CinemachineCameraTarget ;
+                    interactable.Interact();        
 
                     Debug.Log("상호작용");
                 }
                
-
             }
-
             
         }
 
 
         public void InteractionDollyCart()
         {
-            ob1.SetActive(true);
+            
             vircam.Follow = ob2.gameObject.transform;
+            vircam.AddCinemachineComponent<CinemachinePOV>();
+            this.GetComponent<CharacterController>().enabled = false;
+
+
+            //둘리카트 실행할 때 플레이어 SkinnedMeshRenderer들을 꺼둔다.
+            SkinnedMeshRenderer[] playerSkin = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            foreach(SkinnedMeshRenderer renderer in playerSkin)
+            {
+                renderer.enabled = false;
+            }
+            
             ob2.GetComponent<CinemachineDollyCart>().enabled = true;
 
         }
 
+        public void CancelDollyCart()
+        {
+            
+            vircam.Follow = ob1.gameObject.transform;
+            this.GetComponent<CharacterController>().enabled = true;
+            
+            //되돌아 올 때는 플레이어 SkinnedMeshRenderer들을 다시 켜준다.
+            SkinnedMeshRenderer[] playerSkin = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            foreach (SkinnedMeshRenderer renderer in playerSkin)
+            {
+                renderer.enabled = true;
+            }
+
+            vircam.DestroyCinemachineComponent<CinemachinePOV>();
+            ob2.GetComponent<CinemachineDollyCart>().enabled = false;
+            ob2.GetComponent<CinemachineDollyCart>().m_Position = 0;
+
+        }
 
     }
 }
