@@ -24,7 +24,7 @@ namespace YoungJaeKim
 
         {
             get;
-            private set;
+            set;
         }
 
         public bool IsDection
@@ -71,7 +71,7 @@ namespace YoungJaeKim
 
                 Vector3 direction = (col.transform.position - transform.position).normalized;//normalized - 방향만 추출
 
-                Debug.DrawLine(transform.position, transform.position + (direction * maxDistance), Color.blue);
+                //Debug.DrawLine(transform.position, transform.position + (direction * maxDistance), Color.blue);
 
                 if (Physics.Raycast(transform.position, direction, out hit, maxDistance))
 

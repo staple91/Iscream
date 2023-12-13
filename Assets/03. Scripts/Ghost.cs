@@ -20,7 +20,7 @@ namespace YoungJaeKim
         Rigidbody rb;
 
         [SerializeField]
-        float cubeVolume = 10;
+        //float cubeVolume = 10;
         float checkTime = 1f;
         public float Loudness { set => throw new System.NotImplementedException(); }
 
@@ -32,83 +32,23 @@ namespace YoungJaeKim
         {
             rb = GetComponent<Rigidbody>();
             ghostAgent = GetComponent<NavMeshAgent>();
-
+            StartCoroutine(PlayerCheck());
         }
 
         // Update is called once per frame
         void Update()
         {
-            Patrol();
-            /*if (detective.IsDection)
-            {
-
-                //Vector3 targetVec = (detective.LastDetectivePos - transform.position).normalized;// 방향추출
-
-                //transform.forward = targetVec;//타겟방향으로 전진하도록 방향수정
-
-                //rb.velocity = targetVec * enemySpeed;
-                ghostAgent.SetDestination(detective.col.transform.position);
-                Debug.Log("몬스터 움직임");
-
-            }*/
-
-            // Collider[] cols1 = Physics.OverlapSphere(transform.position, cubeVolume, 1 << 7);
-
-
+            ghostAgent.isStopped = false;
+            Patrol();           
         }
 
         void Patrol()
         {
-
-            //Vector3 dir = (transform.position*partrolable - transform.position);
-
-            //float distance = dir.magnitude;
-            //float distance;
-
-
-            //distance= Vector3.Distance(transform.position, detective.col.transform.position);
-
-
-            Debug.DrawLine(transform.position, transform.forward, Color.green);
-            //Debug.DrawLine(transform.position, transform.position + dir * partrolable, Color.magenta);
-            //float dot = Vector3.Dot(transform.forward, dir);
+            Debug.Log("패트롤되니?");
+            Debug.DrawLine(transform.position, transform.forward, Color.green);          
             Vector3 randPos;
             bool canMove = PatrolableRange(transform.position, out randPos);
-            //Debug.Log("distance="+distance);
-            Debug.Log("partrolable=" + patrolable);
-            //bool canMove = PatrolableRange(transform.position, out Vector3 randPos);
-            /*if (distance < partrolable)//&& dot > 0
-            {
-               
-
-                if(detective.col ==null)
-                {
-                    ghostAgent.destination = randPos;
-                }
-                
-                StartCoroutine(PlayerCheck());
-                //ghostAgent.destination = detective.col.transform.position;
-            }
-
-
-            else
-            {
-                Debug.Log("돌아가냐");
-                if (canMove == false)
-                {
-                    canMove = PatrolableRange(transform.position, out randPos, 10);
-                }
-                else
-                {
-                    ghostAgent.destination = randPos;
-                    if (Vector3.Distance(transform.position, randPos) < 0.1f)
-                    {
-                        canMove = false;
-                    }
-                }
-
-            }*/
-            if (detective.col == null)
+            if (detective.cols.Length == 0)//detective.col == null
             {
                 ghostAgent.destination = randPos;
                 if (canMove == false)
@@ -124,7 +64,14 @@ namespace YoungJaeKim
                     }
                 }
             }
-            else { ghostAgent.destination = detective.col.transform.position; }
+            else 
+            {
+                
+                //ghostAgent.destination = detective.col.transform.position;
+                
+                ghostAgent.SetDestination(detective.col.transform.position);
+                //StartCoroutine(PlayerCheck());
+            }
 
 
         }
@@ -141,31 +88,25 @@ namespace YoungJaeKim
         }
         IEnumerator PlayerCheck()
         {
-            Debug.Log("코루틴 돌아가냐");
+            
 
             while (true)
             {
-
-                if (detective.col == null)
+                yield return new WaitForSeconds(3f);
+                if (detective.cols.Length >0)
                 {
-                    yield break;
-
-                    //yield return new WaitForSeconds(checkTime);
+                    ghostAgent.SetDestination(detective.col.transform.position);
                 }
-
-                ghostAgent.SetDestination(detective.col.transform.position);
-
-                if (detective.IsDection == false)//detective.isRangeDetection==false && 
-                {
-                    yield break;
+                
+                if (detective.cols.Length == 0)
+                {                    
+                    ghostAgent.ResetPath();                    
+                    Debug.Log("코루틴 아웃");                  
                 }
-
                 yield return null;
             }
-
-
-
-
+            
+            
         }
 
 
