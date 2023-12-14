@@ -45,9 +45,6 @@ namespace KimKyeongHun
 
 
         public Camera playerCam;
-
-        public Transform fpsHandTr;
-        public Transform tpsHandTr;
         // 플레이어 정신력 프로퍼티
         public float Hp
         {
