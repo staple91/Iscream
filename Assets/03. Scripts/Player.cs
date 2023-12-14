@@ -180,7 +180,13 @@ namespace KimKyeongHun
         {
             
             vircam.Follow = ob2.gameObject.transform;
-            vircam.AddCinemachineComponent<CinemachinePOV>();
+            var pov = vircam.AddCinemachineComponent<CinemachinePOV>();
+
+            pov.m_HorizontalAxis.m_MaxSpeed = 100f;
+            pov.m_VerticalAxis.m_MaxSpeed = 80f;
+
+            
+         
             this.GetComponent<CharacterController>().enabled = false;
 
 
