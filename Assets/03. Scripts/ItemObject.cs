@@ -4,7 +4,7 @@ using UnityEngine;
 using KimKyeongHun;
 using LeeJungChul;
 using No;
-using JetBrains.Annotations;
+using Photon.Pun;
 
 namespace YoungJaeKim
 {
@@ -27,10 +27,15 @@ namespace YoungJaeKim
         public override void Interact()
         {
             itemObj.Owner.inven.AddItem(this.itemObj);
+            Equip();
+        }
+        public void Equip()
+        {
+            itemObj.Equip();
         }
     }
 
-    public class LightMirrorItem : Item
+    public class LightMirrorItem : EquipmentItem
     {
         public LightMirrorItem(ItemObject im) : base(im)
         {
@@ -48,11 +53,6 @@ namespace YoungJaeKim
 
         public override void Explain()
         {
-        }
-
-        public override void Interact()
-        {
-            itemObj.Owner.inven.AddItem(this.itemObj);
         }
 
         IEnumerator RotateMirrorCo()
@@ -126,7 +126,6 @@ namespace YoungJaeKim
         float curBattery = 0;
         public FlashLight(ItemObject im) : base(im)
         {
-            Debug.Log(itemObj.transform.GetChild(0));
             light = itemObj.transform.GetChild(0).GetComponent<Light>();
             curBattery = maxBatttery;
             lightPower = light.intensity;
@@ -172,6 +171,7 @@ namespace YoungJaeKim
             //열쇠다. 어떤 상자를 열수 있을지도??
         }
 
+
     }
 
     public class Battery : Item
@@ -198,14 +198,23 @@ namespace YoungJaeKim
         FLASHLIGHT,
     }
 
-    public class ItemObject : MonoBehaviour, IInteractable
+    public class ItemObject : MonoBehaviourPunCallbacks, IInteractable
     {
         Player owner;
         public Item item;
         public ITEM_TYPE itemType;
 
-        Transform fpsTr;
-        Transform tpsTr;
+        [HideInInspector]
+        public Transform fpsTr;
+        [HideInInspector]
+        public Transform tpsTr;
+
+        //프리펩
+        [SerializeField]
+        public GameObject ModelPrefab;
+        //실제로 생성될 게임으보젝트
+        [HideInInspector]
+        public GameObject tpsModel;
         public Player Owner
         {
             get => owner;
@@ -219,30 +228,55 @@ namespace YoungJaeKim
                 }
             }
         }
-
         public void Interact()
         {
             item.Interact();
-            transform.SetParent(fpsTr);
-            if(owner != null)
-                transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
         }
 
-        // Start is called before the first frame update
-        void Start()
+
+        //인벤토리에 들어갈 때 위치 지정 해 주려고 쓰는 메서드
+        public void Equip()
         {
+            transform.SetParent(fpsTr);
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+
+            if (Owner.controller.photonView.IsMine)
+                GetComponent<Renderer>().enabled = true;
+            else
+            {
+                Owner.inven.tpsItemDic[itemType].SetActive(true);
+                GetComponent<Renderer>().enabled = false;
+            }
+            
+        }
+        public void UnEquip()
+        {
+            if (Owner.controller.photonView.IsMine)
+                GetComponent<Renderer>().enabled = false;
+            else
+                Owner.inven.tpsItemDic[itemType].SetActive(false);
+        }
+
+        public void Discard()
+        {
+            UnEquip();
+            GetComponent<Renderer>().enabled = true;
+            transform.SetParent(null);
+        }
+        public override void OnEnable()
+        {
+            base.OnEnable();
             switch (itemType)
             {
                 case ITEM_TYPE.CAMERA:
                     item = new CameraEquip(this); break;
-                case ITEM_TYPE.BATTERY: 
+                case ITEM_TYPE.BATTERY:
                     item = new Battery(this); break;
                 case ITEM_TYPE.KEY:
                     item = new Key(this); break;
-                case ITEM_TYPE.FLASHLIGHT: 
+                case ITEM_TYPE.FLASHLIGHT:
                     item = new FlashLight(this); break;
             }
-            
         }
 
     }

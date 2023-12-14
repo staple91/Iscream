@@ -13,6 +13,7 @@ namespace LeeJungChul
         private Transform[] spawnPoints;
 
         public List<Player> playerList = new List<Player>();
+        public Player curPlayer;
 
         private void Start()
         {
@@ -34,7 +35,7 @@ namespace LeeJungChul
                 }
             }
             
-            //PhotonNetwork.Instantiate("Player", spawnPoints[idx].position, spawnPoints[idx].rotation, 0);
+            curPlayer =PhotonNetwork.Instantiate("Player", spawnPoints[idx].position, spawnPoints[idx].rotation, 0).GetComponent<Player>();
         }
     }
 }

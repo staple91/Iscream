@@ -44,6 +44,14 @@ MonoBehaviour:
   - PunInteract
   - RpcInteract
   - <Interact>g__RpcInteract|18_0
+  - RpcEquip
+  - RpcUnEquip
+  - SetActiveModel
+  - SetDisActiveModel
+  - SetItem
+  - Equip
+  - DebugDraw
+  - ChangeItem
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

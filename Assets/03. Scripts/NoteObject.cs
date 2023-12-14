@@ -10,7 +10,7 @@ namespace No
     public class NoteObject : MonoBehaviour, IInteractable
     {
         Player owner;
-        public Player Owner { set => owner = value; }
+        public Player Owner { get => owner; set => owner = value; }
 
         [SerializeField, TextArea]
         string content;

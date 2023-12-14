@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using No;
 using PangGom;
+using YoungJaeKim;
 
 namespace KimKyeongHun
 {
@@ -28,7 +29,7 @@ namespace KimKyeongHun
 
         public CinemachinePriority cinemachinePriority;
         public Inventory inven;
-
+        
         public GameObject ob1; //시네머신 둘리 실행 전 기존 카메라 1번 
         public GameObject ob2; //시네머신 둘리 실행 후 기존 카메라에서 2번 카메라 
 
@@ -43,6 +44,10 @@ namespace KimKyeongHun
        
 
 
+        public Camera playerCam;
+
+        public Transform fpsHandTr;
+        public Transform tpsHandTr;
         // 플레이어 정신력 프로퍼티
         public float Hp
         {
@@ -67,7 +72,6 @@ namespace KimKyeongHun
             }
         }
 
-        //public GameObject playerCam;
         MicComponent mic;
 
         public FirstPersonController controller;
@@ -94,12 +98,9 @@ namespace KimKyeongHun
         {
             inputsystem = GetComponent<StarterAssetsInputs>();
             controller = GetComponent<FirstPersonController>();
-            //playerCam = GameObject.FindGameObjectWithTag("MainCamera");
             GameManager.Instance.playerList.Add(this);
             mic = GetComponent<MicComponent>();
 
-           
-            
             cinemachinePriority = GetComponentInChildren<CinemachinePriority>();
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -107,10 +108,20 @@ namespace KimKyeongHun
             
             if (controller.photonView.IsMine)
             {
-                foreach(Renderer render in tpsRenders) 
+                foreach (Renderer render in tpsRenders)
                 {
                     render.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
                 }
+            }
+            else
+            {
+                foreach (Behaviour comp in playerCam.GetComponents<Behaviour>())
+                {
+                    if (comp as PhotonTransformView)
+                        continue;
+                    comp.enabled = false;
+                }
+
             }
 
         }
@@ -119,6 +130,12 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
+            if(controller.photonView.IsMine)
+            {
+                Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f);
+            }
+
+
 
             //플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
             if (Input.GetKey(KeyCode.G))
@@ -148,23 +165,27 @@ namespace KimKyeongHun
 
         public void Click()
         {
-            Interact();
+            if(controller.photonView.IsMine)
+                controller.photonView.RPC("Interact", RpcTarget.AllBuffered);
             inputsystem.click = false;
         }
+        [PunRPC]
+        void DebugDraw()
+        {
+            Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f);
 
-        
+        }
+        [PunRPC]
         public void Interact()
         {
             //문열림, 불 켜기 등등
             RaycastHit hit;
-
            
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 10f, out hit, 10))
             {
                 
                 if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
-                {
-                    //GameManager.Instance.objectPhotonView.RequestOwnership();
+                {     
                     interactable.Owner = this;
                     interactable.Interact();        
 

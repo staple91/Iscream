@@ -22,7 +22,6 @@ namespace No
         [SerializeField]
         InteractType type;
 
-        PhotonView PV;
         
         Player owner;
         InteractStratagy stratagy;
