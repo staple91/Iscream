@@ -129,7 +129,7 @@ namespace KimKyeongHun
         {
             if(controller.photonView.IsMine)
             {
-                Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f);
+                controller.photonView.RPC("DebugDraw", RpcTarget.AllBuffered);
             }
 
 
@@ -140,7 +140,7 @@ namespace KimKyeongHun
                 Hp -= 10;
             }
 
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10f, Color.red);
+
 
             if (controller.photonView.IsMine && inputsystem.click)
             {

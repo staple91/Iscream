@@ -12,8 +12,8 @@ namespace No
     {
         Light,
         Door,
-        MorgueBox
-
+        MorgueBox,
+        ToiletDoor
     }
 
     
@@ -39,6 +39,9 @@ namespace No
                     break;
                 case InteractType.MorgueBox:
                     stratagy = new MorgueBox(this, toggleValue);
+                    break;
+                case InteractType.ToiletDoor:
+                    stratagy = new ToiletDoor(this, toggleValue);
                     break;
             }
         }

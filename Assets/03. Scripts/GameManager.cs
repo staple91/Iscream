@@ -8,7 +8,6 @@ namespace LeeJungChul
 {
     public class GameManager : Singleton<GameManager>
     {
-        public PhotonView objectPhotonView;
         [SerializeField]
         private Transform[] spawnPoints;
 
@@ -30,7 +29,7 @@ namespace LeeJungChul
             {
                 if(player.controller.photonView.IsMine)
                 {
-                    idx = player.controller.photonView.ViewID / 1000; // player
+
                     break;
                 }
             }
