@@ -101,6 +101,8 @@ namespace KimKyeongHun
             cinemachinePriority = GetComponentInChildren<CinemachinePriority>();
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
+
+            ob2 = GameObject.FindGameObjectWithTag("yeah");
             
             
             if (controller.photonView.IsMine)

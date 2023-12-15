@@ -1684,7 +1684,7 @@ MonoBehaviour:
   - {fileID: 7145331014368094136}
   cinemachinePriority: {fileID: 0}
   inven: {fileID: 8414691900646347550}
-  ob1: {fileID: 0}
+  ob1: {fileID: 7145331013677094125}
   ob2: {fileID: 0}
   vircam: {fileID: 0}
   fpsHandTr: {fileID: 5187621862722469233}
@@ -2433,7 +2433,7 @@ PrefabInstance:
     - target: {fileID: 8802971080492008401, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: field of view
-      value: 40
+      value: 70.89
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008403, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
@@ -2448,27 +2448,27 @@ PrefabInstance:
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.225
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.375
+      value: -0.172
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.148199
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.6887343
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.72501385
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
