@@ -1687,7 +1687,7 @@ MonoBehaviour:
   inven: {fileID: 8414691900646347550}
   ob1: {fileID: 7145331013677094125}
   ob2: {fileID: 0}
-  vircam: {fileID: 0}
+  vircam: {fileID: 7323767042644516854}
   fpsHandTr: {fileID: 5187621862722469233}
   tpsHandTr: {fileID: 403226607}
   playerCam: {fileID: 4314035394183442971}
@@ -2631,6 +2631,18 @@ PrefabInstance:
       objectReference: {fileID: 7145331015016767324}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1f156ae30886f845b2c301d0ecd82e0, type: 3}
+--- !u!114 &7323767042644516854 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 906942157698599117, guid: f1f156ae30886f845b2c301d0ecd82e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7581005425847932731}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7323767042644516855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 906942157698599116, guid: f1f156ae30886f845b2c301d0ecd82e0,
