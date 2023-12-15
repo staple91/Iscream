@@ -11,8 +11,22 @@ using YoungJaeKim;
 namespace KimKyeongHun
 {
 
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour , IPunObservable
     {
+        bool isRaycasting;
+        public bool IsRaycasting
+        {
+            get => isRaycasting;
+            set
+            {
+                isRaycasting = value;
+                if(isRaycasting)
+                {
+                    Interact();
+                }
+            }
+        }
+
 
         [SerializeField]
         public bool isLocal = false;
@@ -143,10 +157,8 @@ namespace KimKyeongHun
             }
 
 
-
             if (controller.photonView.IsMine && inputsystem.click)
             {
-                  
                 Debug.Log("a버튼 ");
                 Click();
             }
@@ -164,8 +176,9 @@ namespace KimKyeongHun
 
         public void Click()
         {
-            if(controller.photonView.IsMine)
-                controller.photonView.RPC("Interact", RpcTarget.AllBuffered);
+
+            IsRaycasting = true;
+
             inputsystem.click = false;
         }
         [PunRPC]
@@ -174,25 +187,24 @@ namespace KimKyeongHun
             Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f);
 
         }
-        [PunRPC]
         public void Interact()
         {
+                    Debug.Log("sendnesxt");
             //문열림, 불 켜기 등등
             RaycastHit hit;
            
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward * 10f, out hit, 10))
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
             {
                 
                 if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {     
                     interactable.Owner = this;
                     interactable.Interact();        
-
                     Debug.Log("상호작용");
+
                 }
-               
+
             }
-            
         }
 
 
@@ -242,5 +254,17 @@ namespace KimKyeongHun
 
         }
 
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if(stream.IsWriting)
+            {
+                stream.SendNext(IsRaycasting);
+            }
+            else
+            {
+                IsRaycasting = (bool)stream.ReceiveNext();
+            }
+            IsRaycasting = false;
+        }
     }
 }
