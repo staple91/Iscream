@@ -8,6 +8,7 @@ namespace LeeJungChul
 {
 	public class StarterAssetsInputs : MonoBehaviourPun
 	{
+		
 		[Header("플레이어 상태")]
 		public Vector2 move;
 		public Vector2 look;

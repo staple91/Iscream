@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.Accessibility;
 using UnityEngine.Windows;
 
+
 namespace PangGom
 {
     public class DirectionKeySolve : MonoBehaviour
     {
         DirectionKey puzzleKey;
 
-        float checkValue = 0.03f; //Á¶°Ç Ã¼Å©°¡ µÇ±â ½ÃÀÛÇÏ´Â ÀÌµ¿ ¹üÀ§
+        float checkValue = 0.03f; //ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 
         int[] solveKeyNum = new int[] { 2, 3, 1, 1, 2, 4 };
         int[] inputKeyNum = new int[6];
@@ -24,7 +25,7 @@ namespace PangGom
         }
         private void Update()
         {
-            if (puzzleKey.keyInput == true)//ÀÎÇ²°ª ¹ÞÀ» ¼ö ÀÖ´Â »óÅÂ¿¡¸¸ ½ÇÇà
+            if (puzzleKey.keyInput == true)//ï¿½ï¿½Ç²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 keyArrayCheck();
             }
@@ -48,19 +49,19 @@ namespace PangGom
         }
         int InputNum()
         {
-            if ((puzzleKey.keyPoint.x - puzzleKey.key.transform.position.x) < -checkValue) //¿ÞÂÊÀ¸·Î °¬À» ¶§
+            if ((puzzleKey.keyPoint.x - puzzleKey.key.transform.position.x) < -checkValue) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 return 3;
             }
-            else if ((puzzleKey.keyPoint.x - puzzleKey.key.transform.position.x) > checkValue) //¿À¸¥ÂÊÀ¸·Î °¬À» ¶§
+            else if ((puzzleKey.keyPoint.x - puzzleKey.key.transform.position.x) > checkValue) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 return 1;
             }
-            else if ((puzzleKey.keyPoint.y - puzzleKey.key.transform.position.y) < -checkValue) //¾Æ·¡·Î °¬À» ¶§
+            else if ((puzzleKey.keyPoint.y - puzzleKey.key.transform.position.y) < -checkValue) //ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 return 2;
             }
-            else if ((puzzleKey.keyPoint.y - puzzleKey.key.transform.position.y) > checkValue) //À§·Î °¬À» ¶§
+            else if ((puzzleKey.keyPoint.y - puzzleKey.key.transform.position.y) > checkValue) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             {
                 return 4;
             }
