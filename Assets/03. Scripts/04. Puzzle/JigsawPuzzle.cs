@@ -73,15 +73,21 @@ namespace PangGom
         }
         void PuzzleMatch()
         {
-            if (Vector3.Distance(piece.transform.position, piece.transform.parent.position) < rangeValue)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, distance, layerMaskPZPiece))
             {
-                piece.transform.position = piece.transform.parent.position;
-                solCount++;
-                if (solCount == 9)
-                    puzzleSole = true;
+                if (Vector3.Distance(piece.transform.position, piece.transform.parent.position) < rangeValue)
+                {
+                    piece.transform.position = piece.transform.parent.position;
+                    solCount++;
+                    if (solCount == 9)
+                        puzzleSole = true;
+                }
+                else
+                    piece.transform.position = puzzlePoint; //퍼즐 못맞추면 위치 리셋
             }
-            else
-                piece.transform.position = puzzlePoint; //퍼즐 못맞추면 위치 리셋
         }
     }
 }
