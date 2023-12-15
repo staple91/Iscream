@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/01. Scene/JC/MainMenuScene.unity
     guid: 33bac66ab22bc4644866bead4c7305e0
   - enabled: 1
-    path: Assets/01. Scene/JC/PracticeScene.unity
-    guid: e805db48d6dc3b44fa5af216e3ccf42b
+    path: Assets/01. Scene/JC/LJCIscreamCopy.unity
+    guid: fccc20d8d57fe4c408cea2f87dde6c69
   m_configObjects: {}

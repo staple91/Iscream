@@ -14,6 +14,7 @@ namespace LeeJungChul
 
         public GameObject loadingUi;                        // 로딩 UI.
         public TextMeshProUGUI currentPlayerCountText;      // 로딩 UI 중에서 현재 인원 수를 나타냄.
+        public Button matchingButton;
 
         void Awake()
         {
@@ -52,6 +53,7 @@ namespace LeeJungChul
                 roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", maxTime } }; // 게임 시간 지정.
                 roomOptions.CustomRoomPropertiesForLobby = new string[] { "maxTime" }; // 여기에 키 값을 등록해야, 필터링이 가능하다.
 
+
                 // 방 참가를 시도하고, 실패하면 생성해서 참가함.
                 PhotonNetwork.JoinRandomOrCreateRoom
                 (
@@ -76,6 +78,7 @@ namespace LeeJungChul
 
             Debug.Log("방 떠남.");
             PhotonNetwork.LeaveRoom();
+            matchingButton.interactable = false;
         }
 
         /// <summary>
@@ -91,6 +94,7 @@ namespace LeeJungChul
         public override void OnConnectedToMaster()
         {
             Debug.Log("서버 접속 완료.");
+            matchingButton.interactable = true;
         }
 
         public override void OnJoinedRoom()
@@ -102,6 +106,11 @@ namespace LeeJungChul
             UpdatePlayerCounts();
 
             loadingUi.SetActive(true);
+
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1 && PhotonNetwork.CurrentRoom.MaxPlayers == 1)
+            {
+                PhotonNetwork.LoadLevel("Iscream");
+            }
         }
 
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
@@ -115,7 +124,7 @@ namespace LeeJungChul
 
                 if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
                 {
-                    PhotonNetwork.LoadLevel("PracticeScene");                   
+                    PhotonNetwork.LoadLevel("Iscream");
                 }
             }
         }
