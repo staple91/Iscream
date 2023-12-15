@@ -6,40 +6,60 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.UIElements;
 
 namespace YoungJaeKim
 {
     public class Ghost : MonoBehaviour, IListenable
     {
+
         public Detective detective;
-        public Transform targetPlayer;
+        Transform[] roamingPosition = new Transform[3];
         Vector3 targetPosition;
         RaycastHit hit;
         NavMeshAgent ghostAgent;
         public bool isRandgeDetection;
         Rigidbody rb;
+        public Transform RoamingRocation1;
+        public Transform RoamingRocation2;
+        public Transform RoamingRocation3;
+        //public Transform R4;
+        //public Transform R5;
+        
+
 
         [SerializeField]
         //float cubeVolume = 10;
         float checkTime = 1f;
         public float Loudness { set => throw new System.NotImplementedException(); }
-
+        private bool is_SetPath = false;
         public Vector3 Pos => throw new System.NotImplementedException();
         Vector3 patrolableSpace;
         public float patrolable = 3f;
+        public int currentpath = 0;
+        public float roamingInterval = 10f;
         // Start is called before the first frame update
         void Start()
         {
+            
             rb = GetComponent<Rigidbody>();
             ghostAgent = GetComponent<NavMeshAgent>();
-            StartCoroutine(PlayerCheck());
+            //StartCoroutine(PlayerCheck());
+            roamingPosition[0] = RoamingRocation1;
+            roamingPosition[1] = RoamingRocation2;
+            roamingPosition[2] = RoamingRocation3;
+            //roamingPosition[3]= R4;
+            //roamingPosition[4] = R5;
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-            ghostAgent.isStopped = false;
-            Patrol();           
+            Debug.Log(currentpath);
+            //ghostAgent.isStopped = false;
+            Patrol();
+            
         }
 
         void Patrol()
@@ -50,7 +70,8 @@ namespace YoungJaeKim
             bool canMove = PatrolableRange(transform.position, out randPos);
             if (detective.cols.Length == 0)//detective.col == null
             {
-                ghostAgent.destination = randPos;
+                StartCoroutine(Roaming());
+                /*.destination = randPos;
                 if (canMove == false)
                 {
                     canMove = PatrolableRange(transform.position, out randPos);
@@ -62,7 +83,8 @@ namespace YoungJaeKim
                     {
                         canMove = false;
                     }
-                }
+                }*/
+
             }
             else 
             {
@@ -109,7 +131,28 @@ namespace YoungJaeKim
             
         }
 
-
+        IEnumerator Roaming()
+        {
+            Debug.Log("´Ü°è");
+            if(!is_SetPath)
+            {
+                is_SetPath = true;
+                ghostAgent.SetDestination(roamingPosition[currentpath].position);
+                yield return new WaitForSeconds(roamingInterval);
+                currentpath = currentpath+1;
+                if (currentpath == roamingPosition.Length)
+                    currentpath = 0;
+                is_SetPath= false;
+            }
+           
+            
+            
+        }
+        public void Next(int n)
+        {
+            ghostAgent.destination = roamingPosition[n].position;
+        }
+        
 
     }
 }

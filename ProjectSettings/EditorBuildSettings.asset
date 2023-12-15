@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01. Scene/JC/MainMenuScene.unity
+    path: Assets/01. Scene/MainMenuScene.unity
     guid: 33bac66ab22bc4644866bead4c7305e0
   - enabled: 1
     path: Assets/01. Scene/JC/LJCIscreamCopy.unity
