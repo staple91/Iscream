@@ -10,9 +10,10 @@ namespace PangGom
 {
     public class ToiletDoor : DoorStratagy
     {
-        public ToiletDoor(InteractableObject target) : base(target)
+        public ToiletDoor(InteractableObject target, bool value) : base(target, value)
         {
             this.target = target;
+            isOpen = value;   
         }
 
         public override void Act()

@@ -11,8 +11,9 @@ namespace PangGom
 {
     public class MorgueBox : DoorStratagy
     {
-        public MorgueBox(InteractableObject target) : base(target)
+        public MorgueBox(InteractableObject target, bool value) : base(target,value)
         {
+            isOpen = value;
             this.target = target;
         }
 

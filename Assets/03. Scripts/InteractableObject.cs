@@ -21,7 +21,8 @@ namespace No
     {
         [SerializeField]
         InteractType type;
-
+        [SerializeField]
+        bool toggleValue;
         
         Player owner;
         InteractStratagy stratagy;
@@ -31,13 +32,13 @@ namespace No
             switch (type)
             {
                 case InteractType.Light:
-                    stratagy = new LightStratagy(this);
+                    stratagy = new LightStratagy(this,toggleValue);
                     break;
                 case InteractType.Door:
-                    stratagy = new DoorStratagy(this);
+                    stratagy = new DoorStratagy(this, toggleValue);
                     break;
                 case InteractType.MorgueBox:
-                    stratagy = new MorgueBox(this);
+                    stratagy = new MorgueBox(this, toggleValue);
                     break;
             }
         }
@@ -62,7 +63,7 @@ namespace No
     public abstract class InteractStratagy
     {
         protected InteractableObject target;
-        public InteractStratagy(InteractableObject target)
+        public InteractStratagy(InteractableObject target, bool value)
         {
             this.target = target;
         }
@@ -72,11 +73,12 @@ namespace No
     
     public class DoorStratagy : InteractStratagy
     {
-        public bool isOpen = false;
+        public bool isOpen;
         public bool isRunning = false;
-        public DoorStratagy(InteractableObject target) : base(target)
+        public DoorStratagy(InteractableObject target, bool value) : base(target, value)
         {
             this.target = target;
+            isOpen = value;
         }
         public override void Act()
         {
@@ -123,12 +125,24 @@ namespace No
     }
     public class LightStratagy : InteractStratagy
     {
-        public LightStratagy(InteractableObject target) : base(target)
+        Light light;
+        float lightIntensity;
+        bool isOn;
+        public LightStratagy(InteractableObject target, bool value) : base(target,value)
         {
             this.target = target;
+            light = target.GetComponent<Light>();
+            lightIntensity = light.intensity;
+            isOn = value;
         }
         public override void Act()
         {
+            isOn = !isOn;
+            if (isOn)
+                light.intensity = lightIntensity;
+            else
+                light.intensity = 0;
+
         }
     }
 
