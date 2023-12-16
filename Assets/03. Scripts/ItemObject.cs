@@ -124,6 +124,7 @@ namespace YoungJaeKim
         Light light;
         float maxBatttery = 100;
         float curBattery = 0;
+        
         public FlashLight(ItemObject im) : base(im)
         {
             light = itemObj.transform.GetChild(0).GetComponent<Light>();
@@ -135,6 +136,9 @@ namespace YoungJaeKim
             isActive = !isActive;
             if (isActive)
                 itemObj.Owner.StartCoroutine(LightCo());
+            itemObj.player.playerCam.cullingMask = ~(1 << 10);
+            
+            
         }
         IEnumerator LightCo()
         {
@@ -189,6 +193,20 @@ namespace YoungJaeKim
             //배터리이다. 플래시라이트를 충전하는데 쓰인다.
         }
     }
+    public class Lantern: Item
+    {
+        public Lantern(ItemObject im): base(im) { }
+        public override void Interact() { Active(); }
+        public override void Active()
+        {
+            itemObj.player.playerCam.cullingMask = -1;
+        }
+        public override void Explain()
+        {
+            //랜턴이다. 특수한 빛을 뿜어내어 숨겨져있는 글씨를 읽을수 있다.
+        }
+       
+    }
 
     public enum ITEM_TYPE
     {
@@ -196,10 +214,13 @@ namespace YoungJaeKim
         KEY,
         BATTERY,
         FLASHLIGHT,
+        LANTERN
     }
 
     public class ItemObject : MonoBehaviourPunCallbacks, IInteractable
     {
+        public Player player;
+        
         Player owner;
         public Item item;
         public ITEM_TYPE itemType;
@@ -276,6 +297,8 @@ namespace YoungJaeKim
                     item = new Key(this); break;
                 case ITEM_TYPE.FLASHLIGHT:
                     item = new FlashLight(this); break;
+                case ITEM_TYPE.LANTERN:
+                    item = new Lantern(this); break;
             }
         }
 
