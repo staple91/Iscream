@@ -116,7 +116,8 @@ namespace KimKyeongHun
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
 
-            ob2 = GameObject.FindGameObjectWithTag("yeah");
+            ob2 = GameObject.Find("DollyCart2");
+
             
             
             if (controller.photonView.IsMine)
@@ -143,6 +144,10 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
+            if(controller.photonView.IsMine)
+            {
+                controller.photonView.RPC("DebugDraw", RpcTarget.AllBuffered);
+            }
 
 
 
@@ -177,6 +182,12 @@ namespace KimKyeongHun
 
             inputsystem.click = false;
         }
+        [PunRPC]
+        void DebugDraw()
+        {
+            Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f);
+
+        }
         public void Interact()
         {
                     Debug.Log("sendnesxt");
@@ -185,21 +196,26 @@ namespace KimKyeongHun
            
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
             {
-                
+
                 if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
-                {     
+                {
+                    //hit.transform.name = ob2.gameObject.name;
                     interactable.Owner = this;
-                    interactable.Interact();        
+                    interactable.Interact();
                     Debug.Log("상호작용");
 
                 }
 
+               
+
             }
+
         }
 
 
         public void InteractionDollyCart()
         {
+
             
             vircam.Follow = ob2.gameObject.transform;
             var pov = vircam.AddCinemachineComponent<CinemachinePOV>();
@@ -229,6 +245,8 @@ namespace KimKyeongHun
             
             vircam.Follow = ob1.gameObject.transform;
             this.GetComponent<CharacterController>().enabled = true;
+
+            
             
             //되돌아 올 때는 플레이어 SkinnedMeshRenderer들을 다시 켜준다.
             SkinnedMeshRenderer[] playerSkin = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -241,7 +259,7 @@ namespace KimKyeongHun
             vircam.DestroyCinemachineComponent<CinemachinePOV>();
             ob2.GetComponent<CinemachineDollyCart>().enabled = false;
             ob2.GetComponent<CinemachineDollyCart>().m_Position = 0;
-
+            
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

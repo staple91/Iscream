@@ -7,7 +7,6 @@ TagManager:
   - InteractiveObject
   - Bullet
   - CinemachineTarget
-  - yeah
   layers:
   - Default
   - TransparentFX
