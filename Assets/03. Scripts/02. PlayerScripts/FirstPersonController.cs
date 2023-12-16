@@ -136,7 +136,6 @@ namespace LeeJungChul
             playeranimatior.SetFloat("Speed", 0f);
         }
 
-
         /// <summary>
         /// 땅바닥 체크 함수
         /// </summary>

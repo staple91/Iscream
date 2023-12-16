@@ -2,9 +2,11 @@ using Cinemachine;
 using LeeJungChul;
 using Photon.Pun;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using No;
+using UnityEngine.UI;
 using PangGom;
 using YoungJaeKim;
 
@@ -22,7 +24,7 @@ namespace KimKyeongHun
                 isRaycasting = value;
                 if(isRaycasting)
                 {
-                    Interact();
+                    Interact();                   
                 }
             }
         }
@@ -47,6 +49,12 @@ namespace KimKyeongHun
         public GameObject ob1; //시네머신 둘리 실행 전 기존 카메라 1번 
         public GameObject ob2; //시네머신 둘리 실행 후 기존 카메라에서 2번 카메라 
 
+        [Header("플레이어가 가지고있는 UI")]
+        [Tooltip("상호작용 할 수 있는 상태 일시 이미지가 빨간색으로 변한다.")]
+        [SerializeField] private Image InteractImage;
+        [Tooltip("플레이어가 피격시 흔들리는 애니메이션 실행")]
+        [SerializeField] private Image mentalityImage;
+        [SerializeField] private TextMeshProUGUI playerNickname;
 
         public CinemachineVirtualCamera vircam;
 
@@ -55,8 +63,7 @@ namespace KimKyeongHun
         public Transform fpsHandTr;
         public Transform tpsHandTr;
 
-       
-
+      
 
         public Camera playerCam;
         // 플레이어 정신력 프로퍼티
@@ -117,8 +124,9 @@ namespace KimKyeongHun
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
 
             ob2 = GameObject.FindGameObjectWithTag("yeah");
-            
-            
+
+            playerNickname.text = PhotonManager.nick;
+
             if (controller.photonView.IsMine)
             {
                 foreach (Renderer render in tpsRenders)
@@ -163,6 +171,8 @@ namespace KimKyeongHun
                 Click();
             }
 
+            IsInteract();
+
         }
 
         /// <summary>
@@ -195,7 +205,6 @@ namespace KimKyeongHun
            
             if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
             {
-                
                 if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {     
                     interactable.Owner = this;
@@ -206,7 +215,6 @@ namespace KimKyeongHun
 
             }
         }
-
 
         public void InteractionDollyCart()
         {
@@ -265,6 +273,19 @@ namespace KimKyeongHun
                 IsRaycasting = (bool)stream.ReceiveNext();
             }
             IsRaycasting = false;
+        }
+
+        public void IsInteract()
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward * 10f, out hit, 10))
+            {
+                if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
+                    InteractImage.color = Color.red;
+                else
+                    InteractImage.color = Color.white;
+            }
         }
     }
 }
