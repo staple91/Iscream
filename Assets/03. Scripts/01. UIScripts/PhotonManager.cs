@@ -35,6 +35,7 @@ namespace LeeJungChul
         /// <summary>
         /// 랜덤 방 만들기 함수
         /// </summary>
+        public static string nick;
         public void JoinRandomOrCreateRoom()
         {
             string nick = nickNameInputField.text;
