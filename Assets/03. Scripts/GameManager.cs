@@ -17,6 +17,7 @@ namespace LeeJungChul
         private void Start()
         {
             CreatePlayer();
+            curPlayer.playerCam.cullingMask = ~(1 << 10);
         }
 
         /// <summary>
