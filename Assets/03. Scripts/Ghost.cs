@@ -56,7 +56,7 @@ namespace YoungJaeKim
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(currentpath);
+            //Debug.Log(currentpath);
             //ghostAgent.isStopped = false;
             Patrol();
             

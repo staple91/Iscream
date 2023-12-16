@@ -17,15 +17,13 @@ namespace PangGom
         LayerMask layerMaskPZPiece;
 
         GameObject piece = null;
-        //GameObject surchTr;//자식 위치 찾아줌
-        //GameObject[] clearTr = new GameObject[9];
 
         Vector3 puzzlePoint;//퍼즐 피스 원래 위치
 
         float rangeValue = 0.05f;
         public bool puzzleSole = false;
-        int solCount = 0;
 
+        int solCount = 0;
         public int SolCount
         { get { return solCount; }
             set 
@@ -42,7 +40,7 @@ namespace PangGom
         }
         void Update()
         {
-            Debug.Log(Owner);
+            //Debug.Log(Owner);
             if (Owner != null && Owner.controller.photonView.IsMine)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -85,12 +83,11 @@ namespace PangGom
                 if (Vector3.Distance(piece.transform.position, piece.transform.parent.position) < rangeValue)
                 {
                     piece.transform.position = piece.transform.parent.position;
-                    piece.layer = 0;
+                    piece.layer = 0;//이것도 동기화 해줘야함
                     SolCount++;
                 }
                 else
                     piece.transform.position = puzzlePoint; //퍼즐 못맞추면 위치 리셋
-
             }
         }
 
