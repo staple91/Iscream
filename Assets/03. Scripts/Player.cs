@@ -116,7 +116,7 @@ namespace KimKyeongHun
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
 
-            ob2 = GameObject.Find("DollyCart2");
+            ob2 = GameObject.Find("Cinemachine/DollyCart2");
 
             
             
