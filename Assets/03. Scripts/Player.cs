@@ -143,10 +143,6 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
-            if(controller.photonView.IsMine)
-            {
-                controller.photonView.RPC("DebugDraw", RpcTarget.AllBuffered);
-            }
 
 
 
@@ -180,12 +176,6 @@ namespace KimKyeongHun
             IsRaycasting = true;
 
             inputsystem.click = false;
-        }
-        [PunRPC]
-        void DebugDraw()
-        {
-            Debug.DrawRay(playerCam.transform.position, playerCam.transform.forward * 10f);
-
         }
         public void Interact()
         {

@@ -52,6 +52,7 @@ MonoBehaviour:
   - Equip
   - DebugDraw
   - ChangeItem
+  - DiscardItem
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
