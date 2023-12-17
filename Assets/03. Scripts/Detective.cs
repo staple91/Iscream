@@ -10,7 +10,7 @@ namespace YoungJaeKim
 
         public float maxDistance = 3;
         public Collider[] cols;
-    public LayerMask targetLayerMask;
+        public LayerMask targetLayerMask;
 
         public LayerMask RayableLayerMask;
         public Collider col;
@@ -43,10 +43,10 @@ namespace YoungJaeKim
 
         }
 
-    // Start is called before the first frame update
-    // Update is called once per frame
+        // Start is called before the first frame update
+        // Update is called once per frame
 
-    void Update()
+        void Update()
 
         {
             cols = Physics.OverlapSphere(transform.position, radious, targetLayerMask);
@@ -54,17 +54,17 @@ namespace YoungJaeKim
             Debug.DrawLine(transform.position, transform.position + transform.forward * maxDistance, Color.white);
 
             isRangeDetection = cols.Length > 0;
-            if(cols.Length > 0 )
+            if (cols.Length > 0)
             {
 
-            col = cols[0];
+                col = cols[0];
             }
-            foreach(Collider item in cols)
+            foreach (Collider item in cols)
             {
                 if (Vector3.Distance(col.transform.position, transform.position) > Vector3.Distance(item.transform.position, transform.position))
                     col = item;
             }
-            
+
             if (isRangeDetection)
             {
                 RaycastHit hit;
@@ -92,7 +92,7 @@ namespace YoungJaeKim
                     }
 
                 }
-        }
+            }
 
         }
 

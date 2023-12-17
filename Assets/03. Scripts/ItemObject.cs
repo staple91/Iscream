@@ -219,7 +219,6 @@ namespace YoungJaeKim
     public class RadioDetector : EquipmentItem
     {
         public RadioDetector(ItemObject im) : base(im) { }
-        public override void Interact() { Active(); }
         public override void Active()
         {
             if (itemObj.detective.cols.Length != 0)
