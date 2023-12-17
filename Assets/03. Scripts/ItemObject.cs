@@ -5,6 +5,7 @@ using KimKyeongHun;
 using LeeJungChul;
 using No;
 using Photon.Pun;
+using UnityEngine.Audio;
 
 namespace YoungJaeKim
 {
@@ -199,11 +200,14 @@ namespace YoungJaeKim
         public override void Interact()
         {
             base.Interact();
+            itemObj.gameManager.isHidden = false;
+            itemObj.player.playerCam.cullingMask = -1;
             itemObj.transform.Rotate(Vector3.right, -90);
             itemObj.transform.Rotate(Vector3.up, 90);
         }
         public override void Active()
         {
+            itemObj.gameManager.isHidden = false;
             itemObj.player.playerCam.cullingMask = -1;
         }
         public override void Explain()
@@ -212,6 +216,31 @@ namespace YoungJaeKim
         }
        
     }
+    public class RadioDetector : EquipmentItem
+    {
+        public RadioDetector(ItemObject im) : base(im) { }
+        public override void Interact() { Active(); }
+        public override void Active()
+        {
+            if (itemObj.detective.cols.Length != 0)
+            {
+                itemObj.radioSound.SetFloat("DetectiveSound", 5);
+                if (Vector3.Distance(itemObj.transform.position, itemObj.detective.transform.position) < 50f)
+                {
+                    itemObj.radioSound.SetFloat("DetectiveSound", 10);
+                    if (Vector3.Distance(itemObj.transform.position, itemObj.detective.transform.position) < 25f)
+                    {
+                        itemObj.radioSound.SetFloat("DetectiveSound", 15);
+                    }
+                }
+            }
+        }
+        public override void Explain()
+        {
+
+        }
+
+    }
 
     public enum ITEM_TYPE
     {
@@ -219,17 +248,21 @@ namespace YoungJaeKim
         KEY,
         BATTERY,
         FLASHLIGHT,
-        LANTERN
+        LANTERN,
+        RADIODETECTOR
     }
 
     public class ItemObject : MonoBehaviourPunCallbacks, IInteractable
     {
         public Player player;
-        
+        public AudioMixer radioSound;
+        public LayerMask ghostLayer;
+        public Detective detective;
         Player owner;
         public Item item;
         public ITEM_TYPE itemType;
-
+        public Collider[] PlayerCol;
+        public GameManager gameManager;
         [HideInInspector]
         public Transform fpsTr;
         [HideInInspector]
@@ -304,6 +337,8 @@ namespace YoungJaeKim
                     item = new FlashLight(this); break;
                 case ITEM_TYPE.LANTERN:
                     item = new Lantern(this); break;
+                case ITEM_TYPE.RADIODETECTOR:
+                    item= new RadioDetector(this); break;
             }
         }
 
