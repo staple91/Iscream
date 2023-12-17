@@ -193,10 +193,15 @@ namespace YoungJaeKim
             //배터리이다. 플래시라이트를 충전하는데 쓰인다.
         }
     }
-    public class Lantern: Item
+    public class Lantern: EquipmentItem
     {
         public Lantern(ItemObject im): base(im) { }
-        public override void Interact() { Active(); }
+        public override void Interact()
+        {
+            base.Interact();
+            itemObj.transform.Rotate(Vector3.right, -90);
+            itemObj.transform.Rotate(Vector3.up, 90);
+        }
         public override void Active()
         {
             itemObj.player.playerCam.cullingMask = -1;

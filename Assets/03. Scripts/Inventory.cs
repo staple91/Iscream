@@ -46,7 +46,8 @@ namespace No
             Debug.Log(gameObject.GetComponent<PhotonView>().ViewID);
             tpsItemDic = new Dictionary<ITEM_TYPE, GameObject>
             {
-                { ITEM_TYPE.FLASHLIGHT, tpsItemModelArr[0] } // 손전등. 인스펙터에서 아이템 모델 넣기.
+                { ITEM_TYPE.FLASHLIGHT, tpsItemModelArr[0] }, // 손전등. 인스펙터에서 아이템 모델 넣기.
+                { ITEM_TYPE.LANTERN, tpsItemModelArr[1] } // 손전등. 인스펙터에서 아이템 모델 넣기.
             };
             Debug.Log(tpsItemDic[ITEM_TYPE.FLASHLIGHT]);
         }
