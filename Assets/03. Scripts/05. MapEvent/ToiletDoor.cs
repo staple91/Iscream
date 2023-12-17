@@ -1,4 +1,5 @@
 using No;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
@@ -10,6 +11,15 @@ namespace PangGom
 {
     public class ToiletDoor : DoorStratagy
     {
+        public int tDCCount = 0;//해당 카운트가 0이어야 모든 문이 닫혀있는 것
+        public int TDCCount
+        { 
+            get { return tDCCount; }
+            set 
+            { 
+                tDCCount = value;
+            }
+        }
         public ToiletDoor(InteractableObject target, bool value) : base(target, value)
         {
             this.target = target;
@@ -24,43 +34,42 @@ namespace PangGom
             {
                 isRunning = true;
                 if (!isOpen)
-                    target.StartCoroutine(MorgueOpenDoor(targetTr));
+                    target.StartCoroutine(ToiletOpenDoor(targetTr));
                 else
-                    target.StartCoroutine(MorgueCloseDoor(targetTr));
+                    target.StartCoroutine(ToiletCloseDoor(targetTr));
             }
 
         }
-        IEnumerator MorgueOpenDoor(Transform tr)
+        IEnumerator ToiletOpenDoor(Transform tr)
         {
-            float doorOpenAngle = -120f;
+            float doorOpenAngle = 90f;
             float smoot = 2f;
-
-            while (tr.localRotation.eulerAngles.y == 0 || tr.localRotation.eulerAngles.y > 245f)// 문열리고 다음
+            while (tr.localRotation.eulerAngles.y < 89f)
             {
-                Debug.Log(tr.localRotation.eulerAngles.y);
                 Quaternion targetRotation = Quaternion.Euler(0, doorOpenAngle, 0);
                 tr.localRotation = Quaternion.Slerp(tr.localRotation, targetRotation, smoot * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
-
             }
             isOpen = true;
             isRunning = false;
+            tDCCount += 1;
+            //ToiletDoorClose = false;
+
 
         }
-        IEnumerator MorgueCloseDoor(Transform tr)
+        IEnumerator ToiletCloseDoor(Transform tr)
         {
             float doorCloseAngle = 0;
             float smoot = 2f;
-
-            while (tr.localRotation.eulerAngles.y != 0 && tr.localRotation.eulerAngles.y < 356f)//문닫힘
+            while (tr.localRotation.eulerAngles.y > 1f)
             {
-                Debug.Log(tr.localRotation.eulerAngles.y);
                 Quaternion targetRotation = Quaternion.Euler(0, doorCloseAngle, 0);
                 tr.localRotation = Quaternion.Slerp(tr.localRotation, targetRotation, smoot * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
             isOpen = false;
             isRunning = false;
+            tDCCount -= 1;
         }
     }
 }
