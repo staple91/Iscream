@@ -16,6 +16,13 @@ namespace PangGom
         [SerializeField]
         LayerMask layerMaskPZPiece;
 
+        LayerMask pieceLayer;
+        public LayerMask PieceLayer
+        { 
+            get { return pieceLayer; } 
+            set { pieceLayer = value; }
+        }
+
         GameObject piece = null;
 
         Vector3 puzzlePoint;//퍼즐 피스 원래 위치
@@ -24,6 +31,7 @@ namespace PangGom
         public bool puzzleSole = false;
 
         int solCount = 0;
+        [SerializeField]
         public int SolCount
         { get { return solCount; }
             set 
@@ -83,7 +91,8 @@ namespace PangGom
                 if (Vector3.Distance(piece.transform.position, piece.transform.parent.position) < rangeValue)
                 {
                     piece.transform.position = piece.transform.parent.position;
-                    piece.layer = 0;//이것도 동기화 해줘야함
+                    PieceLayer = piece.layer;
+                    PieceLayer = 0;
                     SolCount++;
                 }
                 else
@@ -101,10 +110,12 @@ namespace PangGom
             if(stream.IsWriting)
             {
                 stream.SendNext(SolCount);
+                //stream.SendNext(PieceLayer);
             }
             else
             {
                 SolCount = (int)stream.ReceiveNext();
+                //PieceLayer = (LayerMask)stream.ReceiveNext();
             }
         }
     }
