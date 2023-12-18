@@ -52,6 +52,10 @@ MonoBehaviour:
   - Equip
   - DebugDraw
   - ChangeItem
+  - PuzzleMatch
+  - PuzzlePoint
+  - PuzzlePosition
+  - DiscardItem
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

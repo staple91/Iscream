@@ -13,12 +13,24 @@ namespace LeeJungChul
 
         public List<Player> playerList = new List<Player>();
         public Player curPlayer;
+        public bool isHidden = true;
 
         private void Start()
         {
             CreatePlayer();
+            
+            
         }
+        private void Update()
+        {
+            if (isHidden)
+            {
+                curPlayer.playerCam.cullingMask = ~(1 << 10);
 
+            }
+            else { curPlayer.playerCam.cullingMask = -1; }
+                
+        }
         /// <summary>
         /// 게임이 시작 될때 랜덤위치에 플레이어의 수만큼 플레이어를 생성하는 함수
         /// </summary>

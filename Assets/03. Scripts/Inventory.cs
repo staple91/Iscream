@@ -5,7 +5,7 @@ using Photon.Pun;
 using YoungJaeKim;
 namespace No
 {
-    public class Inventory : MonoBehaviourPun
+    public class Inventory : MonoBehaviourPun,IPunObservable
     {
         [SerializeField]
         int invenSize;
@@ -21,14 +21,12 @@ namespace No
         ItemObject curItem;
 
 
-        int curItemIndex = 0;
+        int curItemIndex = -1;
         public int CurItemIndex
         {
             get => curItemIndex;
             set
             {
-                if (curItemIndex == value)
-                    return;
                 if (curItem != null)
                 {
                     curItem.UnEquip();
@@ -46,8 +44,12 @@ namespace No
         {
             itemArr = new ItemObject[invenSize];
             Debug.Log(gameObject.GetComponent<PhotonView>().ViewID);
-            tpsItemDic = new Dictionary<ITEM_TYPE, GameObject>();
-            tpsItemDic.Add(ITEM_TYPE.FLASHLIGHT, tpsItemModelArr[0]); // 손전등. 인스펙터에서 아이템 모델 넣기.
+            tpsItemDic = new Dictionary<ITEM_TYPE, GameObject>
+            {
+                { ITEM_TYPE.FLASHLIGHT, tpsItemModelArr[0] }, // 손전등. 인스펙터에서 아이템 모델 넣기.
+                { ITEM_TYPE.LANTERN, tpsItemModelArr[1] }, // 
+                {ITEM_TYPE.RADIODETECTOR, tpsItemModelArr[2] }
+            };
             Debug.Log(tpsItemDic[ITEM_TYPE.FLASHLIGHT]);
         }
 
@@ -66,7 +68,7 @@ namespace No
                 if(itemArr[i] == null)
                 {
                     itemArr[i] = obj;
-                    curItemIndex = i;
+                    CurItemIndex = i;
                     return;
                 }
             }
@@ -87,11 +89,10 @@ namespace No
 
         private void Update()
         {
-            if(photonView.IsMine)
-                photonView.RPC("ChangeItem", RpcTarget.AllBuffered);
+            if (photonView.IsMine)
+                ChangeItem();
         }
 
-        [PunRPC]
         void ChangeItem()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -106,10 +107,32 @@ namespace No
             {
                 CurItemIndex = 2;
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                if (curItem != null)
-                    curItem.Discard();
+                photonView.RPC("DiscardItem", RpcTarget.AllBuffered);
+            }
+        }
+
+        [PunRPC]
+        void DiscardItem()
+        {
+            if (curItem != null)
+            {
+                curItem.Discard();
+                curItem = null;
+                itemArr[curItemIndex] = null;
+            }
+        }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if(stream.IsWriting)
+            {
+                stream.SendNext(curItemIndex);
+            }
+            else
+            {
+                curItemIndex = (int)stream.ReceiveNext();
             }
         }
     }

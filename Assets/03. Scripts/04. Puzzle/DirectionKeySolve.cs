@@ -31,7 +31,7 @@ namespace PangGom
             }
             if (i == 6)
             {
-                puzzleKey.keySole = true;
+                puzzleKey.KeySole = true;
             }
         }
         void keyArrayCheck()
@@ -49,6 +49,23 @@ namespace PangGom
         }
         int InputNum()
         {
+            if ((puzzleKey.keyPoint.z - puzzleKey.key.transform.position.z) < -checkValue) //�������� ���� ��
+            {
+                return 1;
+            }
+            else if ((puzzleKey.keyPoint.z - puzzleKey.key.transform.position.z) > checkValue) //���������� ���� ��
+            {
+                return 3;
+            }
+            else if ((puzzleKey.keyPoint.y - puzzleKey.key.transform.position.y) < -checkValue) //�Ʒ��� ���� ��
+            {
+                return 2;
+            }
+            else if ((puzzleKey.keyPoint.y - puzzleKey.key.transform.position.y) > checkValue) //���� ���� ��
+            {
+                return 4;
+            }
+            /*
             if ((puzzleKey.keyPoint.x - puzzleKey.key.transform.position.x) < -checkValue) //�������� ���� ��
             {
                 return 3;
@@ -64,7 +81,7 @@ namespace PangGom
             else if ((puzzleKey.keyPoint.y - puzzleKey.key.transform.position.y) > checkValue) //���� ���� ��
             {
                 return 4;
-            }
+            }*/
             else
             {
                 puzzleKey.keyInput = true;

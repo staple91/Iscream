@@ -74,6 +74,9 @@ namespace LeeJungChul
 
         private const float threshold = 0.01f;
 
+
+        
+
         // 현재 입력 받고 있는 컨트롤러 프로퍼티
         public bool IsCurrentDevice
         {
@@ -125,6 +128,7 @@ namespace LeeJungChul
 
         private void LateUpdate()
         {
+             
             if (photonView.IsMine)
             {
                 CameraRotation();

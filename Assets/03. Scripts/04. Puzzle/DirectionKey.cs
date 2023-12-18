@@ -4,10 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using No;
+using Photon.Pun;
 
 namespace PangGom
 {
-    public class DirectionKey : Puzzle
+    public class DirectionKey : Puzzle, IPunObservable
     {
         float distance = 100f;
         [SerializeField]
@@ -19,7 +20,18 @@ namespace PangGom
 
         float rangeValue = 0.045f;
         public bool keyInput = false;
-        public bool keySole = false;
+
+        bool keySole = false;
+        public bool KeySole
+        {
+            get { return keySole; }
+            set
+            {
+                keySole = value;
+                if (keySole)
+                    Destroy(gameObject);
+            }
+        }
 
         private void Update()
         {
@@ -27,6 +39,8 @@ namespace PangGom
             {
                 KeyPoint();//키초기 위치 저장
             }
+            if (key == null)
+                return;
             else if (Input.GetMouseButton(0))
             {
                 KeyPosition();//키움직임
@@ -35,8 +49,6 @@ namespace PangGom
             {
                 key.transform.position = keyPoint; //키위치 리셋
             }
-            if (keySole)
-            { Debug.Log("자물쇠 풀림"); }
         }
         void KeyPoint()//키값 초기화를 위한 값저장
         {
@@ -59,14 +71,23 @@ namespace PangGom
             {
                 keyVec = hit.transform.position;//초기화 해줄 포지션 값을 담는 변수
 
+                if (Mathf.Abs(keyPoint.z - hit.point.z) < Mathf.Abs(keyPoint.y - hit.point.y))
+                {
+                    key.transform.position = new Vector3(keyPoint.x, hit.point.y, keyPoint.z);
+                }
+                else if (Mathf.Abs(keyPoint.z - hit.point.z) > Mathf.Abs(keyPoint.y - hit.point.y))
+                {
+                    key.transform.position = new Vector3(keyPoint.x, keyPoint.y, hit.point.z);
+                }
+                /*
                 if (Mathf.Abs(keyPoint.x - hit.point.x) < Mathf.Abs(keyPoint.y - hit.point.y))
                 {
                     key.transform.position = new Vector3(keyPoint.x, hit.point.y, keyPoint.z);
                 }
-                else if (Mathf.Abs(keyPoint.x - hit.point.x) >= Mathf.Abs(keyPoint.y - hit.point.y))
+                else if (Mathf.Abs(keyPoint.x - hit.point.x) > Mathf.Abs(keyPoint.y - hit.point.y))
                 {
                     key.transform.position = new Vector3(hit.point.x, keyPoint.y, keyPoint.z);
-                }
+                }*/
                 if (Vector3.Distance(keyPoint, keyVec) > rangeValue)
                 {
 
@@ -80,6 +101,18 @@ namespace PangGom
         public override void Interact()
         {
             Debug.Log("시네머신, 플레이어 구분");
+        }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                stream.SendNext(KeySole);
+            }
+            else
+            {
+                KeySole = (bool)stream.ReceiveNext();
+            }
         }
     }
 }

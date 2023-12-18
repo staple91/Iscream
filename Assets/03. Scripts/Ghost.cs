@@ -56,7 +56,7 @@ namespace YoungJaeKim
         // Update is called once per frame
         void Update()
         {
-            Debug.Log(currentpath);
+            //Debug.Log(currentpath);
             //ghostAgent.isStopped = false;
             Patrol();
             
@@ -64,7 +64,6 @@ namespace YoungJaeKim
 
         void Patrol()
         {
-            Debug.Log("패트롤되니?");
             Debug.DrawLine(transform.position, transform.forward, Color.green);          
             Vector3 randPos;
             bool canMove = PatrolableRange(transform.position, out randPos);
@@ -122,8 +121,7 @@ namespace YoungJaeKim
                 
                 if (detective.cols.Length == 0)
                 {                    
-                    ghostAgent.ResetPath();                    
-                    Debug.Log("코루틴 아웃");                  
+                    ghostAgent.ResetPath();                  
                 }
                 yield return null;
             }
@@ -133,7 +131,6 @@ namespace YoungJaeKim
 
         IEnumerator Roaming()
         {
-            Debug.Log("단계");
             if(!is_SetPath)
             {
                 is_SetPath = true;

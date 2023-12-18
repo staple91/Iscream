@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-5719199783245830409
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: ecfe63cbc8de32949a2c8c1aec7d8d95
+  m_EffectName: Attenuation
+  m_MixLevel: 308741c0ebeb3d346927f944617f8bdb
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!241 &24100000
+AudioMixerController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SFX_MASTER
+  m_OutputGroup: {fileID: 0}
+  m_MasterGroup: {fileID: 24300002}
+  m_Snapshots:
+  - {fileID: 24500006}
+  m_StartSnapshot: {fileID: 24500006}
+  m_SuspendThreshold: -80
+  m_EnableSuspend: 1
+  m_UpdateMode: 0
+  m_ExposedParameters:
+  - guid: 4a28a05db1fa4444480501ea4ca5d07e
+    name: DetectiveSound
+  m_AudioMixerGroupViews:
+  - guids:
+    - 1de10c9288048de4dbde61ef6e638cb3
+    - 75641b9042beaf74ba2f51cfd7839128
+    name: View
+  m_CurrentViewIndex: 0
+  m_TargetSnapshot: {fileID: 24500006}
+--- !u!243 &24300002
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Master
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 1de10c9288048de4dbde61ef6e638cb3
+  m_Children:
+  - {fileID: 5277180594702450839}
+  m_Volume: 7f895ce9cd0a0284aa5fffd001f5c926
+  m_Pitch: 6fa15541a580b3f4194bf48a8370ba22
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 24400004}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &24400004
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: efd3e0027e5d1ee44a95641c7549361c
+  m_EffectName: Attenuation
+  m_MixLevel: ed37a2f8c6b66ba4cb514b1897281c44
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &24500006
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Snapshot
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 72ff4b7f503b68b4fbacc53ec8a16bcf
+  m_FloatValues: {}
+  m_TransitionOverrides: {}
+--- !u!243 &5277180594702450839
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DetectiveSound
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 75641b9042beaf74ba2f51cfd7839128
+  m_Children: []
+  m_Volume: 4a28a05db1fa4444480501ea4ca5d07e
+  m_Pitch: 28c09d0e85d664c4fa92d88f8ae9ded4
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -5719199783245830409}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
