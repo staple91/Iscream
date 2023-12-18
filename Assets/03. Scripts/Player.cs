@@ -58,7 +58,7 @@ namespace KimKyeongHun
 
         public CinemachineVirtualCamera vircam;
 
-        
+        public bool isHidden = true;
 
         public Transform fpsHandTr;
         public Transform tpsHandTr;
@@ -151,7 +151,14 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
-            if(controller.photonView.IsMine)
+            if (isHidden)
+            {
+                playerCam.cullingMask = ~(1 << 10);
+
+            }
+            else { playerCam.cullingMask = -1; }
+
+            if (controller.photonView.IsMine)
             {
                 controller.photonView.RPC("DebugDraw", RpcTarget.AllBuffered);
             }

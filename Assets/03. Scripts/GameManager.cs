@@ -12,8 +12,7 @@ namespace LeeJungChul
         private Transform[] spawnPoints;
 
         public List<Player> playerList = new List<Player>();
-        public Player curPlayer;
-        public bool isHidden = true;
+        public Player curPlayer;      
 
         private void Start()
         {
@@ -23,12 +22,7 @@ namespace LeeJungChul
         }
         private void Update()
         {
-            if (isHidden)
-            {
-                curPlayer.playerCam.cullingMask = ~(1 << 10);
-
-            }
-            else { curPlayer.playerCam.cullingMask = -1; }
+            
                 
         }
         /// <summary>

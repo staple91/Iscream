@@ -200,14 +200,13 @@ namespace YoungJaeKim
         public override void Interact()
         {
             base.Interact();
-            itemObj.gameManager.isHidden = false;
-            itemObj.player.playerCam.cullingMask = -1;
+            itemObj.Owner.GetComponent<Player>().isHidden = false;
+            itemObj.Owner.GetComponent<Player>().playerCam.cullingMask=-1;
             itemObj.transform.Rotate(Vector3.right, -90);
             itemObj.transform.Rotate(Vector3.up, 90);
         }
         public override void Active()
         {
-            itemObj.gameManager.isHidden = false;
             itemObj.player.playerCam.cullingMask = -1;
         }
         public override void Explain()
