@@ -5,7 +5,6 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using KimKyeongHun;
 using static UnityEngine.UI.GridLayoutGroup;
 
 namespace PangGom
