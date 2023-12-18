@@ -1,11 +1,10 @@
+using KimKyeongHun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenMouthObj : MonoBehaviour
+public class OpenMouthObj : MonoBehaviour,IListenable
 {
-    [SerializeField]
-    MicComponent mic;
 
     [SerializeField]
     Vector3 originMouthPos1;
@@ -24,9 +23,17 @@ public class OpenMouthObj : MonoBehaviour
 
     float maxLoudness = 100f;
 
+    float loudness;
+    public float Loudness { get => loudness; set => loudness = value; }
+
+    public Vector3 Pos => transform.position;
+
+    Player loudPlayer;
+    public Player LoudPlayer { get => loudPlayer; set => loudPlayer = value; }
+
     private void Update()
     {
-        MouthTr1.localPosition = Vector3.Lerp(originMouthPos1, targetMouthPos1, mic.loudness / maxLoudness);
-        MouthTr2.localPosition = Vector3.Lerp(originMouthPos2, targetMouthPos2, mic.loudness / maxLoudness);
+        MouthTr1.localPosition = Vector3.Lerp(originMouthPos1, targetMouthPos1, Loudness / maxLoudness);
+        MouthTr2.localPosition = Vector3.Lerp(originMouthPos2, targetMouthPos2, Loudness / maxLoudness);
     }
 }

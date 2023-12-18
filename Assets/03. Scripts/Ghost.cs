@@ -30,12 +30,32 @@ namespace YoungJaeKim
         public float Loudness { get => loudness; set => loudness = value; }
 
         Player loudPlayer;
-        public Player LoudPlayer { get => loudPlayer; set => loudPlayer = value; }
+        public Player LoudPlayer
+        { 
+            get => loudPlayer;
+            set
+            {
+                loudPlayer = value;
+                if (loudPlayer != null)
+                {
+                    isFind = true;
+                    ghostAgent.SetDestination(value.transform.position);
+                }
+                else
+                    isFind = false;
+            }
+        }
+
         public Vector3 Pos
         {
             get => transform.position;
         }
         public bool isFind = false;
+
+        public void TempFind()
+        {
+
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -45,27 +65,15 @@ namespace YoungJaeKim
             
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            if (LoudPlayer == null)
-                isFind = false;
-            else
-                isFind = true;
             Patrol();
         }
-
         void Patrol()
         {
-            Debug.DrawLine(transform.position, transform.forward, Color.green);
-            if (!isFind) 
+            if (!isFind && ghostAgent.isStopped) 
             {
                 StartCoroutine(Roaming());
-
-            }
-            else 
-            {
-                ghostAgent.SetDestination(LoudPlayer.transform.position);
             }
         }
         IEnumerator Roaming()
