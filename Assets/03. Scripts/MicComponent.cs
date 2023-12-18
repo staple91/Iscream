@@ -33,9 +33,8 @@ public class MicComponent : MonoBehaviour, IPunObservable
 
     private void Update()
     {
-        if (!isUseMic)
-            return;
-        loudness = GetAveragedVolume() * sensitivity;
+        if (isUseMic)
+            loudness = GetAveragedVolume() * sensitivity;
     }
     float GetAveragedVolume()
     {
