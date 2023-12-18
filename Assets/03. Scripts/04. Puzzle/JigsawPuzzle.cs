@@ -16,11 +16,10 @@ namespace PangGom
         [SerializeField]
         LayerMask layerMaskPZPiece;
 
-        LayerMask pieceLayer;
         public LayerMask PieceLayer
         { 
-            get { return pieceLayer; } 
-            set { pieceLayer = value; }
+            get { return piece.layer; } 
+            set { piece.layer = value; }
         }
 
         GameObject piece = null;
@@ -91,7 +90,6 @@ namespace PangGom
                 if (Vector3.Distance(piece.transform.position, piece.transform.parent.position) < rangeValue)
                 {
                     piece.transform.position = piece.transform.parent.position;
-                    PieceLayer = piece.layer;
                     PieceLayer = 0;
                     SolCount++;
                 }
@@ -110,12 +108,12 @@ namespace PangGom
             if(stream.IsWriting)
             {
                 stream.SendNext(SolCount);
-                //stream.SendNext(PieceLayer);
+                stream.SendNext(PieceLayer);
             }
             else
             {
                 SolCount = (int)stream.ReceiveNext();
-                //PieceLayer = (LayerMask)stream.ReceiveNext();
+                PieceLayer = (LayerMask)stream.ReceiveNext();
             }
         }
     }

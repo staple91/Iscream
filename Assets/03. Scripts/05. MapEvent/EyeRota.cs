@@ -1,16 +1,17 @@
 using KimKyeongHun;
+using LeeJungChul;
 using No;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KimKyeongHun;
 using static UnityEngine.UI.GridLayoutGroup;
 
 namespace PangGom
 {
     public class EyeRota : MonoBehaviour
     {
-        GameObject target;
         Player owner;
         public Player Owner
         {
@@ -20,14 +21,16 @@ namespace PangGom
                 owner = value;
             }
         }
-        void Start () 
+        PhotonView pv;
+        void Start ()
         {
-            //target = Owner.GetComponent<GameObject>();
+            pv = GetComponent<PhotonView>();
+            owner = GameManager.Instance.curPlayer;
         }
         void Update()
         {
-            //Vector3 vector = target.transform.position - transform.position;
-            //transform.rotation = Quaternion.LookRotation(vector).normalized;
+            Vector3 vector = owner.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(vector).normalized;
         }
     }
 }

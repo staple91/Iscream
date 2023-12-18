@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KimKyeongHun;
+using PangGom;
 using LeeJungChul;
 using No;
 using Photon.Pun;
@@ -28,6 +29,7 @@ namespace YoungJaeKim
         public override void Interact()
         {
             itemObj.Owner.inven.AddItem(this.itemObj);
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.itemGet, false);
             Equip();
         }
         public void Equip()

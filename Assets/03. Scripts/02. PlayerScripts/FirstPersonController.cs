@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Cinemachine;
 using LeeJungChul;
+using PangGom;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -184,6 +185,8 @@ namespace LeeJungChul
 
             float speedOffset = 0.1f;
             float inputMagnitude = input.analogMovement ? input.move.magnitude : 1f;
+            
+            //SoundManager.Instance.PlayAudio(SoundManager.Instance.playerFootSound, true, transform.position);
 
             if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
             {

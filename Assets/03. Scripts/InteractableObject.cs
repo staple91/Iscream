@@ -90,9 +90,15 @@ namespace No
             {
                 isRunning = true;
                 if (!isOpen)
+                {
                     target.StartCoroutine(OpenDoor(targetTr));
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.doorOpen, false, target.transform.position);
+                }
                 else
+                {
                     target.StartCoroutine(CloseDoor(targetTr));
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.doorClose, false, target.transform.position);
+                }
             }
 
         }
