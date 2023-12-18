@@ -60,7 +60,7 @@ public class MicComponent : MonoBehaviour, IPunObservable
             if (dist < loudness)
             {
                 float curLoud = loudness / dist;
-                if (ear.Loudness < curLoud)
+                if (ear.Loudness < curLoud || ear.LoudPlayer == null)
                 {
                     ear.Loudness = loudness / dist;
                     ear.LoudPlayer = player;
@@ -69,7 +69,7 @@ public class MicComponent : MonoBehaviour, IPunObservable
             else
             {
                 if (ear.LoudPlayer == player)
-                    player = null;
+                    ear.LoudPlayer = null;
             }
         }
     }
