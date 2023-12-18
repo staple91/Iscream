@@ -33,8 +33,12 @@ public class MicComponent : MonoBehaviour, IPunObservable
 
     private void Update()
     {
+        Debug.Log(PhotonNetwork.CountOfPlayers);
+        if (PhotonNetwork.CountOfPlayers > 1)
+            return;
         if (isUseMic)
             loudness = GetAveragedVolume() * sensitivity;
+
     }
     float GetAveragedVolume()
     {
@@ -81,6 +85,9 @@ public class MicComponent : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
+
+            if (isUseMic)
+                loudness = GetAveragedVolume() * sensitivity;
             stream.SendNext(loudness);
         }
         else

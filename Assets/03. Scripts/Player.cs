@@ -235,7 +235,7 @@ namespace KimKyeongHun
         public void ItemActive()
         {
             inven.curItem.item.Active();
-        }
+        }   
 
         public void InteractionDollyCart()
         {
