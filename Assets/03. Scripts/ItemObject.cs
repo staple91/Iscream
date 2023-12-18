@@ -107,10 +107,9 @@ namespace YoungJaeKim
         public IEnumerator ScreenShotCapture1(string filePath)
         {
             yield return new WaitForEndOfFrame();
-
-
-            Texture2D texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, true);
-            texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+            RenderTexture.active = itemObj.screenShotTexture;
+            Texture2D texture = new Texture2D(itemObj.screenShotTexture.width, itemObj.screenShotTexture.height, TextureFormat.RGB24, true);
+            texture.ReadPixels(new Rect(0, 0, itemObj.screenShotTexture.width, itemObj.screenShotTexture.height), 0, 0);
             texture.Apply();
 
             byte[] photo = texture.EncodeToPNG();
@@ -220,8 +219,12 @@ namespace YoungJaeKim
         public RadioDetector(ItemObject im) : base(im) { }
         public override void Active()
         {
-            if (itemObj.detective.cols.Length != 0)
+            
+            if (Vector3.Distance(itemObj.transform.position, itemObj.detective.transform.position) < 1000f)
             {
+                itemObj.audioSource.Play();
+                Debug.Log("±Í½Å°¨Áö");
+                
                 itemObj.radioSound.SetFloat("DetectiveSound", 5);
                 if (Vector3.Distance(itemObj.transform.position, itemObj.detective.transform.position) < 50f)
                 {
@@ -255,6 +258,7 @@ namespace YoungJaeKim
     {
         public Player player;
         public AudioMixer radioSound;
+        public AudioSource audioSource;
         public LayerMask ghostLayer;
         public Detective detective;
         Player owner;
@@ -266,7 +270,7 @@ namespace YoungJaeKim
         public Transform fpsTr;
         [HideInInspector]
         public Transform tpsTr;
-
+        public RenderTexture screenShotTexture;
         //ÇÁ¸®Æé
         [SerializeField]
         public GameObject ModelPrefab;
@@ -340,7 +344,10 @@ namespace YoungJaeKim
                     item= new RadioDetector(this); break;
             }
         }
-
+        private void Start()
+        {
+            audioSource = gameObject.GetComponent<AudioSource>();
+        }
     }
 }
 
