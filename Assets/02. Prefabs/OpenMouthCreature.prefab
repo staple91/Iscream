@@ -4684,6 +4684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7807339907059839250}
   - component: {fileID: 7805771230356425675}
+  - component: {fileID: 3506224108557618355}
   m_Layer: 0
   m_Name: OpenMouthCreature
   m_TagString: Untagged
@@ -4720,13 +4721,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1268e13b5164c2a428a393e8a424e672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mic: {fileID: 0}
   originMouthPos1: {x: 0.00028, y: 0.00019, z: -0.0007}
   originMouthPos2: {x: 0.00038, y: 0.00044, z: -0.00094}
   MouthTr1: {fileID: 7807309975970589150}
   MouthTr2: {fileID: 7807534423998244556}
   targetMouthPos1: {x: 0.0016, y: -0.00459, z: -0.00398}
   targetMouthPos2: {x: 0.0017, y: -0.00434, z: -0.00422}
+--- !u!135 &3506224108557618355
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7805771230356425674}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.26
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7805776696416568494
 GameObject:
   m_ObjectHideFlags: 0

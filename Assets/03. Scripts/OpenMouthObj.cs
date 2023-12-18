@@ -31,6 +31,10 @@ public class OpenMouthObj : MonoBehaviour,IListenable
     Player loudPlayer;
     public Player LoudPlayer { get => loudPlayer; set => loudPlayer = value; }
 
+    private void Start()
+    {
+        ListenerManager.Instance.listeners.Add(this);
+    }
     private void Update()
     {
         MouthTr1.localPosition = Vector3.Lerp(originMouthPos1, targetMouthPos1, Loudness / maxLoudness);
