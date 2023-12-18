@@ -6,5 +6,5 @@ public class ListenerManager : Singleton<ListenerManager>
 {
     
     [SerializeField]
-    public IListenable[] listeners;
+    public List<IListenable> listeners = new List<IListenable>();
 }

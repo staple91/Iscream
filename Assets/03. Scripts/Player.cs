@@ -161,12 +161,12 @@ namespace KimKyeongHun
                 }
                 else { playerCam.cullingMask = -1; }             
             }
-
-            if (controller.photonView.IsMine)
+            mic.SetListener();
+            if(controller.photonView.IsMine)
             {
                 controller.photonView.RPC("DebugDraw", RpcTarget.AllBuffered);
             }
-
+            
 
             //플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
             if (Input.GetKey(KeyCode.G))

@@ -36,23 +36,16 @@ namespace YoungJaeKim
         }
 
         bool CheckInLayerMask(int layerIndex)
-
         {
-
             return (targetLayerMask & (1 << layerIndex)) != 0;
-
         }
-
         // Start is called before the first frame update
         // Update is called once per frame
 
         void Update()
-
         {
             cols = Physics.OverlapSphere(transform.position, radious, targetLayerMask);
-
             Debug.DrawLine(transform.position, transform.position + transform.forward * maxDistance, Color.white);
-
             isRangeDetection = cols.Length > 0;
             if (cols.Length > 0)
             {
@@ -74,21 +67,13 @@ namespace YoungJaeKim
                 //Debug.DrawLine(transform.position, transform.position + (direction * maxDistance), Color.blue);
 
                 if (Physics.Raycast(transform.position, direction, out hit, maxDistance))
-
                 {
-
                     isRayDetection = CheckInLayerMask(hit.collider.gameObject.layer);
 
                     if (isRayDetection)
-
                     {
-
                         LastDetectivePos = hit.transform.position;
-
-
-
                         Debug.DrawLine(transform.position, transform.position + (direction * maxDistance), Color.black);
-
                     }
 
                 }
@@ -97,15 +82,9 @@ namespace YoungJaeKim
         }
 
         private void OnDrawGizmos()
-
         {
-
             Gizmos.color = Color.yellow;
-
             Gizmos.DrawWireSphere(transform.position, radious);
-
-
-
         }
     }
 }
