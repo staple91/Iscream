@@ -17,8 +17,9 @@ namespace No
 
         public Dictionary<ITEM_TYPE, GameObject> tpsItemDic;
 
+        [SerializeField]
+        public ItemObject curItem;
 
-        ItemObject curItem;
 
 
         int curItemIndex = -1;

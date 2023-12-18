@@ -13,7 +13,7 @@ using YoungJaeKim;
 namespace KimKyeongHun
 {
 
-    public class Player : MonoBehaviour , IPunObservable
+    public class Player : MonoBehaviourPun , IPunObservable
     {
         bool isRaycasting;
         public bool IsRaycasting
@@ -45,6 +45,7 @@ namespace KimKyeongHun
 
         public CinemachinePriority cinemachinePriority;
         public Inventory inven;
+        public Item item;
         
         public GameObject ob1; //시네머신 둘리 실행 전 기존 카메라 1번 
         public GameObject ob2; //시네머신 둘리 실행 후 기존 카메라에서 2번 카메라 
@@ -151,18 +152,20 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
-            if (isHidden)
+            if (photonView.IsMine)
             {
-                playerCam.cullingMask = ~(1 << 10);
+                if (isHidden)
+                {
+                    playerCam.cullingMask = ~(1 << 10);
 
+                }
+                else { playerCam.cullingMask = -1; }             
             }
-            else { playerCam.cullingMask = -1; }
 
             if (controller.photonView.IsMine)
             {
                 controller.photonView.RPC("DebugDraw", RpcTarget.AllBuffered);
             }
-
 
 
             //플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
@@ -179,6 +182,11 @@ namespace KimKyeongHun
             }
 
             IsInteract();
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ItemActive();
+            }
 
         }
 
@@ -215,12 +223,18 @@ namespace KimKyeongHun
                 if (hit.transform.TryGetComponent<IInteractable>(out IInteractable interactable))
                 {     
                     interactable.Owner = this;
-                    interactable.Interact();        
+                    interactable.Interact();
+
                     Debug.Log("상호작용");
 
                 }
 
             }
+        }
+
+        public void ItemActive()
+        {
+            inven.curItem.item.Active();
         }
 
         public void InteractionDollyCart()

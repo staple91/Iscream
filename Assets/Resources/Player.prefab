@@ -1695,6 +1695,7 @@ MonoBehaviour:
   mentalityImage: {fileID: 1277718401449844102}
   playerNickname: {fileID: 1277718401064170140}
   vircam: {fileID: 7323767042644516854}
+  isHidden: 1
   fpsHandTr: {fileID: 5187621862722469233}
   tpsHandTr: {fileID: 403226607}
   playerCam: {fileID: 4314035394183442971}
@@ -1717,6 +1718,7 @@ MonoBehaviour:
   - {fileID: 4272807383597958535}
   - {fileID: 3414107012092737767}
   - {fileID: 751082277611075234}
+  curItem: {fileID: 0}
 --- !u!1 &7145331015027252485
 GameObject:
   m_ObjectHideFlags: 0
