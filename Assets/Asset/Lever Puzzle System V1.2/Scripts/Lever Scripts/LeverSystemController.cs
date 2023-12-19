@@ -4,6 +4,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using PangGom;
 
 namespace LeverSystem
 {
@@ -207,18 +208,17 @@ namespace LeverSystem
 
         void SwitchPullAudio()
         {
-            //LeverAudioManager.instance.Play(switchPullSound);
-
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.leverPullsound, false);
         }
 
         void SwitchFailAudio()
         {
-            //LeverAudioManager.instance.Play(switchFailSound);
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.leverFailsound, false);
         }
 
         void SwitchDoorOpenAudio()
         {
-            //LeverAudioManager.instance.Play(switchDoorSound);
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.leverSucesssound, false);
         }
 
 

@@ -26,6 +26,9 @@ namespace PangGom
         public AudioClip shhSound;//쉿 소리
         public AudioClip laughSound;//웃음소리
         public AudioClip solveSound;//잠금해제 효과음
+        public AudioClip leverPullsound;//레버 클릭 효과음
+        public AudioClip leverFailsound;//레버 실패 효과음
+        public AudioClip leverSucesssound;//레버 성공 효과음
 
         Queue<GameObject> soundQueue = new Queue<GameObject>();
 
