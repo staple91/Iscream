@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace YoungJaeKim
 {
-    public class Ghost : MonoBehaviour , IListenable
+    public class Ghost : MonoBehaviour, IListenable
     {
         [SerializeField]
         Transform[] roamingPosition = new Transform[3];
@@ -22,7 +22,7 @@ namespace YoungJaeKim
 
 
         public float patrolable = 3f;
-        public int currentpath = 0; 
+        public int currentpath = 0;
         public float roamingInterval = 10f;
 
 
@@ -32,7 +32,7 @@ namespace YoungJaeKim
         [SerializeField]
         Player loudPlayer;
         public Player LoudPlayer
-        { 
+        {
             get => loudPlayer;
             set
             {
@@ -64,13 +64,41 @@ namespace YoungJaeKim
             ListenerManager.Instance.listeners.Add(this);
             ghostAgent = GetComponent<NavMeshAgent>();
             ghostAnime = GetComponent<Animator>();
+            StartCoroutine(GhostBehaviorCo());
         }
 
+
+        IEnumerator GhostBehaviorCo()
+        {
+            while (true)
+            {
+                if (isFind == false)
+                {
+
+                    Debug.Log("ทฮนึ");
+                    ghostAgent.SetDestination(roamingPosition[currentpath].position);
+                    yield return new WaitForSeconds(roamingInterval);
+                    if (isFind)
+                        continue;
+
+
+                    currentpath = currentpath + 1;
+                    if (currentpath == roamingPosition.Length)
+                        currentpath = 0;
+
+
+                }
+
+                yield return null;
+            }
+        }
         private void Update()
         {
-            Patrol();
+            if (Input.GetKeyDown(KeyCode.P))
+                LoudPlayer = FindObjectOfType<Player>();
+          //  Patrol();
             AnimeRun();
-            
+
         }
         void Patrol()
         {
@@ -105,12 +133,12 @@ namespace YoungJaeKim
         }
         void AnimeAttack()
         {
-            
+
         }
         private void OnTriggerEnter(Collider other)
         {
-            Player player= other.gameObject.GetComponent<Player>();
-            if (player!=null)
+            Player player = other.gameObject.GetComponent<Player>();
+            if (player != null)
             {
                 //AnimeAttack();
                 ghostAnime.SetBool("Attack", true);
