@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YoungJaeKim;
+using UnityEngine.Events;
 namespace No
 {
     public class DirectRayLight : MonoBehaviour
     {
         [SerializeField]
+        UnityEvent onSolved;
+        [SerializeField]
         Vector3 dir;
         LineRenderer lineRenderer;
-
         List<Vector3> vectors = new List<Vector3>();
         List<LightMirrorItem> mirrors = new List<LightMirrorItem>();
+
+        
         private void Start()
         {
             lineRenderer = GetComponent<LineRenderer>();
@@ -52,16 +56,25 @@ namespace No
         }
         void ShotRay(RaycastHit hit, out bool isHit, ref Vector3 dir)
         {
+            if(hit.transform.gameObject.layer ==  1 >> LayerMask.NameToLayer("RayDest"))
+
 
             vectors.Add(hit.point);
-            if (hit.transform.TryGetComponent<LightMirrorItem>(out LightMirrorItem mirror) && !mirrors.Contains(mirror))
+            if (hit.transform.TryGetComponent<ItemObject>(out ItemObject itemObj))
             {
-                mirrors.Add(mirror);
-                isHit = true;
+                
+                if (itemObj.item is LightMirrorItem && !mirrors.Contains((LightMirrorItem)itemObj.item))
+                {
 
-                Debug.Log(hit.normal);
-                dir = Vector3.Reflect(dir, hit.normal).normalized;
-                Debug.Log(dir);
+                    mirrors.Add((LightMirrorItem)itemObj.item);
+                    isHit = true;
+
+                    Debug.Log(hit.normal);
+                    dir = Vector3.Reflect(dir, hit.normal).normalized;
+                    Debug.Log(dir);
+                }
+                else
+                    isHit = false;
             }
             else
                 isHit = false;

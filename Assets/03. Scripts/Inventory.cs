@@ -49,7 +49,9 @@ namespace No
             {
                 { ITEM_TYPE.FLASHLIGHT, tpsItemModelArr[0] }, // 손전등. 인스펙터에서 아이템 모델 넣기.
                 { ITEM_TYPE.LANTERN, tpsItemModelArr[1] }, // 
-                {ITEM_TYPE.RADIODETECTOR, tpsItemModelArr[2] }
+                {ITEM_TYPE.RADIODETECTOR, tpsItemModelArr[2] },
+                {ITEM_TYPE.MIRROR, tpsItemModelArr[3] },
+
             };
             Debug.Log(tpsItemDic[ITEM_TYPE.FLASHLIGHT]);
         }

@@ -24,6 +24,7 @@ public class OpenMouthObj : MonoBehaviour,IListenable
     float maxLoudness = 100f;
 
     float loudness;
+    bool isFixed = false;
     public float Loudness { get => loudness; set => loudness = value; }
 
     public Vector3 Pos => transform.position;
@@ -37,6 +38,10 @@ public class OpenMouthObj : MonoBehaviour,IListenable
     }
     private void Update()
     {
+        if (loudness / maxLoudness > 0.6f)
+            isFixed = true;
+        if (isFixed)
+            return;
         MouthTr1.localPosition = Vector3.Lerp(originMouthPos1, targetMouthPos1, Loudness / maxLoudness);
         MouthTr2.localPosition = Vector3.Lerp(originMouthPos2, targetMouthPos2, Loudness / maxLoudness);
     }

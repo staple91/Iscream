@@ -46,12 +46,8 @@ namespace YoungJaeKim
         }
         public override void Active()
         {
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2));
-            if (Physics.Raycast(ray, out RaycastHit hit, 1 << LayerMask.NameToLayer("Floor")))
-            {
-                itemObj.transform.position = hit.point;
-                itemObj.Owner.StartCoroutine(RotateMirrorCo());
-            }
+            itemObj.Owner.StartCoroutine(RotateMirrorCo());
+
         }
 
         public override void Explain()
@@ -72,6 +68,7 @@ namespace YoungJaeKim
 
 
                     itemObj.transform.Rotate(Vector3.up, input.look.x * controller.RotationSpeed * deltaTimeMultiplier);
+                    itemObj.transform.Rotate(Vector3.right, input.look.y * controller.RotationSpeed * deltaTimeMultiplier);
                     yield return new WaitForEndOfFrame();
                 }
                 else
@@ -126,7 +123,7 @@ namespace YoungJaeKim
         Light light;
         float maxBatttery = 100;
         float curBattery = 0;
-        
+
         public FlashLight(ItemObject im) : base(im)
         {
             light = itemObj.transform.GetChild(0).GetComponent<Light>();
@@ -139,12 +136,12 @@ namespace YoungJaeKim
             if (isActive)
                 itemObj.Owner.StartCoroutine(LightCo());
             itemObj.player.playerCam.cullingMask = ~(1 << 10);
-            
-            
+
+
         }
         IEnumerator LightCo()
         {
-            while(isActive && curBattery > 0)
+            while (isActive && curBattery > 0)
             {
                 light.intensity = lightPower;
                 curBattery -= Time.deltaTime;
@@ -187,7 +184,7 @@ namespace YoungJaeKim
         public override void Interact() { Active(); }
         public override void Active()
         {
-             FlashLight tempLight = ((FlashLight)itemObj.Owner.inven.FindItem(ITEM_TYPE.FLASHLIGHT).item);
+            FlashLight tempLight = ((FlashLight)itemObj.Owner.inven.FindItem(ITEM_TYPE.FLASHLIGHT).item);
             tempLight.AddBattery(batteryValue);
         }
         public override void Explain()
@@ -195,14 +192,14 @@ namespace YoungJaeKim
             //배터리이다. 플래시라이트를 충전하는데 쓰인다.
         }
     }
-    public class Lantern: EquipmentItem
+    public class Lantern : EquipmentItem
     {
-        public Lantern(ItemObject im): base(im) { }
+        public Lantern(ItemObject im) : base(im) { }
         public override void Interact()
         {
             base.Interact();
             itemObj.Owner.GetComponent<Player>().isHidden = true;
-            itemObj.Owner.GetComponent<Player>().playerCam.cullingMask=-1;
+            itemObj.Owner.GetComponent<Player>().playerCam.cullingMask = -1;
             itemObj.transform.Rotate(Vector3.right, -90);
             itemObj.transform.Rotate(Vector3.up, 90);
         }
@@ -214,19 +211,19 @@ namespace YoungJaeKim
         {
             //랜턴이다. 특수한 빛을 뿜어내어 숨겨져있는 글씨를 읽을수 있다.
         }
-       
+
     }
     public class RadioDetector : EquipmentItem
     {
         public RadioDetector(ItemObject im) : base(im) { }
         public override void Active()
         {
-            
+
             if (Vector3.Distance(itemObj.transform.position, itemObj.detective.transform.position) < 1000f)
             {
                 itemObj.audioSource.Play();
                 Debug.Log("귀신감지");
-                
+
                 itemObj.radioSound.SetFloat("DetectiveSound", 5);
                 if (Vector3.Distance(itemObj.transform.position, itemObj.detective.transform.position) < 50f)
                 {
@@ -253,7 +250,8 @@ namespace YoungJaeKim
         BATTERY,
         FLASHLIGHT,
         LANTERN,
-        RADIODETECTOR
+        RADIODETECTOR,
+        MIRROR
     }
 
     public class ItemObject : MonoBehaviourPunCallbacks, IInteractable
@@ -268,27 +266,17 @@ namespace YoungJaeKim
         public ITEM_TYPE itemType;
         public Collider[] PlayerCol;
         public GameManager gameManager;
-        [HideInInspector]
-        public Transform fpsTr;
-        [HideInInspector]
-        public Transform tpsTr;
+        Transform fpsTr;
         public RenderTexture screenShotTexture;
-        //프리펩
-        [SerializeField]
-        public GameObject ModelPrefab;
-        //실제로 생성될 게임으보젝트
-        [HideInInspector]
-        public GameObject tpsModel;
         public Player Owner
         {
             get => owner;
             set
             {
                 owner = value;
-                if(owner != null)
+                if (owner != null)
                 {
                     fpsTr = owner.fpsHandTr;
-                    tpsTr = owner.tpsHandTr;
                 }
             }
         }
@@ -311,7 +299,7 @@ namespace YoungJaeKim
                 Owner.inven.tpsItemDic[itemType].SetActive(true);
                 GetComponent<Renderer>().enabled = false;
             }
-            
+
         }
         public void UnEquip()
         {
@@ -343,7 +331,9 @@ namespace YoungJaeKim
                 case ITEM_TYPE.LANTERN:
                     item = new Lantern(this); break;
                 case ITEM_TYPE.RADIODETECTOR:
-                    item= new RadioDetector(this); break;
+                    item = new RadioDetector(this); break;
+                case ITEM_TYPE.MIRROR:
+                    item = new LightMirrorItem(this); break;
             }
         }
         private void Start()
