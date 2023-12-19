@@ -38,7 +38,7 @@ namespace LeeJungChul
         public static string nick;
         public void JoinRandomOrCreateRoom()
         {
-            string nick = nickNameInputField.text;
+            nick = nickNameInputField.text;
 
             if (nick.Length > 0)
             {
