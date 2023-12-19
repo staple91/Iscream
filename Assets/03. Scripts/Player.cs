@@ -126,7 +126,7 @@ namespace KimKyeongHun
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
 
-            //    ob2 = GameObject.FindGameObjectWithTag("yeah");
+            ob2 = GameObject.Find("Cinemachine");
 
             playerNickname.text = PhotonManager.nick;
 
