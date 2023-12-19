@@ -1741,6 +1741,7 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
   click: 0
+  itemUse: 0
   sprint: 0
   analogMovement: 0
   cursorLocked: 1
@@ -1842,7 +1843,7 @@ MonoBehaviour:
   tpsHandTr: {fileID: 403226607}
   playerCam: {fileID: 4314035394183442971}
   controller: {fileID: 7145331015016767296}
-  inputsystem: {fileID: 0}
+  inputsystem: {fileID: 7145331015016767326}
 --- !u!114 &8414691900646347550
 MonoBehaviour:
   m_ObjectHideFlags: 0

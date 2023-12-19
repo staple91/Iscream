@@ -126,7 +126,7 @@ namespace KimKyeongHun
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
 
-            //            ob2 = GameObject.FindGameObjectWithTag("yeah");
+            //    ob2 = GameObject.FindGameObjectWithTag("yeah");
 
             playerNickname.text = PhotonManager.nick;
 
@@ -154,6 +154,8 @@ namespace KimKyeongHun
         // Update is called once per frame
         void Update()
         {
+            IsInteract();
+
             if (photonView.IsMine)
             {
                 if (isHidden)
@@ -183,12 +185,13 @@ namespace KimKyeongHun
                 Click();
             }
 
-            IsInteract();
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (controller.photonView.IsMine && inputsystem.itemUse)
             {
+                Debug.Log("b버튼 ");
                 ItemActive();
+                inputsystem.itemUse = false;
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 HpDown();
@@ -225,6 +228,7 @@ namespace KimKyeongHun
 
             inputsystem.click = false;
         }
+
         [PunRPC]
         void DebugDraw()
         {

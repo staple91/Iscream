@@ -13,6 +13,7 @@ namespace LeeJungChul
 		public Vector2 move;
 		public Vector2 look;
 		public bool click;
+		public bool itemUse;
 		public bool sprint;
 
 		public bool analogMovement;
@@ -34,7 +35,6 @@ namespace LeeJungChul
 				LookInput(value.Get<Vector2>());
 			}
 		}
-
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
@@ -44,6 +44,10 @@ namespace LeeJungChul
         {
 			ClickInput(value.isPressed);
         }
+		public void OnItemUse(InputValue value)
+		{
+			ItemUseInput(value.isPressed);
+		}
 #endif
 
 		public void MoveInput(Vector2 newMoveDirection)
@@ -65,7 +69,12 @@ namespace LeeJungChul
         {
 			click = newClickState;
         }
-		
+
+		public void ItemUseInput(bool itemUseState)
+		{
+			itemUse = itemUseState;
+		}
+
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);

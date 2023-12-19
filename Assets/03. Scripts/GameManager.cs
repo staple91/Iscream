@@ -16,8 +16,8 @@ namespace LeeJungChul
 
         private void Start()
         {
-            CreatePlayer();           
-            
+            CreatePlayer();
+            Cursor.visible = false;
         }
         private void Update()
         {
