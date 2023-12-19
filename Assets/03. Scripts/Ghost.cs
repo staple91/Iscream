@@ -12,7 +12,7 @@ namespace YoungJaeKim
         Transform[] roamingPosition = new Transform[3];
         NavMeshAgent ghostAgent;
         public Animator ghostAnime;
-
+        public Collider[] armCollider;
 
         [SerializeField]
         float checkTime = 1f;
@@ -29,6 +29,7 @@ namespace YoungJaeKim
         float loudness;
         public float Loudness { get => loudness; set => loudness = value; }
 
+        [SerializeField]
         Player loudPlayer;
         public Player LoudPlayer
         { 
@@ -69,6 +70,7 @@ namespace YoungJaeKim
         {
             Patrol();
             AnimeRun();
+           
         }
         void Patrol()
         {
@@ -107,10 +109,16 @@ namespace YoungJaeKim
         private void OnTriggerEnter(Collider other)
         {
             Player player= other.gameObject.GetComponent<Player>();
-            if (player != null)
+            if (player!=null)
             {
                 //AnimeAttack();
                 ghostAnime.SetBool("Attack", true);
+                if (other is CharacterController)
+                {
+                    Debug.Log("°ø°Ý!");
+                    player.HpDown();
+                }
+                else Debug.Log("ºø³ª°¨!");
             }
             else ghostAnime.SetBool("Attack", false);
         }

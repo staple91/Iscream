@@ -207,7 +207,7 @@ namespace KimKyeongHun
         /// <summary>
         /// 플레이어의 정신력이 줄어들 때 정신력 이미지 애니메이션 활성화
         /// </summary>
-        private void HpDown()
+        public void HpDown()
         {
             // 정신력이 하락할때
             mentalityImage.SetBool("MentalityDown", true);
