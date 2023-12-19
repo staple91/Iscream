@@ -70,7 +70,7 @@ namespace YoungJaeKim
         {
             Patrol();
             AnimeRun();
-            StartCoroutine(Roaming());
+            
         }
         void Patrol()
         {

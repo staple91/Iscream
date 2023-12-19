@@ -1764,14 +1764,13 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 2
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 7145331015016767325}
   - {fileID: 2474595269890128644}
   - {fileID: 4345127257175198540}
   - {fileID: 8414691900646347550}
   - {fileID: 1091895878829286331}
-  - {fileID: 598205394841068347}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -3093,7 +3092,7 @@ PrefabInstance:
     - target: {fileID: 8802971080492008401, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: field of view
-      value: 70.89
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008403, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
@@ -3108,27 +3107,27 @@ PrefabInstance:
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.225
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.172
+      value: 1.375
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.148199
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6887343
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.72501385
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8802971080492008406, guid: f8f772031a7c7ca44887ddf2ae8636ff,
         type: 3}
@@ -3290,10 +3289,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7145331015016767298}
     m_Modifications:
+    - target: {fileID: 4878304783599759263, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -849.99994
+      objectReference: {fileID: 0}
     - target: {fileID: 4878304784224929090, guid: dc33706148b85b44ba07a0ee87f7bdb3,
         type: 3}
       propertyPath: m_Name
       value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878304784224929150, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 4314035394183442971}
+    - target: {fileID: 4878304784224929150, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878304784224929150, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4878304784224929151, guid: dc33706148b85b44ba07a0ee87f7bdb3,
         type: 3}

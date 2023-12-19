@@ -206,6 +206,7 @@ namespace YoungJaeKim
         public override void Active()
         {
             itemObj.Owner.isHidden = false;
+            itemObj.Owner.GetComponent<Player>().playerCam.cullingMask = -1;
         }
         public override void Explain()
         {

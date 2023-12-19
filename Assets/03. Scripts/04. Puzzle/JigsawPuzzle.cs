@@ -119,12 +119,12 @@ namespace PangGom
             if (stream.IsWriting)
             {
                 stream.SendNext(SolCount);
-                stream.SendNext(PieceLayer);
+                stream.SendNext((int)PieceLayer);
             }
             else
             {
                 SolCount = (int)stream.ReceiveNext();
-                PieceLayer = (LayerMask)stream.ReceiveNext();
+                PieceLayer = (int)stream.ReceiveNext();
             }
         }
     }
