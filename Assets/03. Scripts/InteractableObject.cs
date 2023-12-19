@@ -72,7 +72,6 @@ namespace No
         }
         public abstract void Act();
     }
-
     
     public class DoorStratagy : InteractStratagy
     {

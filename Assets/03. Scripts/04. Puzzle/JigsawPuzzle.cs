@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Cinemachine.CinemachineTargetGroup;
 using static UnityEngine.GraphicsBuffer;
 
 namespace PangGom
@@ -68,7 +69,10 @@ namespace PangGom
                 else if (Input.GetMouseButtonUp(0))
                     PuzzleMatch();
                 if (puzzleSole)
-                    Destroy(gameObject);
+                {
+                    this.gameObject.SetActive(false);
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.womanLaughSound, false, this.transform.position);
+                }
             }
             else
                 return;
@@ -101,6 +105,7 @@ namespace PangGom
                 if (Vector3.Distance(piece.transform.position, piece.transform.parent.position) < rangeValue)
                 {
                     piece.transform.position = piece.transform.parent.position;
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.mechKeybord, false, this.transform.position);
                     PieceLayer = 0;
                     SolCount++;
                 }

@@ -27,9 +27,15 @@ namespace PangGom
             {
                 isRunning = true;
                 if (!isOpen)
+                {
                     target.StartCoroutine(MorgueOpenDoor(targetTr, morgueBed));
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.steelDoorOpen, false, target.transform.position);
+                }
                 else
+                { 
                     target.StartCoroutine(MorgueCloseDoor(targetTr, morgueBed));
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.steelDoorClose, false, target.transform.position);
+                }
             }
 
         }

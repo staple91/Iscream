@@ -21,7 +21,7 @@ namespace PangGom
         private void Awake()
         {
             puzzleKey = GetComponent<DirectionKey>();
-            int i = 0;
+            i = 0;
         }
         private void Update()
         {
@@ -40,7 +40,10 @@ namespace PangGom
                 return;
             inputKeyNum[i] = InputNum();
             if (solveKeyNum[i] == inputKeyNum[i])
+            {
+                SoundManager.Instance.PlayAudio(SoundManager.Instance.mechKeybord, false, this.transform.position);
                 i++;
+            }
             else if (solveKeyNum[i] != inputKeyNum[i])
                 i = 0;
             puzzleKey.keyInput = false;

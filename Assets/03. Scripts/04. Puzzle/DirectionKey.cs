@@ -29,7 +29,10 @@ namespace PangGom
             {
                 keySole = value;
                 if (keySole)
+                {
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.solveSound, false, this.transform.position);
                     this.gameObject.SetActive(false);
+                }
             }
         }
 

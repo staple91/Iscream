@@ -13,19 +13,28 @@ namespace PangGom
         public AudioClip playerFootSound;//플레이어 발소리ok
         public AudioClip playerDamage;//플레이어가 데미지를 받았을 때 ok
         public AudioClip playerDead;//플레이어가 죽었을 때ok
-        public AudioClip itemGet;//아이템 획득
+        public AudioClip itemGet;//아이템 획득ok
         public AudioClip ghostNormal;//귀신 평소 소리
         public AudioClip ghostAttack;//귀신 공격 소리
+        public AudioClip ghostRun;//귀신이 추격할 때
+        public AudioClip heartBeat;//심박 소리
         public AudioClip doorOpen;//문 여는 소리ok
         public AudioClip doorClose;//문 닫는 소리ok
-        public AudioClip waterDrop;//물떨어지는 소리
+        public AudioClip toilelDoorOpen;//화장실 문 여는 소리
+        public AudioClip toilelDoorClose;//화장실문 닫는 소리
+        public AudioClip steelDoorOpen;//철문 여는 소리
+        public AudioClip steelDoorClose;//철문 닫는 소리
+        public AudioClip waterDrop;//물떨어지는 소리ok
         public AudioClip duck;//오리 소리
-        public AudioClip duckRun;//오리 소리
+        public AudioClip duckRun;//오리 발광 소리
         public AudioClip toilelEventFoot;//화장실 이벤트 발소리
         public AudioClip toilelEventHumming;//화장실 이벤트 허밍
         public AudioClip shhSound;//쉿 소리
-        public AudioClip laughSound;//웃음소리
-        public AudioClip solveSound;//잠금해제 효과음
+        public AudioClip girlLaughSound;//웃음소리
+        public AudioClip womanLaughSound;//웃음소리ok
+        public AudioClip solveSound;//잠금해제 효과음ok
+        public AudioClip mechKeybord;//퍼즐맞추는 효과음1ok
+        public AudioClip deadBodyEvent;//DeadBodyEvent ok
         public AudioClip leverPullsound;//레버 클릭 효과음
         public AudioClip leverFailsound;//레버 실패 효과음
         public AudioClip leverSucesssound;//레버 성공 효과음

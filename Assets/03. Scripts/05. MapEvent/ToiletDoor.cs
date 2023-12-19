@@ -13,17 +13,17 @@ namespace PangGom
     {
         public int tDCCount = 0;//해당 카운트가 0이어야 모든 문이 닫혀있는 것
         public int TDCCount
-        { 
+        {
             get { return tDCCount; }
-            set 
-            { 
+            set
+            {
                 tDCCount = value;
             }
         }
         public ToiletDoor(InteractableObject target, bool value) : base(target, value)
         {
             this.target = target;
-            isOpen = value;   
+            isOpen = value;
         }
 
         public override void Act()
@@ -34,9 +34,15 @@ namespace PangGom
             {
                 isRunning = true;
                 if (!isOpen)
+                {
                     target.StartCoroutine(ToiletOpenDoor(targetTr));
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelDoorOpen, false, target.transform.position);
+                }
                 else
+                {
                     target.StartCoroutine(ToiletCloseDoor(targetTr));
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelDoorClose, false, target.transform.position);
+                }
             }
 
         }
