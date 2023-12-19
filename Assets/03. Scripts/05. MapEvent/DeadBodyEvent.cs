@@ -15,6 +15,11 @@ namespace LeeJungChul
             BloodEffect.SetActive(true);
             BloodHand.SetActive(true);
         }
+
+        public void BloodHandEvent()
+        {
+            BloodHand.SetActive(false);
+        }
     }
 }
 
