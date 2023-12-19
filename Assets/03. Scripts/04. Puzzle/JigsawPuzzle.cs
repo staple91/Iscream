@@ -17,9 +17,19 @@ namespace PangGom
         LayerMask layerMaskPZPiece;
 
         public LayerMask PieceLayer
-        { 
-            get { return piece.layer; } 
-            set { piece.layer = value; }
+        {
+            get
+            {
+                if (piece != null)
+                    return piece.layer;
+                else
+                    return 0;
+            }
+            set
+            {
+                if (piece != null)
+                    piece.layer = value;
+            }
         }
 
         GameObject piece = null;
@@ -32,9 +42,10 @@ namespace PangGom
         int solCount = 0;
         [SerializeField]
         public int SolCount
-        { get { return solCount; }
-            set 
-            { 
+        {
+            get { return solCount; }
+            set
+            {
                 solCount = value;
                 if (solCount == 9)
                     puzzleSole = true;
@@ -105,7 +116,7 @@ namespace PangGom
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if(stream.IsWriting)
+            if (stream.IsWriting)
             {
                 stream.SendNext(SolCount);
                 stream.SendNext(PieceLayer);
