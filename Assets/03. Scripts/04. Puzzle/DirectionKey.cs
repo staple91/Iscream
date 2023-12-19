@@ -29,7 +29,7 @@ namespace PangGom
             {
                 keySole = value;
                 if (keySole)
-                    Destroy(gameObject);
+                    this.gameObject.SetActive(false);
             }
         }
 

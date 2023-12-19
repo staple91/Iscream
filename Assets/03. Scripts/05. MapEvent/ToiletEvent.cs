@@ -1,3 +1,5 @@
+using KimKyeongHun;
+using No;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,8 +7,38 @@ using UnityEngine;
 
 namespace PangGom
 {
-    public class ToiletEvent : MonoBehaviour
+    public class ToiletEvent : MonoBehaviour, IListenable
     {
+
+        public InteractableObject[] interactableObjs;
+        private List<ToiletDoor> toiletDoors = new List<ToiletDoor>();
+        public GameObject femalePrb;
+        public GameObject hintObj;
+
+        private void Start()
+        {
+            ListenerManager.Instance.listeners.Add(this);
+            interactableObjs = GetComponentsInChildren<InteractableObject>();
+            foreach (InteractableObject obj in interactableObjs)
+            {
+                toiletDoors.Add((ToiletDoor)obj.stratagy);
+            }
+        }
+
+        public int TotalTDCCount
+        {
+            get
+            {
+                int total = 0;
+
+                foreach (var toiletDoor in toiletDoors)
+                {
+                    total += toiletDoor.TDCCount;
+                }
+                return total;
+            }
+        }
+
         [SerializeField]
         int toiletPlayerCount = 0;
         public int ToiletPlayerCount
@@ -26,16 +58,6 @@ namespace PangGom
             get { return toiletFull; }
             set { toiletFull = value; }
         }
-        bool allClose = true;
-        public bool AllClose
-        {
-            get { return allClose; }
-            set
-            { allClose = value;
-                //if(화장실 문열림 0보다 크면)
-                //allClose = false
-            }
-        }
 
         [SerializeField]
         bool toiletEventOn = false;
@@ -49,6 +71,16 @@ namespace PangGom
                     EventPlay();
             }
         }
+
+        float loudness;
+        public float Loudness { get => loudness; set => loudness = value; }
+
+        public Vector3 Pos => transform.position;
+
+        Player loudPlayer;
+        public Player LoudPlayer { get => loudPlayer; set => loudPlayer = value; }
+        float timer = 0;
+
         //Area의 ToiletFull이 True고 tDCCount = 0일때 해당 이벤트 발생
         void Update()
         {
@@ -56,7 +88,7 @@ namespace PangGom
                 return;
             else
             {
-                if (ToiletFull && AllClose)
+                if (ToiletFull && TotalTDCCount == 0)
                 {
                     ToiletEventOn = true;
                 }
@@ -64,7 +96,25 @@ namespace PangGom
         }
         void EventPlay()
         {
-            Debug.Log("화장실 이벤트 시작");
+            Debug.Log("화장실 카운트 시작");
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.shhSound, false, transform.position);//쉿
+            timer += Time.deltaTime;
+            if (Loudness > 20)
+                timer = 0;
+            if (timer > 5)
+            {
+                Debug.Log("화장실 이벤트 시작");
+                Vector3 pos = new Vector3(-15f, 3.87f, -3.5f);
+                Instantiate(femalePrb, pos, Quaternion.identity);
+                Invoke("Hint", 15f);
+            }
+
+
         }
+        void Hint()
+        {
+            hintObj.SetActive(true);
+        }
+
     }
 }

@@ -25,7 +25,7 @@ namespace No
         bool toggleValue;
         
         Player owner;
-        InteractStratagy stratagy;
+        public InteractStratagy stratagy;
 
         private void Awake()
         {

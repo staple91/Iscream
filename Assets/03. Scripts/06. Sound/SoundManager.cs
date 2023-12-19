@@ -22,6 +22,10 @@ namespace PangGom
         public AudioClip duck;//오리 소리
         public AudioClip duckRun;//오리 소리
         public AudioClip toilelEventFoot;//화장실 이벤트 발소리
+        public AudioClip toilelEventHumming;//화장실 이벤트 허밍
+        public AudioClip shhSound;//쉿 소리
+        public AudioClip laughSound;//웃음소리
+        public AudioClip solveSound;//잠금해제 효과음
 
         Queue<GameObject> soundQueue = new Queue<GameObject>();
 

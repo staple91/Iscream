@@ -33,7 +33,7 @@ public class MicComponent : MonoBehaviour, IPunObservable
 
     private void Update()
     {
-        Debug.Log(PhotonNetwork.CountOfPlayers);
+        //Debug.Log(PhotonNetwork.CountOfPlayers);
         if (PhotonNetwork.CountOfPlayers > 1)
             return;
         if (isUseMic)
