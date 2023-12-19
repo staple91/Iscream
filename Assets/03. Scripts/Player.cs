@@ -126,7 +126,7 @@ namespace KimKyeongHun
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
 
-            ob2 = GameObject.Find("Cinemachine");
+            ob2 = GameObject.Find("Cinemachine/DollyCart2");
 
             playerNickname.text = PhotonManager.nick;
 
@@ -267,6 +267,7 @@ namespace KimKyeongHun
         {
 
             vircam.Follow = ob2.gameObject.transform;
+            //vircam.Follow = ob2.GetComponentInChildren<CinemachineDollyCart>().transform;
             var pov = vircam.AddCinemachineComponent<CinemachinePOV>();
 
             pov.m_HorizontalAxis.m_MaxSpeed = 100f;
@@ -304,6 +305,7 @@ namespace KimKyeongHun
             }
 
             vircam.DestroyCinemachineComponent<CinemachinePOV>();
+            
             ob2.GetComponent<CinemachineDollyCart>().enabled = false;
             ob2.GetComponent<CinemachineDollyCart>().m_Position = 0;
 
