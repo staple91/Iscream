@@ -11,7 +11,7 @@ namespace YoungJaeKim
         [SerializeField]
         Transform[] roamingPosition = new Transform[3];
         NavMeshAgent ghostAgent;
-        
+        public Animator ghostAnime;
 
 
         [SerializeField]
@@ -62,12 +62,13 @@ namespace YoungJaeKim
         {
             ListenerManager.Instance.listeners.Add(this);
             ghostAgent = GetComponent<NavMeshAgent>();
-            
+            ghostAnime = GetComponent<Animator>();
         }
 
         private void Update()
         {
             Patrol();
+            AnimeRun();
         }
         void Patrol()
         {
@@ -92,6 +93,26 @@ namespace YoungJaeKim
         public void Next(int n)
         {
             ghostAgent.destination = roamingPosition[n].position;
+        }
+        void AnimeRun()
+        {
+            if (isFind)
+                ghostAnime.SetBool("Run", true);
+            else ghostAnime.SetBool("Run", false);
+        }
+        void AnimeAttack()
+        {
+            
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            Player player= other.gameObject.GetComponent<Player>();
+            if (player != null)
+            {
+                //AnimeAttack();
+                ghostAnime.SetBool("Attack", true);
+            }
+            else ghostAnime.SetBool("Attack", false);
         }
     }
 }
