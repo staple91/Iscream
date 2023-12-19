@@ -68,7 +68,9 @@ namespace PangGom
             {
                 toiletEventOn = value;
                 if (toiletEventOn)
-                    EventPlay();
+                {
+                    StartCoroutine(EventPlay());
+                }
             }
         }
 
@@ -91,24 +93,26 @@ namespace PangGom
                 if (ToiletFull && TotalTDCCount == 0)
                 {
                     ToiletEventOn = true;
+                    Debug.Log(ToiletEventOn);
                 }
             }
         }
-        void EventPlay()
+        IEnumerator EventPlay()
         {
             Debug.Log("화장실 카운트 시작");
             SoundManager.Instance.PlayAudio(SoundManager.Instance.shhSound, false, transform.position);//쉿
-            timer += Time.deltaTime;
-            if (Loudness > 20)
-                timer = 0;
-            if (timer > 5)
+            while (timer < 5)
             {
-                Debug.Log("화장실 이벤트 시작");
-                Vector3 pos = new Vector3(-15f, 3.87f, -3.5f);
-                Instantiate(femalePrb, pos, Quaternion.identity);
-                Invoke("Hint", 15f);
+                timer += Time.deltaTime;
+                Debug.Log("타이머" + timer);
+                if (Loudness > 20)
+                    timer = 0;
+                yield return new WaitForEndOfFrame();
             }
-
+            Debug.Log("화장실 이벤트 시작");
+            Vector3 pos = new Vector3(-15f, 3.87f, -3.5f);
+            Instantiate(femalePrb, pos, Quaternion.identity);
+            Invoke("Hint", 15f);
 
         }
         void Hint()
