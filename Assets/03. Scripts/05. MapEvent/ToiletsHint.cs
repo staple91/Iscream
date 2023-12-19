@@ -20,6 +20,7 @@ namespace PangGom
         void Start()
         {
             SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelEventFoot, false, transform.position);
+            Invoke("soundWaiting", 5f);
         }
 
         void Update()
@@ -39,6 +40,11 @@ namespace PangGom
                     //공격
                 yield return new WaitForEndOfFrame();
             }
+        }
+        void soundWaiting()
+        {
+            Debug.Log("사운드 웨이팅");
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelEventHumming, false, transform.position);
         }
     }
 }
