@@ -70,11 +70,11 @@ namespace YoungJaeKim
         {
             Patrol();
             AnimeRun();
-           
+            StartCoroutine(Roaming());
         }
         void Patrol()
         {
-            if (!isFind && ghostAgent.isStopped) 
+            if (!isFind) //&& ghostAgent.isStopped
             {
                 StartCoroutine(Roaming());
             }
@@ -83,6 +83,7 @@ namespace YoungJaeKim
         {
             if (!is_SetPath)
             {
+                Debug.Log("ทฮนึ");
                 is_SetPath = true;
                 ghostAgent.SetDestination(roamingPosition[currentpath].position);
                 yield return new WaitForSeconds(roamingInterval);
