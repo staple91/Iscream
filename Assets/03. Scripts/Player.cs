@@ -210,7 +210,7 @@ namespace KimKyeongHun
         public void HpDown()
         {
             // 정신력이 하락할때
-            mentalityImage.SetBool("MentalityDown", true);
+            mentalityImage.SetTrigger("Hit");
             currentHp -= 5;
         }
 
