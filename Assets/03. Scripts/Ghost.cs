@@ -17,6 +17,7 @@ namespace YoungJaeKim
         [SerializeField]
         float checkTime = 1f;
 
+        float chaseCount = 0f; // 순찰 n번하고 쫓아오기
 
         private bool is_SetPath = false;
 
@@ -39,7 +40,7 @@ namespace YoungJaeKim
             set
             {
                 loudPlayer = value;
-                if (loudPlayer != null)
+                if (loudPlayer != null && chaseCount >= 3f)
                 {
                     isFind = true;
                     if (ghostRun == null)
@@ -81,9 +82,9 @@ namespace YoungJaeKim
             {
                 if (isFind == false)
                 {
-
+                    chaseCount++;
                     Debug.Log("로밍");
-                    SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostNormal, false, transform.position);//평소
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostNormal, false, transform.position); // 평소
                     ghostAgent.SetDestination(roamingPosition[currentpath].position);
                     yield return new WaitForSeconds(roamingInterval);
                     if (isFind)
@@ -93,8 +94,6 @@ namespace YoungJaeKim
                     currentpath = currentpath + 1;
                     if (currentpath == roamingPosition.Length)
                         currentpath = 0;
-
-
                 }
 
                 yield return null;
@@ -102,9 +101,6 @@ namespace YoungJaeKim
         }
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.P))
-              //  LoudPlayer = FindObjectOfType<Player>();
-          //  Patrol();
             AnimeRun();
 
         }
@@ -155,6 +151,8 @@ namespace YoungJaeKim
                     SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostAttack, false, transform.position);
                     Debug.Log("공격!");
                     player.HpDown();
+                    isFind = false;
+                    chaseCount = 0;
                 }
                 else Debug.Log("빗나감!");
             }

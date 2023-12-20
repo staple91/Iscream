@@ -17,6 +17,8 @@ namespace YoungJaeKim
         private float doorOpenSpeed = 1f;
         public bool isOpened;
         private Keypad keypad;
+        [SerializeField]
+        List<GameObject> spiders;
         private void Start()
         {
             isOpened = false;
@@ -29,6 +31,10 @@ namespace YoungJaeKim
             {
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Open, Time.deltaTime * doorOpenSpeed);
+                foreach (GameObject spider in spiders)
+                {
+                    spider.transform.Translate(-spider.transform.forward * Time.deltaTime, Space.Self);
+                }
             }
 
 

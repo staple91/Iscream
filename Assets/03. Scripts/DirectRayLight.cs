@@ -56,7 +56,8 @@ namespace No
         }
         void ShotRay(RaycastHit hit, out bool isHit, ref Vector3 dir)
         {
-            if(hit.transform.gameObject.layer ==  1 >> LayerMask.NameToLayer("RayDest"))
+            Debug.Log(hit.transform.gameObject.layer);
+            if(hit.transform.gameObject.layer ==  LayerMask.NameToLayer("RayDest"))
             {
                 onSolved.Invoke();
                 Destroy(this);

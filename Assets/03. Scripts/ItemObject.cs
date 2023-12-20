@@ -7,6 +7,8 @@ using LeeJungChul;
 using No;
 using Photon.Pun;
 using UnityEngine.Audio;
+using static UnityEngine.UI.GridLayoutGroup;
+using UnityEngine.Rendering.RendererUtils;
 
 namespace YoungJaeKim
 {
@@ -32,9 +34,36 @@ namespace YoungJaeKim
             SoundManager.Instance.PlayAudio(SoundManager.Instance.itemGet, false);
             Equip();
         }
-        public void Equip()
+        public virtual void Equip()
         {
-            itemObj.Equip();
+            itemObj.transform.SetParent(itemObj.fpsTr);
+            itemObj.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
+
+            if (itemObj.Owner.controller.photonView.IsMine)
+            {
+                foreach (Renderer render in itemObj.rendererList)
+                {
+                    render.enabled = true;
+                }
+            }
+            else
+            {
+                itemObj.Owner.inven.tpsItemDic[itemObj.itemType].SetActive(true);
+                itemObj.GetComponent<Renderer>().enabled = false;
+            }
+        }
+        public virtual void UnEquip()
+        {
+            if (itemObj.Owner.controller.photonView.IsMine)
+            {
+                foreach (Renderer render in itemObj.rendererList)
+                {
+                    render.enabled = false;
+                }
+            }
+            else
+                itemObj.Owner.inven.tpsItemDic[itemObj.itemType].SetActive(false);
+
         }
     }
 
@@ -200,13 +229,17 @@ namespace YoungJaeKim
             base.Interact();
             itemObj.Owner.GetComponent<Player>().isHidden = true;
             itemObj.Owner.GetComponent<Player>().playerCam.cullingMask = -1;
-            itemObj.transform.Rotate(Vector3.right, -90);
-            itemObj.transform.Rotate(Vector3.up, 90);
         }
         public override void Active()
         {
             itemObj.Owner.isHidden = false;
             itemObj.Owner.GetComponent<Player>().playerCam.cullingMask = -1;
+        }
+        public override void Equip()
+        {
+            base.Equip();
+            itemObj.transform.Rotate(Vector3.right, -90);
+            itemObj.transform.Rotate(Vector3.up, 90);
         }
         public override void Explain()
         {
@@ -267,8 +300,10 @@ namespace YoungJaeKim
         public ITEM_TYPE itemType;
         public Collider[] PlayerCol;
         public GameManager gameManager;
-        Transform fpsTr;
+        public Transform fpsTr;
         public RenderTexture screenShotTexture;
+        [HideInInspector]
+        public List<Renderer> rendererList = new List<Renderer>();
         public Player Owner
         {
             get => owner;
@@ -290,24 +325,11 @@ namespace YoungJaeKim
         //인벤토리에 들어갈 때 위치 지정 해 주려고 쓰는 메서드
         public void Equip()
         {
-            transform.SetParent(fpsTr);
-            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero));
-
-            if (Owner.controller.photonView.IsMine)
-                GetComponent<Renderer>().enabled = true;
-            else
-            {
-                Owner.inven.tpsItemDic[itemType].SetActive(true);
-                GetComponent<Renderer>().enabled = false;
-            }
-
+            ((EquipmentItem)item).Equip();
         }
         public void UnEquip()
         {
-            if (Owner.controller.photonView.IsMine)
-                GetComponent<Renderer>().enabled = false;
-            else
-                Owner.inven.tpsItemDic[itemType].SetActive(false);
+            ((EquipmentItem)item).UnEquip();
         }
 
         public void Discard()
@@ -319,6 +341,9 @@ namespace YoungJaeKim
         public override void OnEnable()
         {
             base.OnEnable();
+
+            rendererList.Add(GetComponent<Renderer>());
+            rendererList.AddRange(GetComponentsInChildren<Renderer>());
             switch (itemType)
             {
                 case ITEM_TYPE.CAMERA:
