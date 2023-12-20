@@ -25,14 +25,13 @@ namespace PangGom
 
         void Update()
         {
-            //발소리
-            //노래소리
+            // 포지션이동
             //애니메이션
             //소리를 내면 공격
         }
         IEnumerator Event()
         {
-            while (timer < 10)
+            while (timer < 15)
             {
                 timer += Time.deltaTime;
                 Debug.Log("타이머" + timer);

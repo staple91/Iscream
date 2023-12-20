@@ -1,4 +1,5 @@
 using KimKyeongHun;
+using PangGom;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -13,9 +14,6 @@ namespace YoungJaeKim
         NavMeshAgent ghostAgent;
         public Animator ghostAnime;
         public Collider[] armCollider;
-        public AudioClip ghostNormal;
-        public AudioClip ghostRun;
-        public AudioClip ghostAttack;
         [SerializeField]
         float checkTime = 1f;
 
@@ -31,6 +29,8 @@ namespace YoungJaeKim
         float loudness;
         public float Loudness { get => loudness; set => loudness = value; }
 
+        AudioSource ghostRun;
+
         [SerializeField]
         Player loudPlayer;
         public Player LoudPlayer
@@ -42,7 +42,11 @@ namespace YoungJaeKim
                 if (loudPlayer != null)
                 {
                     isFind = true;
-                    AudioSource.PlayClipAtPoint(ghostRun, transform.position);
+                    if (ghostRun == null)
+                        ghostRun=SoundManager.Instance.PlayWaitingAudio(SoundManager.Instance.ghostRun, transform.position);//추격
+                    else if (ghostRun.isPlaying == false)
+                        ghostRun = null;
+                    
                     ghostAgent.SetDestination(value.transform.position);
                 }
                 else
@@ -79,7 +83,7 @@ namespace YoungJaeKim
                 {
 
                     Debug.Log("로밍");
-                    AudioSource.PlayClipAtPoint(ghostNormal,transform.position);
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostNormal, false, transform.position);//평소
                     ghostAgent.SetDestination(roamingPosition[currentpath].position);
                     yield return new WaitForSeconds(roamingInterval);
                     if (isFind)
@@ -98,8 +102,8 @@ namespace YoungJaeKim
         }
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
-                LoudPlayer = FindObjectOfType<Player>();
+            //if (Input.GetKeyDown(KeyCode.P))
+              //  LoudPlayer = FindObjectOfType<Player>();
           //  Patrol();
             AnimeRun();
 
@@ -148,7 +152,7 @@ namespace YoungJaeKim
                 ghostAnime.SetBool("Attack", true);
                 if (other is CharacterController)
                 {
-                    AudioSource.PlayClipAtPoint(ghostAttack, transform.position);
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostAttack, false, transform.position);
                     Debug.Log("공격!");
                     player.HpDown();
                 }
