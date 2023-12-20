@@ -9,7 +9,7 @@ public class KeypadInteractionFPV : MonoBehaviour
     private void Awake() => cam = Camera.main;
     private void Update()
     {
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
+        /*var ray = cam.ScreenPointToRay(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -20,7 +20,7 @@ public class KeypadInteractionFPV : MonoBehaviour
                     keypadButton.PressButton();
                 }
             }
-        }
+        }*/
     }
 }
 }

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using No;
+
 namespace NavKeypad
 {
-    public class KeypadButton : MonoBehaviour
+    public class KeypadButton : Puzzle
     {
         [Header("Value")]
         [SerializeField] private string value;
@@ -13,17 +15,7 @@ namespace NavKeypad
         [SerializeField] private float buttonPressedTime = 0.1f;
         [Header("Component References")]
         [SerializeField] private Keypad keypad;
-
-
-        public void PressButton()
-        {
-            if (!moving)
-            {
-                keypad.AddInput(value);
-                StartCoroutine(MoveSmooth());
-            }
-        }
-        private bool moving;
+        private bool moving;  
 
         private IEnumerator MoveSmooth()
         {
@@ -60,6 +52,15 @@ namespace NavKeypad
             transform.localPosition = endPos;
 
             moving = false;
+        }
+
+        public override void Interact()
+        {
+            if (!moving)
+            {
+                keypad.AddInput(value);
+                StartCoroutine(MoveSmooth());
+            }
         }
     }
 }

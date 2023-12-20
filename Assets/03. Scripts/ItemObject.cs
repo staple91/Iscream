@@ -135,7 +135,7 @@ namespace YoungJaeKim
             isActive = !isActive;
             if (isActive)
                 itemObj.Owner.StartCoroutine(LightCo());
-            itemObj.player.playerCam.cullingMask = ~(1 << 10);
+            //itemObj.player.playerCam.cullingMask = ~(1 << 10);
 
 
         }
@@ -222,7 +222,7 @@ namespace YoungJaeKim
 
             if (Vector3.Distance(itemObj.transform.position, itemObj.detective.transform.position) < 1000f)
             {
-                itemObj.audioSource.Play();
+                SoundManager.Instance.PlayAudio(SoundManager.Instance.detectiveSound, false);
                 Debug.Log("±Í½Å°¨Áö");
 
                 itemObj.radioSound.SetFloat("DetectiveSound", 5);
