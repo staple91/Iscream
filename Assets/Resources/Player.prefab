@@ -1710,6 +1710,8 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 7145331013677094125}
   TopClamp: 89
   BottomClamp: -89
+  book: {fileID: 6464602281328961562}
+  isBookOpen: 0
 --- !u!114 &7145331015016767297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1743,6 +1745,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   click: 0
   itemUse: 0
+  bookOpen: 0
   sprint: 0
   analogMovement: 0
   cursorLocked: 1
@@ -1835,7 +1838,7 @@ MonoBehaviour:
   ob2: {fileID: 0}
   InteractImage: {fileID: 1277718401602180603}
   mentalityImage: {fileID: 1277718401449844096}
-  mentalityText: {fileID: 1277718401064170140}
+  mentalityText: {fileID: 5972661876922110222}
   playerNickname: {fileID: 4401517387939438929}
   vircam: {fileID: 7323767042644516854}
   isHidden: 1
@@ -3290,10 +3293,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7145331015016767298}
     m_Modifications:
+    - target: {fileID: 846263044150548998, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4878304783599759263, guid: dc33706148b85b44ba07a0ee87f7bdb3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -849.99994
+      value: -850
       objectReference: {fileID: 0}
     - target: {fileID: 4878304784224929090, guid: dc33706148b85b44ba07a0ee87f7bdb3,
         type: 3}
@@ -3439,18 +3447,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc33706148b85b44ba07a0ee87f7bdb3, type: 3}
---- !u!114 &1277718401064170140 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4878304784320315520, guid: dc33706148b85b44ba07a0ee87f7bdb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 5911086967762235932}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1277718401094547299 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4878304784224929151, guid: dc33706148b85b44ba07a0ee87f7bdb3,
@@ -3475,6 +3471,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5972661876922110222 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 66232459894547218, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5911086967762235932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6464602281328961562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 846263044150548998, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5911086967762235932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7581005425847932731
 PrefabInstance:
   m_ObjectHideFlags: 0

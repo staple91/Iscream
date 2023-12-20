@@ -212,6 +212,7 @@ namespace KimKyeongHun
             // 정신력이 하락할때
             mentalityImage.SetTrigger("Hit");
             currentHp -= 5;
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.playerDamage, false);
         }
 
         private void HpText()

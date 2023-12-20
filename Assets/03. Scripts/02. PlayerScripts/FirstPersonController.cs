@@ -76,8 +76,8 @@ namespace LeeJungChul
 
         private const float threshold = 0.01f;
 
-
-        
+        public GameObject book;
+        public bool isBookOpen;
 
         // 현재 입력 받고 있는 컨트롤러 프로퍼티
         public bool IsCurrentDevice
@@ -115,6 +115,8 @@ namespace LeeJungChul
 
                 followCam.Follow = CinemachineCameraTarget.transform;
             }
+
+            Cursor.visible = false;
         }
 
         private void Update()
@@ -125,6 +127,23 @@ namespace LeeJungChul
                 GroundedCheck();
                 Move();
                 CharacterGravity();
+            }
+
+            if (input.bookOpen && !isBookOpen)
+            {
+                book.SetActive(true);
+                input.bookOpen = false;
+                isBookOpen = true;
+                input.cursorLocked = false;
+                Cursor.visible = true;
+            }
+            else if (input.bookOpen && isBookOpen)
+            {
+                book.SetActive(false); ;
+                input.bookOpen = false;
+                isBookOpen = false;
+                input.cursorLocked = true;
+                Cursor.visible = false;
             }
         }
 

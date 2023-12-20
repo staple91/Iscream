@@ -51,6 +51,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "BookOpen",
+                    "type": "Button",
+                    "id": "7f154b6e-acb0-4cf3-84de-33f5e3535337",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "CameraRotation",
                     "type": "PassThrough",
                     "id": "e77a6437-9ae4-445e-80d3-53f6ee024097",
@@ -278,6 +287,28 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "ItemUse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ab3cc1e-33a0-4f04-84ca-64cc864a0b5b",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "BookOpen",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac901128-2f76-455d-ac9d-319483d2f2bf",
+                    "path": "<Keyboard>/#(Q)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "BookOpen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

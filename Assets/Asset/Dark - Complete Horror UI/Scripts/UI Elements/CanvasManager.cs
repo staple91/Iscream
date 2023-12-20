@@ -19,5 +19,10 @@ namespace Michsky.UI.Dark
         {
             canvasScaler.referenceResolution = new Vector2(canvasScaler.referenceResolution.x, scale);
         }
+
+        public void NoteExit()
+        {
+            noteUI.SetActive(false);
+        }
     }
 }

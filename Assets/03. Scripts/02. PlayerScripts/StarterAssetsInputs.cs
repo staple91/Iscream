@@ -14,6 +14,7 @@ namespace LeeJungChul
 		public Vector2 look;
 		public bool click;
 		public bool itemUse;
+		public bool bookOpen;
 		public bool sprint;
 
 		public bool analogMovement;
@@ -48,6 +49,10 @@ namespace LeeJungChul
 		{
 			ItemUseInput(value.isPressed);
 		}
+		public void OnBookOpen(InputValue value)
+		{
+			BookOpenInput(value.isPressed);
+		}
 #endif
 
 		public void MoveInput(Vector2 newMoveDirection)
@@ -73,6 +78,11 @@ namespace LeeJungChul
 		public void ItemUseInput(bool itemUseState)
 		{
 			itemUse = itemUseState;
+		}
+
+		public void BookOpenInput(bool BookOpenState)
+		{
+			bookOpen = BookOpenState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

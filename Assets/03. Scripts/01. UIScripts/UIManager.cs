@@ -41,7 +41,7 @@ namespace LeeJungChul
 
         public void SoloPlay()
         {
-            SceneManager.LoadScene("PracticeScene");
+            SceneManager.LoadScene("Tutorial");
         }
 
         #region 게임 종료

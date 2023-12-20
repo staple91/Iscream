@@ -19,11 +19,7 @@ namespace LeeJungChul
             CreatePlayer();
             Cursor.visible = false;
         }
-        private void Update()
-        {
-            
-                
-        }
+
         /// <summary>
         /// 게임이 시작 될때 랜덤위치에 플레이어의 수만큼 플레이어를 생성하는 함수
         /// </summary>
