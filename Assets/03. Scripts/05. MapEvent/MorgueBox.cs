@@ -50,7 +50,8 @@ namespace PangGom
 
             target.Owner.CancelDollyCart();
 
-            while (tr.localRotation.eulerAngles.y == 0 || tr.localRotation.eulerAngles.y > 245f)// �������� ����
+
+            while (tr.localRotation.eulerAngles.y == 0 || tr.localRotation.eulerAngles.y > 245f)
             {
                 Debug.Log(tr.localRotation.eulerAngles.y);
                 Quaternion targetRotation = Quaternion.Euler(0, doorOpenAngle, 0);
@@ -58,7 +59,7 @@ namespace PangGom
                 yield return new WaitForEndOfFrame();
 
             }
-            while (bedTr.localPosition.z > bedOpen)//��������, ��� ����
+            while (bedTr.localPosition.z > bedOpen)
             {
                 bedTr.localPosition = Vector3.Lerp(bedTr.localPosition, bedOpenTarget, bedsmoot * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
@@ -69,17 +70,17 @@ namespace PangGom
         }
         IEnumerator MorgueCloseDoor(Transform tr, Transform bedTr)
         {
-            target.Owner.InteractionDollyCart();
-
-            yield return new WaitForSeconds(2f); //경훈 : 시네머신 둘리를 먼저 실행해야 해서 잠깐 2초 동안 기다리게 했어요.
             float doorCloseAngle = 0;
             float smoot = 2f;
+
 
             float bedClose = 1.35f;
             Vector3 bedCloseTarget = new Vector3(bedTr.localPosition.x, bedTr.localPosition.y, 1.4f);
             float bedsmoot = 1f;
 
+            yield return new WaitForSeconds(2f); //경훈 : 시네머신 둘리를 먼저 실행해야 해서 잠깐 2초 동안 기다리게 했어요.
            
+            target.Owner.InteractionDollyCart();
 
             while (bedTr.localPosition.z < bedClose)//���� ���� ����
             {

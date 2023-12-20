@@ -12,7 +12,9 @@ namespace LeeJungChul
         private Transform[] spawnPoints;
 
         public List<Player> playerList = new List<Player>();
-        public Player curPlayer;      
+        public Player curPlayer;
+
+        public GameObject dollyCart2;
 
         private void Start()
         {

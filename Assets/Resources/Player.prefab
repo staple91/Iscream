@@ -1767,13 +1767,14 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 2
   OwnershipTransfer: 0
-  observableSearch: 0
+  observableSearch: 2
   ObservedComponents:
   - {fileID: 7145331015016767325}
   - {fileID: 2474595269890128644}
   - {fileID: 4345127257175198540}
   - {fileID: 8414691900646347550}
   - {fileID: 1091895878829286331}
+  - {fileID: 598205394841068347}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

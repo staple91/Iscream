@@ -126,7 +126,7 @@ namespace KimKyeongHun
 
             vircam = GetComponentInChildren<CinemachineVirtualCamera>();
 
-            ob2 = GameObject.Find("Cinemachine/DollyCart2");
+            ob2 = GameManager.Instance.dollyCart2;
 
             playerNickname.text = PhotonManager.nick;
 
@@ -258,7 +258,7 @@ namespace KimKyeongHun
 
         public void ItemActive()
         {
-            if (inven.curItem.item != null)
+            if (inven.curItem != null)
             {
                 inven.curItem.item.Active();
             }
@@ -267,24 +267,23 @@ namespace KimKyeongHun
         public void InteractionDollyCart()
         {
 
-            vircam.Follow = ob2.gameObject.transform;
-            //vircam.Follow = ob2.GetComponentInChildren<CinemachineDollyCart>().transform;
-            var pov = vircam.AddCinemachineComponent<CinemachinePOV>();
-
-            pov.m_HorizontalAxis.m_MaxSpeed = 100f;
-            pov.m_VerticalAxis.m_MaxSpeed = 80f;
+            IsMoveable = false;
 
 
-
-            this.GetComponent<CharacterController>().enabled = false;
-
-
-            //둘리카트 실행할 때 플레이어 SkinnedMeshRenderer들을 꺼둔다.
-            SkinnedMeshRenderer[] playerSkin = GetComponentsInChildren<SkinnedMeshRenderer>();
-
-            foreach (SkinnedMeshRenderer renderer in playerSkin)
+            if (controller.photonView.IsMine)
             {
-                renderer.enabled = false;
+                vircam.Follow = ob2.gameObject.transform;
+                var pov = vircam.AddCinemachineComponent<CinemachinePOV>();
+
+                pov.m_HorizontalAxis.m_MaxSpeed = 100f;
+                pov.m_VerticalAxis.m_MaxSpeed = 80f;
+            }
+            else
+            {
+                foreach (Renderer renderer in tpsRenders)
+                {
+                    renderer.enabled = false;
+                }
             }
 
             ob2.GetComponent<CinemachineDollyCart>().enabled = true;
@@ -294,21 +293,24 @@ namespace KimKyeongHun
         public void CancelDollyCart()
         {
 
-            vircam.Follow = ob1.gameObject.transform;
-            this.GetComponent<CharacterController>().enabled = true;
+            IsMoveable = true;
 
-            //되돌아 올 때는 플레이어 SkinnedMeshRenderer들을 다시 켜준다.
-            SkinnedMeshRenderer[] playerSkin = GetComponentsInChildren<SkinnedMeshRenderer>();
-
-            foreach (SkinnedMeshRenderer renderer in playerSkin)
+            if (controller.photonView.IsMine)
             {
-                renderer.enabled = true;
+                vircam.Follow = ob1.transform;
+                vircam.DestroyCinemachineComponent<CinemachinePOV>();
+                ob2.GetComponent<CinemachineDollyCart>().enabled = false;
+                ob2.GetComponent<CinemachineDollyCart>().m_Position = 0;
+            }
+            else
+            {
+                foreach (Renderer renderer in tpsRenders)
+                {
+                    renderer.enabled = true;
+                }
             }
 
-            vircam.DestroyCinemachineComponent<CinemachinePOV>();
-            
-            ob2.GetComponent<CinemachineDollyCart>().enabled = false;
-            ob2.GetComponent<CinemachineDollyCart>().m_Position = 0;
+
 
         }
 

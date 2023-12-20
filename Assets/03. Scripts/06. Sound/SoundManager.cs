@@ -92,6 +92,14 @@ namespace PangGom
             audio.PlayOneShot(clip);
             return audio;
         }
+        public AudioSource PlayWaitingAudio(AudioClip clip, Vector3 pos)
+        {
+            AudioSource audio = PopObj();
+            audio.clip = clip;
+            audio.transform.position = pos;
+            audio.PlayOneShot(clip);
+            return audio;
+        }
 
         public void PlayAudio(AudioClip clip, bool isLoop, Vector3 pos)
         {
