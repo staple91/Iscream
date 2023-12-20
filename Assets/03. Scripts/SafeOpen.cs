@@ -19,7 +19,7 @@ namespace YoungJaeKim
         private Keypad keypad;
         private void Start()
         {
-            isOpened = true;
+            isOpened = false;
             Open.eulerAngles = new Vector3(0, doorAngle, 0);
 
         }
