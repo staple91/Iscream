@@ -72,6 +72,7 @@ namespace LeeJungChul
         // 인풋 시스템을 가지고 있다.
         private StarterAssetsInputs input;
         private GameObject mainCamera;
+        AudioSource walkAudio;
 
         private const float threshold = 0.01f;
 
@@ -168,7 +169,7 @@ namespace LeeJungChul
                 transform.Rotate(Vector3.up * rotationVelocity);
             }
         }
-
+        
         /// <summary>
         /// 캐릭터 이동 함수
         /// </summary>
@@ -205,6 +206,10 @@ namespace LeeJungChul
 
             if (input.move != Vector2.zero)
             {
+                if(walkAudio == null)
+                    walkAudio = SoundManager.Instance.PlayWaitingAudio(SoundManager.Instance.playerFootSound);
+                else if (walkAudio.isPlaying == false)
+                    walkAudio = null;
                 inputDirection = transform.right * input.move.x + transform.forward * input.move.y;
             }
             // 애니메이션 파라미터의 최대값이 3이기 때문에 최대 speed 인 6에서 2를나눠줌.
