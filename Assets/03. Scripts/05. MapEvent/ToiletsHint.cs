@@ -10,6 +10,7 @@ namespace PangGom
     {
 
         float timer = 0;
+        float eventTimer = 0;
         float loudness;
 
         public float Loudness { get => loudness; set => loudness = value; }
@@ -20,23 +21,52 @@ namespace PangGom
         void Start()
         {
             SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelEventFoot, false, transform.position);
-            Invoke("soundWaiting", 5f);
+            Invoke("soundWaiting", 4f);
+            StartCoroutine(GhostMove());//움직임 제어
+            StartCoroutine(Event());//소리를 내면 공격
         }
-
         void Update()
         {
-            // 포지션이동
+
             //애니메이션
-            //소리를 내면 공격
+        }
+        IEnumerator GhostMove()
+        {
+            while (timer < 6)//8초 동안 대기
+            {
+                transform.Translate(Vector3.left * Time.deltaTime, Space.World);
+                timer += Time.deltaTime;
+                Debug.Log("타이머" + timer);
+                yield return new WaitForEndOfFrame();
+            }
+            timer = 0;
+            while (timer < 6)//8초 동안 대기
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime, Space.World);
+                timer += Time.deltaTime;
+                Debug.Log("타이머" + timer);
+                yield return new WaitForEndOfFrame();
+            }
+            timer = 0;
         }
         IEnumerator Event()
         {
-            while (timer < 15)
+            while (eventTimer < 8)//8초 동안 대기
             {
-                timer += Time.deltaTime;
-                Debug.Log("타이머" + timer);
+                eventTimer += Time.deltaTime;
+                Debug.Log("타이머" + eventTimer);
+                yield return new WaitForEndOfFrame();
+            }
+            eventTimer = 0;
+            while (eventTimer < 10)//10초 동안 진행
+            {
+                eventTimer += Time.deltaTime;
+                Debug.Log("타이머" + eventTimer);
                 if (Loudness > 20)
-                    //공격
+                {
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostAttack, false, transform.position);
+                    Debug.Log("공격!");
+                }
                 yield return new WaitForEndOfFrame();
             }
         }
