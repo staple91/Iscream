@@ -28,16 +28,9 @@ namespace LeeJungChul
         void CreatePlayer()
         {
             int idx = 0;
-            foreach(Player player in playerList)
-            {
-                if(player.controller.photonView.IsMine)
-                {
-
-                    break;
-                }
-            }
             
             curPlayer =PhotonNetwork.Instantiate("Player", spawnPoints[idx].position, spawnPoints[idx].rotation, 0).GetComponent<Player>();
+            curPlayer.transform.position = spawnPoints[curPlayer.controller.photonView.ViewID / 1000 - 1].position;
         }
     }
 }
