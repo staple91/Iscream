@@ -13,7 +13,9 @@ namespace YoungJaeKim
         NavMeshAgent ghostAgent;
         public Animator ghostAnime;
         public Collider[] armCollider;
-
+        public AudioClip ghostNormal;
+        public AudioClip ghostRun;
+        public AudioClip ghostAttack;
         [SerializeField]
         float checkTime = 1f;
 
@@ -40,6 +42,7 @@ namespace YoungJaeKim
                 if (loudPlayer != null)
                 {
                     isFind = true;
+                    AudioSource.PlayClipAtPoint(ghostRun, transform.position);
                     ghostAgent.SetDestination(value.transform.position);
                 }
                 else
@@ -76,6 +79,7 @@ namespace YoungJaeKim
                 {
 
                     Debug.Log("로밍");
+                    AudioSource.PlayClipAtPoint(ghostNormal,transform.position);
                     ghostAgent.SetDestination(roamingPosition[currentpath].position);
                     yield return new WaitForSeconds(roamingInterval);
                     if (isFind)
@@ -144,6 +148,7 @@ namespace YoungJaeKim
                 ghostAnime.SetBool("Attack", true);
                 if (other is CharacterController)
                 {
+                    AudioSource.PlayClipAtPoint(ghostAttack, transform.position);
                     Debug.Log("공격!");
                     player.HpDown();
                 }
