@@ -13,7 +13,7 @@ namespace PangGom
 
         private void Start()
         {
-            parentsObj = transform.parent.parent.gameObject;
+            parentsObj = transform.parent.parent.parent.gameObject;
             toiletEvent = parentsObj.GetComponent<ToiletEvent>();
         }
 

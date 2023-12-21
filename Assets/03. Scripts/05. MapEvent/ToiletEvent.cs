@@ -8,8 +8,7 @@ using UnityEngine;
 namespace PangGom
 {
     public class ToiletEvent : MonoBehaviour, IListenable
-    {
-
+    {        
         public InteractableObject[] interactableObjs;
         private List<ToiletDoor> toiletDoors = new List<ToiletDoor>();
         public GameObject femalePrb;
@@ -49,6 +48,7 @@ namespace PangGom
                 toiletPlayerCount = value;
                 if (toiletPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount)//최대인원수에 도달하면 ToiletFull 트루
                     ToiletFull = true;
+                //수 오류 체크
             }
         }
         [SerializeField]
@@ -112,12 +112,12 @@ namespace PangGom
             Debug.Log("화장실 이벤트 시작");
             Vector3 pos = new Vector3(-14.8f, 3.87f, -3.5f);
             Instantiate(femalePrb, pos, Quaternion.identity);
-            Invoke("Hint", 20f);
-
+            Invoke("Hint", 30f);
         }
         void Hint()
         {
             hintObj.SetActive(true);
+
         }
 
     }

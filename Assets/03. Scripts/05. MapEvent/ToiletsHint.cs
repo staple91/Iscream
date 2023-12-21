@@ -21,34 +21,34 @@ namespace PangGom
         void Start()
         {
             SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelEventFoot, false, transform.position);
-            Invoke("soundWaiting", 4f);
+            Invoke("soundWaiting", 5f);
             StartCoroutine(GhostMove());//움직임 제어
-            StartCoroutine(Event());//소리를 내면 공격
+            //StartCoroutine(Event());//소리를 내면 공격
         }
         void Update()
         {
-
             //애니메이션
         }
         IEnumerator GhostMove()
         {
-            while (timer < 6)//8초 동안 대기
+            while (timer < 12)
             {
-                transform.Translate(Vector3.left * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.left * Time.deltaTime/2, Space.World);
                 timer += Time.deltaTime;
                 Debug.Log("타이머" + timer);
                 yield return new WaitForEndOfFrame();
             }
             timer = 0;
             transform.Rotate(0, 90, 0);
-            while (timer < 6)//8초 동안 대기
+            while (timer < 12)
             {
-                transform.Translate(Vector3.forward * Time.deltaTime, Space.World);
+                transform.Translate(Vector3.forward * Time.deltaTime/2, Space.World);
                 timer += Time.deltaTime;
                 Debug.Log("타이머" + timer);
                 yield return new WaitForEndOfFrame();
             }
             timer = 0;
+            //모든것이 끝나고 오브젝트 꺼주기
         }
         IEnumerator Event()
         {
@@ -65,7 +65,7 @@ namespace PangGom
                 Debug.Log("타이머" + eventTimer);
                 if (Loudness > 20)
                 {
-                    SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostAttack, false, transform.position);
+                    SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostAttack, false, this.transform.position);
                     Debug.Log("공격!");
                 }
                 yield return new WaitForEndOfFrame();
@@ -74,7 +74,7 @@ namespace PangGom
         void soundWaiting()
         {
             Debug.Log("사운드 웨이팅");
-            SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelEventHumming, false, transform.position);
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.toilelEventHumming, false, this.transform.position);
         }
     }
 }

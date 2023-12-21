@@ -29,7 +29,6 @@ namespace PangGom
 
         public override void Act()
         {
-
             Transform targetTr = target.GetComponent<Transform>();
             if (!isRunning)
             {
@@ -49,6 +48,7 @@ namespace PangGom
         }
         IEnumerator ToiletOpenDoor(Transform tr)
         {
+            tDCCount += 1;
             float doorOpenAngle = 90f;
             float smoot = 2f;
             while (tr.localRotation.eulerAngles.y < 89f)
@@ -59,13 +59,13 @@ namespace PangGom
             }
             isOpen = true;
             isRunning = false;
-            tDCCount += 1;
             //ToiletDoorClose = false;
 
 
         }
         IEnumerator ToiletCloseDoor(Transform tr)
         {
+            tDCCount -= 1;
             float doorCloseAngle = 0;
             float smoot = 2f;
             while (tr.localRotation.eulerAngles.y > 1f)
@@ -76,7 +76,6 @@ namespace PangGom
             }
             isOpen = false;
             isRunning = false;
-            tDCCount -= 1;
         }
     }
 }
