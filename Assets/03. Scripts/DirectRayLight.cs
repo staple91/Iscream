@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using YoungJaeKim;
 using UnityEngine.Events;
+using Photon.Pun;
+using Unity.VisualScripting;
+
 namespace No
 {
-    public class DirectRayLight : MonoBehaviour
+    public class DirectRayLight : MonoBehaviourPun
     {
         [SerializeField]
         UnityEvent onSolved;
@@ -15,9 +18,19 @@ namespace No
         List<Vector3> vectors = new List<Vector3>();
         List<LightMirrorItem> mirrors = new List<LightMirrorItem>();
 
+        [SerializeField]
+        GameObject answerObj;
+
+        void OnSolved()
+        {
+            answerObj.SetActive(true);
+        }
+
         
+
         private void Start()
         {
+            onSolved.AddListener(() => photonView.RPC("onSolved", RpcTarget.All));
             lineRenderer = GetComponent<LineRenderer>();
 
         }

@@ -41,6 +41,8 @@ namespace PangGom
         public AudioClip detectiveSound;//탐지기 탐지 효과음
         public AudioClip bookOpen;// 책 여는 효과음
 
+        public AudioClip dialSolved;
+
         Queue<GameObject> soundQueue = new Queue<GameObject>();
 
         // 풀을 초기화하는 메서드
