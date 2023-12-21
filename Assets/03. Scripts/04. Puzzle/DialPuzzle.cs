@@ -1,6 +1,6 @@
+using PangGom;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Photon.Pun;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
@@ -17,11 +17,27 @@ namespace No
         float checkTime;
 
         bool isReverese = false;
+        bool isSolved = false;
 
+        [SerializeField]
+        GameObject onSolvedClipboard;
+
+        PhotonView ph;
+        private void Start()
+        {
+            OnSolved.AddListener(() => SoundManager.Instance.PlayAudio(SoundManager.Instance.dialSolved, false, transform.position));
+            OnSolved.AddListener(() => ph.RPC("OnDialSolved", RpcTarget.All));
+        }
+        void OnDialSolved()
+        {
+            isSolved = true;
+            onSolvedClipboard.SetActive(true);
+        }
 
         public override void Interact()
         {
-            StartCoroutine(DialCo());
+            if(!isSolved)
+                StartCoroutine(DialCo());
         }
 
         IEnumerator DialCo()
@@ -30,7 +46,7 @@ namespace No
             int curAnswerIndex = 0;
             int curAnswer = 0;
             Owner.IsMoveable = false;
-            while (!Input.GetKey(KeyCode.E))
+            while (!Input.GetKey(KeyCode.E) || !isSolved)
             {
                 curAnswer = Mathf.RoundToInt(60 - dialTr.localEulerAngles.y / 6);
                 if (curAnswer ==  answerNumArr[curAnswerIndex])
@@ -42,7 +58,10 @@ namespace No
                         isReverese = !isReverese;
                         Debug.Log("µþ±ï");
                         if (curAnswerIndex >= answerNumArr.Length)
+                        {
+                            OnSolved.Invoke();
                             break;
+                        }    
                     }    
                 }
                 else
