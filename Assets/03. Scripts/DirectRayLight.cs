@@ -23,7 +23,7 @@ namespace No
 
         void OnSolved()
         {
-            answerObj.SetActive = true;
+            answerObj.SetActive(true);
         }
 
         
