@@ -17,7 +17,7 @@ namespace YoungJaeKim
         [SerializeField]
         float checkTime = 1f;
 
-        float chaseCount = 0f; // ¼øÂû n¹øÇÏ°í ÂÑ¾Æ¿À±â
+        float chaseCount = 3f; // ¼øÂû n¹øÇÏ°í ÂÑ¾Æ¿À±â
 
         private bool is_SetPath = false;
 
@@ -132,8 +132,14 @@ namespace YoungJaeKim
         void AnimeRun()
         {
             if (isFind)
+            {
+                ghostAnime.SetBool("Attack", false);
                 ghostAnime.SetBool("Run", true);
-            else ghostAnime.SetBool("Run", false);
+            }
+            else
+            {
+                ghostAnime.SetBool("Run", false);
+            }
         }
         void AnimeAttack()
         {
@@ -151,12 +157,11 @@ namespace YoungJaeKim
                     SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostAttack, false, transform.position);
                     Debug.Log("°ø°Ý!");
                     player.HpDown();
-                    isFind = false;
+                    LoudPlayer = null;
                     chaseCount = 0;
                 }
                 else Debug.Log("ºø³ª°¨!");
             }
-            else ghostAnime.SetBool("Attack", false);
         }
     }
 }

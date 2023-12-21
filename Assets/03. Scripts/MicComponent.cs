@@ -69,11 +69,6 @@ public class MicComponent : MonoBehaviour, IPunObservable
                     ear.LoudPlayer = player;
                 }
             }
-            else
-            {
-                if (ear.LoudPlayer == player)
-                    ear.LoudPlayer = null;
-            }
         }
     }
     private void OnDrawGizmos()
