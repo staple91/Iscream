@@ -20,7 +20,8 @@ namespace PangGom
 
         float rangeValue = 0.045f;
         public bool keyInput = false;
-
+        [SerializeField]
+        OpenCase openCase;
         bool keySole = false;
         public bool KeySole
         {
@@ -31,6 +32,10 @@ namespace PangGom
                 if (keySole)
                 {
                     SoundManager.Instance.PlayAudio(SoundManager.Instance.solveSound, false, this.transform.position);
+                    openCase.Open();
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Owner.IsMoveable = true;
+                    Cursor.visible = false;
                     this.gameObject.SetActive(false);
                 }
             }
@@ -38,6 +43,12 @@ namespace PangGom
 
         private void Update()
         {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Owner.IsMoveable = true;
+                Cursor.visible = false;
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 KeyPoint();//키초기 위치 저장
@@ -103,7 +114,9 @@ namespace PangGom
 
         public override void Interact()
         {
-            Debug.Log("시네머신, 플레이어 구분");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Owner.IsMoveable = false;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
