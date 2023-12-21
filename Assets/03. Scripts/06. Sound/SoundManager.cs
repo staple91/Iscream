@@ -39,6 +39,7 @@ namespace PangGom
         public AudioClip leverFailsound;//레버 실패 효과음
         public AudioClip leverSucesssound;//레버 성공 효과음
         public AudioClip detectiveSound;//탐지기 탐지 효과음
+        public AudioClip bookOpen;// 책 여는 효과음
 
         Queue<GameObject> soundQueue = new Queue<GameObject>();
 

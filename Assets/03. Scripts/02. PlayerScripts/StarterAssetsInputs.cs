@@ -55,6 +55,7 @@ namespace LeeJungChul
 			BookOpenInput(value.isPressed);
 		}
 		public void OnOption(InputValue value)
+
 		{
 			OptionInput(value.isPressed);
 		}

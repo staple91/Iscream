@@ -60,7 +60,7 @@ namespace LeverSystem
         private Material resettingBtnMat;
         private Material acceptedBtnMat;
         private Material limitBtnMat;
-        private LeverPuzzleClear puzzleClear;
+        private BookClose puzzleClear;
 
         private TextMesh leverText;
 
@@ -68,7 +68,7 @@ namespace LeverSystem
         {
             SetMaterials();
             InitializeSwitches();
-            puzzleClear = GetComponentInChildren<LeverPuzzleClear>();
+            puzzleClear = GetComponentInChildren<BookClose>();
             leverText = GetComponentInChildren<TextMesh>();
         }
 
