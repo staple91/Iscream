@@ -80,9 +80,10 @@ namespace YoungJaeKim
         {
             while (true)
             {
-                if(Vector3.Distance(LoudPlayer.transform.position, Pos) < 0.1f)
-                {
-                    isFind = false;
+                if(LoudPlayer != null && Vector3.Distance(LoudPlayer.transform.position, Pos) < 0.1f)
+                {                   
+                    LoudPlayer = null;
+                    chaseCount = 0;
                 }
                 if (isFind == false)
                 {

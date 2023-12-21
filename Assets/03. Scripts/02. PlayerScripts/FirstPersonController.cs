@@ -156,6 +156,7 @@ namespace LeeJungChul
                 input.bookOpen = false;
                 isBookOpen = true;
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
             else if (input.bookOpen && isBookOpen)
             {
@@ -163,6 +164,7 @@ namespace LeeJungChul
                 input.bookOpen = false;
                 isBookOpen = false;
                 Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
             if (input.Option && !isoption)
             {
@@ -170,6 +172,7 @@ namespace LeeJungChul
                 input.Option = false;
                 isoption = true;
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
             else if (input.Option && isoption)
             {
@@ -177,6 +180,7 @@ namespace LeeJungChul
                 input.Option = false;
                 isoption = false;
                 Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
         /// <summary>

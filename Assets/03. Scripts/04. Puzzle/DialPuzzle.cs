@@ -28,6 +28,7 @@ namespace No
             OnSolved.AddListener(() => SoundManager.Instance.PlayAudio(SoundManager.Instance.dialSolved, false, transform.position));
             OnSolved.AddListener(() => ph.RPC("OnDialSolved", RpcTarget.All));
         }
+        [PunRPC]
         void OnDialSolved()
         {
             isSolved = true;

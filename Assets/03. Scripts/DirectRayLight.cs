@@ -21,6 +21,7 @@ namespace No
         [SerializeField]
         GameObject answerObj;
 
+        [PunRPC]
         void OnSolved()
         {
             answerObj.SetActive(true);
@@ -30,7 +31,7 @@ namespace No
 
         private void Start()
         {
-            onSolved.AddListener(() => photonView.RPC("onSolved", RpcTarget.All));
+            onSolved.AddListener(() => photonView.RPC("OnSolved", RpcTarget.All));
             lineRenderer = GetComponent<LineRenderer>();
 
         }

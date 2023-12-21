@@ -12,7 +12,6 @@ using YoungJaeKim;
 
 namespace KimKyeongHun
 {
-
     public class Player : MonoBehaviourPun, IPunObservable
     {
         bool isRaycasting;
