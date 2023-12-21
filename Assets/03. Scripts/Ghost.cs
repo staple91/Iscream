@@ -80,6 +80,10 @@ namespace YoungJaeKim
         {
             while (true)
             {
+                if(Vector3.Distance(LoudPlayer.transform.position, Pos) < 0.1f)
+                {
+                    isFind = false;
+                }
                 if (isFind == false)
                 {
                     chaseCount++;
