@@ -25,7 +25,7 @@ namespace YoungJaeKim
         public float patrolable = 3f;
         public int currentpath = 0;
         public float roamingInterval = 10f;
-
+        Vector3 targetPos;
 
         float loudness;
         public float Loudness { get => loudness; set => loudness = value; }
@@ -47,8 +47,8 @@ namespace YoungJaeKim
                         ghostRun=SoundManager.Instance.PlayWaitingAudio(SoundManager.Instance.ghostRun, transform.position);//Ãß°Ý
                     else if (ghostRun.isPlaying == false)
                         ghostRun = null;
-                    
-                    ghostAgent.SetDestination(value.transform.position);
+                    targetPos = value.transform.position;
+                    ghostAgent.SetDestination(targetPos);
                 }
                 else
                     isFind = false;
@@ -80,7 +80,7 @@ namespace YoungJaeKim
         {
             while (true)
             {
-                if(LoudPlayer != null && Vector3.Distance(LoudPlayer.transform.position, Pos) < 0.1f)
+                if(LoudPlayer != null && Vector3.Distance(targetPos, Pos) < 0.1f)
                 {                   
                     LoudPlayer = null;
                     chaseCount = 0;
@@ -138,7 +138,6 @@ namespace YoungJaeKim
         {
             if (isFind)
             {
-                ghostAnime.SetBool("Attack", false);
                 ghostAnime.SetBool("Run", true);
             }
             else
