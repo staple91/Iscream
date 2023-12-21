@@ -23,9 +23,4 @@ public class SoundObject : MonoBehaviour
                 SoundManager.Instance.ReturnObj(this.gameObject);
         }
     }
-
-    public void EffectSound(float volume)
-    {
-        source.volume = volume;
-    }
 }
