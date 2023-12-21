@@ -40,6 +40,7 @@ namespace PangGom
                 yield return new WaitForEndOfFrame();
             }
             timer = 0;
+            transform.Rotate(0, 90, 0);
             while (timer < 6)//8초 동안 대기
             {
                 transform.Translate(Vector3.forward * Time.deltaTime, Space.World);

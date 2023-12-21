@@ -110,7 +110,7 @@ namespace PangGom
                 yield return new WaitForEndOfFrame();
             }
             Debug.Log("화장실 이벤트 시작");
-            Vector3 pos = new Vector3(-15f, 3.87f, -3.5f);
+            Vector3 pos = new Vector3(-14.8f, 3.87f, -3.5f);
             Instantiate(femalePrb, pos, Quaternion.identity);
             Invoke("Hint", 20f);
 

@@ -11,6 +11,7 @@ namespace PangGom
 {
     public class ToiletDoor : DoorStratagy
     {
+        [SerializeField]
         public int tDCCount = 0;//해당 카운트가 0이어야 모든 문이 닫혀있는 것
         public int TDCCount
         {
