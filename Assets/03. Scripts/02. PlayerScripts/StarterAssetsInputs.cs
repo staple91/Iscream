@@ -15,6 +15,7 @@ namespace LeeJungChul
 		public bool click;
 		public bool itemUse;
 		public bool bookOpen;
+		public bool Option;
 		public bool sprint;
 
 		public bool analogMovement;
@@ -53,6 +54,10 @@ namespace LeeJungChul
 		{
 			BookOpenInput(value.isPressed);
 		}
+		public void OnOption(InputValue value)
+		{
+			OptionInput(value.isPressed);
+		}
 #endif
 
 		public void MoveInput(Vector2 newMoveDirection)
@@ -84,16 +89,9 @@ namespace LeeJungChul
 		{
 			bookOpen = BookOpenState;
 		}
-
-		private void OnApplicationFocus(bool hasFocus)
+		public void OptionInput(bool OptionState)
 		{
-			SetCursorState(cursorLocked);
-		}
-
-		// ESC 클릭시 마우스 커서 나옴
-		private void SetCursorState(bool newState)
-		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			Option = OptionState;
 		}
 	}
 	

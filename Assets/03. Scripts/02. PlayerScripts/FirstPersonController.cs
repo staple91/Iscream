@@ -78,6 +78,8 @@ namespace LeeJungChul
 
         public GameObject book;
         public bool isBookOpen;
+        public GameObject option;
+        public bool isoption;
 
         // 현재 입력 받고 있는 컨트롤러 프로퍼티
         public bool IsCurrentDevice
@@ -129,22 +131,7 @@ namespace LeeJungChul
                 CharacterGravity();
             }
 
-            if (input.bookOpen && !isBookOpen)
-            {
-                book.SetActive(true);
-                input.bookOpen = false;
-                isBookOpen = true;
-                input.cursorLocked = false;
-                Cursor.visible = true;
-            }
-            else if (input.bookOpen && isBookOpen)
-            {
-                book.SetActive(false); ;
-                input.bookOpen = false;
-                isBookOpen = false;
-                input.cursorLocked = true;
-                Cursor.visible = false;
-            }
+            KeyInput();
         }
 
         private void LateUpdate()
@@ -161,6 +148,37 @@ namespace LeeJungChul
             playeranimatior.SetFloat("Speed", 0f);
         }
 
+        private void KeyInput()
+        {
+            if (input.bookOpen && !isBookOpen)
+            {
+                book.SetActive(true);
+                input.bookOpen = false;
+                isBookOpen = true;
+                Cursor.visible = true;
+            }
+            else if (input.bookOpen && isBookOpen)
+            {
+                book.SetActive(false); ;
+                input.bookOpen = false;
+                isBookOpen = false;
+                Cursor.visible = false;
+            }
+            if (input.Option && !isoption)
+            {
+                option.SetActive(true);
+                input.Option = false;
+                isoption = true;
+                Cursor.visible = true;
+            }
+            else if (input.Option && isoption)
+            {
+                option.SetActive(false);
+                input.Option = false;
+                isoption = false;
+                Cursor.visible = false;
+            }
+        }
         /// <summary>
         /// 땅바닥 체크 함수
         /// </summary>
