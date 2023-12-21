@@ -52,7 +52,7 @@ namespace PangGom
         }
         IEnumerator Event()
         {
-            while (eventTimer < 8)//8초 동안 대기
+            while (eventTimer < 15)//8초 동안 대기
             {
                 eventTimer += Time.deltaTime;
                 Debug.Log("타이머" + eventTimer);
