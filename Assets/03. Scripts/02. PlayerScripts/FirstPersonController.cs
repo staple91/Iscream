@@ -119,6 +119,7 @@ namespace LeeJungChul
             }
 
             Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Update()
