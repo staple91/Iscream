@@ -1844,6 +1844,7 @@ MonoBehaviour:
   mentalityImage: {fileID: 1277718401449844096}
   mentalityText: {fileID: 5972661876922110222}
   playerNickname: {fileID: 4401517387939438929}
+  PlayerDeadPanel: {fileID: 8784111136536929815}
   vircam: {fileID: 7323767042644516854}
   isHidden: 1
   fpsHandTr: {fileID: 5187621862722469233}
@@ -3576,6 +3577,12 @@ MonoBehaviour:
 --- !u!1 &6464602281328961562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 846263044150548998, guid: dc33706148b85b44ba07a0ee87f7bdb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5911086967762235932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8784111136536929815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3165758747096028171, guid: dc33706148b85b44ba07a0ee87f7bdb3,
     type: 3}
   m_PrefabInstance: {fileID: 5911086967762235932}
   m_PrefabAsset: {fileID: 0}

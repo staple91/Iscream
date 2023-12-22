@@ -56,6 +56,7 @@ namespace KimKyeongHun
         [SerializeField] private Animator mentalityImage;
         [SerializeField] private TextMeshProUGUI mentalityText;
         [SerializeField] private TextMeshProUGUI playerNickname;
+        [SerializeField] private GameObject PlayerDeadPanel;
 
         public CinemachineVirtualCamera vircam;
 
@@ -82,13 +83,6 @@ namespace KimKyeongHun
                 {
                     currentHp = maxHp;
                 }
-                if (currentHp <= 0)
-                {
-                    // 플레이어 사망
-                    Debug.Log("플레이어 죽음 ");
-                    cinemachinePriority.GetIsPlayerCheck = true;
-
-                }
             }
         }
 
@@ -106,10 +100,15 @@ namespace KimKyeongHun
             {
                 isMoveable = value;
                 if (value)
+                {
                     controller.enabled = true;
+                    inputsystem.enabled = true;
+                }              
                 else
+                {
                     controller.enabled = false;
-
+                    inputsystem.enabled = false;
+                }                 
             }
         }
 
@@ -163,20 +162,21 @@ namespace KimKyeongHun
 
                 }
                 else { playerCam.cullingMask = -1; }
+
+                if (currentHp<=0)
+                {
+                    isMoveable = false;
+                    Debug.Log("플레이어 죽음 ");
+                    PlayerDeadPanel.SetActive(true);
+                    controller.enabled = false;
+                    cinemachinePriority.GetIsPlayerCheck = true;
+                }
             }
             mic.SetListener();
             if (controller.photonView.IsMine)
             {
                 controller.photonView.RPC("DebugDraw", RpcTarget.AllBuffered);
             }
-
-
-            //플레이어가 죽었을 때 카메라 흔들기 위한 임시테스트 
-            if (Input.GetKey(KeyCode.G))
-            {
-                Hp -= 10;
-            }
-
 
             if (controller.photonView.IsMine && inputsystem.click)
             {
