@@ -43,7 +43,7 @@ namespace PangGom
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if(Owner != null && Input.GetKeyDown(KeyCode.E))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Owner.IsMoveable = true;
