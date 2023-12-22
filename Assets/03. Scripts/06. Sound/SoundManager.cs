@@ -7,6 +7,8 @@ namespace PangGom
 {
     public class SoundManager : Singleton<SoundManager>
     {
+
+        float volume;
         [SerializeField]
         float initLength;
         public GameObject audioSourcePref;
@@ -86,6 +88,7 @@ namespace PangGom
             AudioSource audio = PopObj();
             audio.clip = clip;
             audio.loop = isLoop;        
+            audio.volume = volume;
             audio.PlayOneShot(clip);
         }
 
@@ -93,6 +96,7 @@ namespace PangGom
         {
             AudioSource audio = PopObj();
             audio.clip = clip;         
+            audio.volume = volume;
             audio.PlayOneShot(clip);
             return audio;
         }
@@ -101,6 +105,7 @@ namespace PangGom
             AudioSource audio = PopObj();
             audio.clip = clip;
             audio.transform.position = pos;
+            audio.volume = volume;
             audio.PlayOneShot(clip);
             return audio;
         }
@@ -112,6 +117,7 @@ namespace PangGom
             audio.clip = clip;
             audio.loop = isLoop;
             audio.spatialBlend = 1.0f;
+            audio.volume = volume;
             audio.PlayOneShot(clip);
 
         }

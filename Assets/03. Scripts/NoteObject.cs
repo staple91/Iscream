@@ -16,11 +16,14 @@ namespace No
         string content;
         public void Interact()
         {
-            Debug.Log(content);
-            owner.IsMoveable = false;
-            CanvasManager.Instance.noteText.text = content;
-            CanvasManager.Instance.noteUI.SetActive(true);
-            StartCoroutine(PopUpCo());
+            if(Owner.controller.photonView.IsMine)
+            {
+                Debug.Log(content);
+                owner.IsMoveable = false;
+                CanvasManager.Instance.noteText.text = content;
+                CanvasManager.Instance.noteUI.SetActive(true);
+                StartCoroutine(PopUpCo());
+            }
         }
 
         IEnumerator PopUpCo()
