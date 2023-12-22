@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 using PangGom;
+using TMPro;
 
 namespace LeverSystem
 {
@@ -62,14 +63,14 @@ namespace LeverSystem
         private Material limitBtnMat;
         private BookClose puzzleClear;
 
-        private TextMesh leverText;
+        private TextMeshPro leverText;
 
         private void Start()
         {
             SetMaterials();
             InitializeSwitches();
             puzzleClear = GetComponentInChildren<BookClose>();
-            leverText = GetComponentInChildren<TextMesh>();
+            leverText = GetComponentInChildren<TextMeshPro>();
         }
 
         private void SetMaterials()
