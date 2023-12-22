@@ -10,6 +10,7 @@ namespace PangGom
     {
         ToiletEvent toiletEvent;
         GameObject parentsObj;
+        GameObject tr;
 
         private void Start()
         {
@@ -22,11 +23,13 @@ namespace PangGom
             if (other.gameObject.name == "Player(Clone)")
             {
                 toiletEvent.ToiletPlayerCount += 1;
+                tr = transform.parent.gameObject;
+                toiletEvent.myDoorVec = tr.transform.position + new Vector3(0.76f, 2, 0);
             }
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.name == "Player")
+            if (other.gameObject.name == "Player(Clone)")
             {
                 toiletEvent.ToiletPlayerCount -= 1;
             }

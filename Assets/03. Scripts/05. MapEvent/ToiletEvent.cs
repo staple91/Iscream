@@ -13,6 +13,7 @@ namespace PangGom
         private List<ToiletDoor> toiletDoors = new List<ToiletDoor>();
         public GameObject femalePrb;
         public GameObject hintObj;
+        public Vector3 myDoorVec;
 
         private void Start()
         {
@@ -111,8 +112,8 @@ namespace PangGom
             }
             Debug.Log("화장실 이벤트 시작");
             Vector3 pos = new Vector3(-14.8f, 3.87f, -3.5f);
-            Instantiate(femalePrb, pos, Quaternion.identity);
-            Invoke("Hint", 30f);
+            Instantiate(femalePrb, pos, Quaternion.identity).GetComponent<ToiletsHint>().toiletEvent = this;
+            Invoke("Hint", 32f);
         }
         void Hint()
         {

@@ -9,6 +9,8 @@ namespace PangGom
     public class ToiletsHint : MonoBehaviour, IListenable
     {
 
+        public ToiletEvent toiletEvent;
+
         float timer = 0;
         float eventTimer = 0;
         float loudness;
@@ -31,7 +33,7 @@ namespace PangGom
         }
         IEnumerator GhostMove()
         {
-            while (timer < 12)
+            while (timer < 12.5f)
             {
                 transform.Translate(Vector3.left * Time.deltaTime/2, Space.World);
                 timer += Time.deltaTime;
@@ -48,7 +50,14 @@ namespace PangGom
                 yield return new WaitForEndOfFrame();
             }
             timer = 0;
-            //모든것이 끝나고 오브젝트 꺼주기
+            while (timer < 12)
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime / 2, Space.World);
+                timer += Time.deltaTime;
+                Debug.Log("타이머" + timer);
+                yield return new WaitForEndOfFrame();
+            }
+            transform.position = toiletEvent.myDoorVec;
         }
         IEnumerator Event()
         {
