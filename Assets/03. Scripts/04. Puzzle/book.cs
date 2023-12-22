@@ -17,15 +17,18 @@ public class book : Puzzle
 
     public override void Interact()
     {
-        bookEvent.SetActive(true);
-        Cursor.visible = true;
-        SoundManager.Instance.PlayAudio(SoundManager.Instance.bookOpen, false);
-        Cursor.lockState = CursorLockMode.None;
+        if (Owner.controller.photonView.IsMine)
+        {
+            bookEvent.SetActive(true);
+            Cursor.visible = true;
+            SoundManager.Instance.PlayAudio(SoundManager.Instance.bookOpen, false);
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void ExitBook()
     {
-        if (bookpage.currentPage==6)
+        if (Owner.controller.photonView.IsMine && bookpage.currentPage == 6)
         {
             bookEvent.SetActive(false);
             Cursor.visible = false;
