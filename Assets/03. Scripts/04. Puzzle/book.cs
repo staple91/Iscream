@@ -28,7 +28,7 @@ public class book : Puzzle
 
     public void ExitBook()
     {
-        if (Owner.controller.photonView.IsMine && bookpage.currentPage == 6)
+        if (bookpage.currentPage == 6)
         {
             bookEvent.SetActive(false);
             Cursor.visible = false;
