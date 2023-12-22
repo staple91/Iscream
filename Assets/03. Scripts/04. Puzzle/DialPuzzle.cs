@@ -47,7 +47,7 @@ namespace No
             int curAnswerIndex = 0;
             int curAnswer = 0;
             Owner.IsMoveable = false;
-            while (!Input.GetKey(KeyCode.E) || !isSolved)
+            while (!Input.GetKey(KeyCode.E) && !isSolved)
             {
                 curAnswer = Mathf.RoundToInt(60 - dialTr.localEulerAngles.y / 6);
                 if (curAnswer ==  answerNumArr[curAnswerIndex])
