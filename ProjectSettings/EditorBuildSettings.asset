@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/01. Scene/MainMenuScene.unity
     guid: 33bac66ab22bc4644866bead4c7305e0
   - enabled: 1
+    path: Assets/01. Scene/Openiing_Scene.unity
+    guid: ea9892062137e4d31bac5786bd8b1f2d
+  - enabled: 1
     path: Assets/01. Scene/Iscream.unity
     guid: 30fb6719a9eb1d84a807a42d598b16f8
   m_configObjects:
