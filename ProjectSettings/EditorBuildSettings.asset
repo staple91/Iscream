@@ -11,9 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01. Scene/Iscream.unity
     guid: 30fb6719a9eb1d84a807a42d598b16f8
-  - enabled: 1
-    path: Assets/01. Scene/JC/Tutorial.unity
-    guid: 15365a60507f01542bae63a0e0e96278
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7,
       type: 2}

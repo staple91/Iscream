@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class MicComponent : MonoBehaviour, IPunObservable
 {
-    public float sensitivity = 1000;
+    public static float sensitivity = 1000;
     public float loudness = 0;
     private AudioSource _audio;
     public Player player;

@@ -130,9 +130,9 @@ namespace LeeJungChul
                 GroundedCheck();
                 Move();
                 CharacterGravity();
+                KeyInput();
             }
 
-            KeyInput();
         }
 
         private void LateUpdate()
