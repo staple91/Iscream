@@ -126,7 +126,8 @@ namespace KimKyeongHun
 
             ob2 = GameManager.Instance.dollyCart2;
 
-            playerNickname.text = PhotonManager.nick;
+            if(photonView.IsMine)
+                playerNickname.text = PhotonManager.nick;
 
             if (controller.photonView.IsMine)
             {
