@@ -7,12 +7,17 @@ using UnityEngine;
 
 namespace PangGom
 {
-    public class ToiletEvent : MonoBehaviour, IListenable
-    {        
+    public class ToiletEvent : MonoBehaviourPunCallbacks, IListenable
+    {
+
+        public PhotonView PV;
+
         public InteractableObject[] interactableObjs;
         private List<ToiletDoor> toiletDoors = new List<ToiletDoor>();
         public GameObject femalePrb;
+        public GameObject doorCol;
         public GameObject hintObj;
+        public GameObject hipObj;
         public Vector3 myDoorVec;
 
         private void Start()
@@ -105,19 +110,26 @@ namespace PangGom
             while (timer < 6f)
             {
                 timer += Time.deltaTime;
-                Debug.Log("타이머" + timer);
                 if (Loudness > 20)
                     timer = 0;
                 yield return new WaitForEndOfFrame();
             }
             Debug.Log("화장실 이벤트 시작");
+            doorCol.SetActive(true);
             Vector3 pos = new Vector3(-14.8f, 3.87f, -3.5f);
             Instantiate(femalePrb, pos, Quaternion.identity).GetComponent<ToiletsHint>().toiletEvent = this;
+            Invoke("HipObj", 25f);
             Invoke("Hint", 32f);
         }
         void Hint()
         {
             hintObj.SetActive(true);
+            doorCol.SetActive(false);
+
+        }
+        void HipObj()
+        {
+            hipObj.SetActive(true);
 
         }
 

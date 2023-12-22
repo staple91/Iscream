@@ -37,7 +37,6 @@ namespace PangGom
             {
                 transform.Translate(Vector3.left * Time.deltaTime/2, Space.World);
                 timer += Time.deltaTime;
-                Debug.Log("타이머" + timer);
                 yield return new WaitForEndOfFrame();
             }
             timer = 0;
@@ -50,13 +49,6 @@ namespace PangGom
                 yield return new WaitForEndOfFrame();
             }
             timer = 0;
-            while (timer < 12)
-            {
-                transform.Translate(Vector3.forward * Time.deltaTime / 2, Space.World);
-                timer += Time.deltaTime;
-                Debug.Log("타이머" + timer);
-                yield return new WaitForEndOfFrame();
-            }
             transform.position = toiletEvent.myDoorVec;
         }
         IEnumerator Event()

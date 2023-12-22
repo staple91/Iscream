@@ -26,6 +26,7 @@ namespace PangGom
             this.target = target;
             isOpen = value;
         }
+        
 
         public override void Act()
         {
@@ -48,7 +49,7 @@ namespace PangGom
         }
         IEnumerator ToiletOpenDoor(Transform tr)
         {
-            tDCCount += 1;
+            tDCCount = 1;
             float doorOpenAngle = 90f;
             float smoot = 2f;
             while (tr.localRotation.eulerAngles.y < 89f)
@@ -65,7 +66,7 @@ namespace PangGom
         }
         IEnumerator ToiletCloseDoor(Transform tr)
         {
-            tDCCount -= 1;
+            tDCCount = 0;
             float doorCloseAngle = 0;
             float smoot = 2f;
             while (tr.localRotation.eulerAngles.y > 1f)
