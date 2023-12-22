@@ -110,7 +110,7 @@ namespace LeeJungChul
 
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1 && PhotonNetwork.CurrentRoom.MaxPlayers == 1)
             {
-                PhotonNetwork.LoadLevel("Iscream");
+                PhotonNetwork.LoadLevel("Openiing_Scene");
             }
         }
 
@@ -125,7 +125,7 @@ namespace LeeJungChul
 
                 if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
                 {
-                    PhotonNetwork.LoadLevel("Iscream");
+                    PhotonNetwork.LoadLevel("Openiing_Scene");
                 }
             }
         }
