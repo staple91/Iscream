@@ -36,6 +36,7 @@ public class BreakableWindow : Puzzle
 
     [Space]
     public AudioClip breakingSound;
+    public AudioSource audioSource;
 
 
     [HideInInspector]
@@ -50,6 +51,9 @@ public class BreakableWindow : Puzzle
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.loop = false;
+        audioSource.playOnAwake = false;
         if (preCalculate == true && allreadyCalculated == false)
         {
             bakeVertices();

@@ -20,6 +20,7 @@ public class book : Puzzle
         bookEvent.SetActive(true);
         Cursor.visible = true;
         SoundManager.Instance.PlayAudio(SoundManager.Instance.bookOpen, false);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void ExitBook()
@@ -31,6 +32,7 @@ public class book : Puzzle
             bookpage.currentPage = 0;
             bookClose.gifAnimator.SetTrigger("BookClose");
             SoundManager.Instance.PlayAudio(SoundManager.Instance.girlLaughSound, false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }
