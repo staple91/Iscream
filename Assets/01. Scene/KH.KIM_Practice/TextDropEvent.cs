@@ -24,7 +24,7 @@ public class TextDropEvent : MonoBehaviour
         {
             txt.text += c;
             
-            yield return new WaitForSeconds(0.125f);
+            yield return new WaitForSeconds(0.1f);
         }
         
     }
