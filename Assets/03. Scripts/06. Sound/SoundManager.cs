@@ -7,8 +7,8 @@ namespace PangGom
 {
     public class SoundManager : Singleton<SoundManager>
     {
-
-        float volume = 1;
+        public AudioSource curBgm;
+        public float volume = 1;
         [SerializeField]
         float initLength;
         public GameObject audioSourcePref;

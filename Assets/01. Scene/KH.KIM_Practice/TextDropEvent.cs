@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+
 
 public class TextDropEvent : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class TextDropEvent : MonoBehaviour
         {
             txt.text += c;
             
-            yield return new WaitForSeconds(0.125f);
+            yield return new WaitForSeconds(0.05f);
         }
         
     }

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/02. Prefabs/book_0001a 1.prefab.meta
 guid: 7de79f39f6fae824284ed7bc2bf87e5a
 PrefabImporter:
+========
+guid: 3ef6862d4a1a5440d92047c85e3151b5
+DefaultImporter:
+>>>>>>>> 5df7f2a7490ed4ee7646e9d956c698f91d1cf8ba:Assets/01. Scene/KH.KIM_Practice/EndindScene.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
