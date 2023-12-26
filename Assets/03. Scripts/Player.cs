@@ -126,8 +126,8 @@ namespace KimKyeongHun
 
             ob2 = GameManager.Instance.dollyCart2;
 
-            if(photonView.IsMine)
-                playerNickname.text = PhotonManager.nick;
+
+            playerNickname.text = photonView.Owner.NickName;
 
             if (controller.photonView.IsMine)
             {
@@ -148,7 +148,6 @@ namespace KimKyeongHun
             }
 
         }
-
 
         // Update is called once per frame
         void Update()
