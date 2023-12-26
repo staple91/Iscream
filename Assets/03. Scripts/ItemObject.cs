@@ -48,8 +48,11 @@ namespace YoungJaeKim
             }
             else
             {
-                itemObj.Owner.inven.tpsItemDic[itemObj.itemType].SetActive(true);
-                itemObj.GetComponent<Renderer>().enabled = false;
+                itemObj.Owner.inven.tpsItemDic[itemObj.itemType].SetActive(true); 
+                foreach (Renderer render in itemObj.rendererList)
+                {
+                    render.enabled = false;
+                }
             }
         }
         public virtual void UnEquip()
@@ -302,7 +305,6 @@ namespace YoungJaeKim
         public GameManager gameManager;
         public Transform fpsTr;
         public RenderTexture screenShotTexture;
-        [HideInInspector]
         public List<Renderer> rendererList = new List<Renderer>();
         public Player Owner
         {

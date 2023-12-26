@@ -192,14 +192,6 @@ namespace KimKyeongHun
                 inputsystem.itemUse = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                HpDown();
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                mentalityImage.SetBool("MentalityDown", false);
-            }
 
             HpText();
         }
