@@ -14,6 +14,5 @@ public class SliderComponent : MonoBehaviour
     {
         backgroundSlider.onValueChanged.AddListener((vol) => { SoundManager.Instance.curBgm.volume = vol; });
         effectSlider.onValueChanged.AddListener((vol) => { SoundManager.Instance.volume = vol; });
-        micSensitiveSlider.onValueChanged.AddListener((vol) => { MicComponent.sensitivity = vol; });
     }
 }

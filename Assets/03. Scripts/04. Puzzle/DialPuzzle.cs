@@ -25,6 +25,7 @@ namespace No
         PhotonView ph;
         private void Start()
         {
+            ph = GetComponent<PhotonView>();
             OnSolved.AddListener(() => SoundManager.Instance.PlayAudio(SoundManager.Instance.dialSolved, false, transform.position));
             OnSolved.AddListener(() => ph.RPC("OnDialSolved", RpcTarget.All));
         }
