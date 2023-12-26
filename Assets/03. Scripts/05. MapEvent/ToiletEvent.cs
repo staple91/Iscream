@@ -106,25 +106,27 @@ namespace PangGom
         IEnumerator EventPlay()
         {
             Debug.Log("화장실 카운트 시작");
+            doorCol.SetActive(true);
             SoundManager.Instance.PlayAudio(SoundManager.Instance.shhSound, false, transform.position);//쉿
             while (timer < 6f)
             {
                 timer += Time.deltaTime;
                 if (Loudness > 20)
                     timer = 0;
+                Debug.Log("타이머" + timer);
                 yield return new WaitForEndOfFrame();
             }
             Debug.Log("화장실 이벤트 시작");
-            doorCol.SetActive(true);
             Vector3 pos = new Vector3(-14.8f, 3.87f, -3.5f);
             Instantiate(femalePrb, pos, Quaternion.identity).GetComponent<ToiletsHint>().toiletEvent = this;
-            Invoke("HipObj", 25f);
+            Invoke("HipObj", 5f);
             Invoke("Hint", 32f);
         }
         void Hint()
         {
             hintObj.SetActive(true);
             doorCol.SetActive(false);
+            hipObj.SetActive(false);
 
         }
         void HipObj()

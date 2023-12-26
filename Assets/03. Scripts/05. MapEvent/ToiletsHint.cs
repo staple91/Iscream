@@ -45,7 +45,7 @@ namespace PangGom
             {
                 transform.Translate(Vector3.forward * Time.deltaTime/2, Space.World);
                 timer += Time.deltaTime;
-                Debug.Log("타이머" + timer);
+                //Debug.Log("타이머" + timer);
                 yield return new WaitForEndOfFrame();
             }
             timer = 0;
@@ -56,14 +56,14 @@ namespace PangGom
             while (eventTimer < 15)//8초 동안 대기
             {
                 eventTimer += Time.deltaTime;
-                Debug.Log("타이머" + eventTimer);
+                //Debug.Log("타이머" + eventTimer);
                 yield return new WaitForEndOfFrame();
             }
             eventTimer = 0;
             while (eventTimer < 10)//10초 동안 진행
             {
                 eventTimer += Time.deltaTime;
-                Debug.Log("타이머" + eventTimer);
+                //Debug.Log("타이머" + eventTimer);
                 if (Loudness > 20)
                 {
                     SoundManager.Instance.PlayAudio(SoundManager.Instance.ghostAttack, false, this.transform.position);
