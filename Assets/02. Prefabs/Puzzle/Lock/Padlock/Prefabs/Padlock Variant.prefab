@@ -150,10 +150,11 @@ MonoBehaviour:
   layerMaskKey:
     serializedVersion: 2
     m_Bits: 128
-  key: {fileID: 6962339213503798696}
+  key: {fileID: 0}
   keyPoint: {x: 0, y: 0, z: 0}
+  keyObj: {fileID: 0}
   keyInput: 0
-  keySole: 0
+  openCase: {fileID: 0}
 --- !u!114 &1049258311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +367,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Padlock Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3119433450813527128, guid: 5f39ae34e4c1ba4439f016d560e3c5ae, type: 3}
+    - {fileID: 8725660890888524430, guid: 5f39ae34e4c1ba4439f016d560e3c5ae, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5f39ae34e4c1ba4439f016d560e3c5ae, type: 3}
 --- !u!4 &2373839385096312218 stripped
 Transform:

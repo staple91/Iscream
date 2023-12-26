@@ -18,6 +18,8 @@ namespace PangGom
         Vector3 keyVec;
         public Vector3 keyPoint;
 
+        [SerializeField]
+        GameObject keyObj;
         float rangeValue = 0.045f;
         public bool keyInput = false;
         [SerializeField]
@@ -34,9 +36,9 @@ namespace PangGom
                     SoundManager.Instance.PlayAudio(SoundManager.Instance.solveSound, false, this.transform.position);
                     openCase.Open();
                     Cursor.lockState = CursorLockMode.Locked;
+                    this.gameObject.SetActive(false);
                     Owner.IsMoveable = true;
                     Cursor.visible = false;
-                    this.gameObject.SetActive(false);
                 }
             }
         }
