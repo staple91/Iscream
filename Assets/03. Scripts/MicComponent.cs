@@ -6,6 +6,7 @@ using Photon.Pun;
 
 public class MicComponent : MonoBehaviour, IPunObservable
 {
+    public static float sensitivity = 1000;
     public float loudness = 0;
     private AudioSource _audio;
     public Player player;
@@ -36,7 +37,7 @@ public class MicComponent : MonoBehaviour, IPunObservable
         if (PhotonNetwork.CountOfPlayers > 1)
             return;
         if (isUseMic)
-            loudness = GetAveragedVolume();
+            loudness = GetAveragedVolume() * sensitivity;
 
     }
     float GetAveragedVolume()
@@ -81,7 +82,7 @@ public class MicComponent : MonoBehaviour, IPunObservable
         {
 
             if (isUseMic)
-                loudness = GetAveragedVolume();
+                loudness = GetAveragedVolume() * sensitivity;
             stream.SendNext(loudness);
         }
         else
